@@ -1,9 +1,9 @@
-package ru.emitrohin.VotingSystem.util;
+package ru.emitrohin.votingsystem.util;
 
 /**
  * Author:        E_Mitrohin
  * Creation date: 05.10.2016
- * Project:       VotingSystem
+ * Project:       votingsystem
  */
 public class MenuUtil {
 }
