@@ -2,7 +2,7 @@ package ru.emitrohin.votingsystem.model;
 
 import org.springframework.util.CollectionUtils;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -15,8 +15,13 @@ import java.util.Set;
  */
 
 @Entity
+@Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "dishes_name_idx")})
 public class Dish extends NamedEntity {
 
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "categories", joinColumns = @JoinColumn(name = "dish_id"))
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Column(name = "category")
     private Set<Category> categories;
 
     public Dish() {

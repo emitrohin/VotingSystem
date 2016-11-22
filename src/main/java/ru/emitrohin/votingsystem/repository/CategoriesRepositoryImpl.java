@@ -1,8 +1,8 @@
 package ru.emitrohin.votingsystem.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.emitrohin.votingsystem.model.MenuDish;
-import ru.emitrohin.votingsystem.repository.datajpa.CrudMenuDishRepository;
+import ru.emitrohin.votingsystem.model.Category;
+import ru.emitrohin.votingsystem.repository.datajpa.CrudCategoryRepository;
 import ru.emitrohin.votingsystem.repository.interfaces.AbstractRepository;
 
 import java.util.List;
@@ -11,14 +11,14 @@ import java.util.List;
  * Author: E_Mitrohin
  * Date:   18.11.2016.
  */
-public class MenuDishRepositoryImpl implements AbstractRepository<MenuDish> {
+public class CategoriesRepositoryImpl implements AbstractRepository<Category> {
 
     @Autowired
-    private CrudMenuDishRepository crudRepository;
+    private CrudCategoryRepository crudRepository;
 
     @Override
-    public MenuDish save(MenuDish menuDish) {
-        return crudRepository.save(menuDish);
+    public Category save(Category category) {
+        return crudRepository.save(category);
     }
 
     @Override
@@ -27,12 +27,12 @@ public class MenuDishRepositoryImpl implements AbstractRepository<MenuDish> {
     }
 
     @Override
-    public MenuDish get(int id) {
+    public Category get(int id) {
         return crudRepository.findOne(id);
     }
 
     @Override
-    public List<MenuDish> getAll() {
+    public List<Category> getAll() {
         return crudRepository.findAll();
     }
 }
