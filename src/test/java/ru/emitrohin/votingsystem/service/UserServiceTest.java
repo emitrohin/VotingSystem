@@ -1,11 +1,13 @@
 package ru.emitrohin.votingsystem.service;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import ru.emitrohin.votingsystem.model.User;
-import ru.emitrohin.votingsystem.service.interfaces.AbstractService;
+import ru.emitrohin.votingsystem.service.interfaces.UserService;
+import ru.emitrohin.votingsystem.util.exception.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,7 +20,7 @@ import static ru.emitrohin.votingsystem.testdata.UserTestData.TEST_USERS;
 public class UserServiceTest extends AbstractServiceTest {
 
     @Autowired
-    protected AbstractService<User> service;
+    protected UserService service;
 
     @Before
     public void setUp() throws Exception {
@@ -48,16 +50,10 @@ public class UserServiceTest extends AbstractServiceTest {
         result.remove(result.get(0));
         MATCHER.assertCollectionEquals(Collections.unmodifiableList(result), service.getAll());
     }
-/*
+
     @Test(expected = NotFoundException.class)
     public void testNotFoundDelete() throws Exception {
         service.delete(1);
-    }
-
-    @Test
-    public void testGet() throws Exception {
-        User user = service.get(ADMIN_ID);
-        MATCHER.assertEquals(ADMIN, user);
     }
 
     @Test(expected = NotFoundException.class)
@@ -66,32 +62,32 @@ public class UserServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void testGetByEmail() throws Exception {
-        User user = service.getByEmail("admin@gmail.com");
-        MATCHER.assertEquals(ADMIN, user);
+    public void testGet() throws Exception {
+        User user = service.get(100000);
+        MATCHER.assertEquals(TEST_USERS.get(0), user);
     }
 
     @Test
     public void testGetAll() throws Exception {
         Collection<User> all = service.getAll();
-        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, USER), all);
+        MATCHER.assertCollectionEquals(TEST_USERS, all);
     }
+
 
     @Test
     public void testUpdate() throws Exception {
-        User updated = new User(USER);
-        updated.setName("UpdatedName");
-        updated.setCaloriesPerDay(330);
-        updated.setRoles(Collections.singletonList(Role.ROLE_ADMIN));
+        User updated = new User(TEST_USERS.get(0));
+        updated.setFirstName("UpdatedName");
+        updated.setLastName("UpdatedLAstName");
         service.update(updated);
-        MATCHER.assertEquals(updated, service.get(USER_ID));
-    }*/
+        MATCHER.assertEquals(updated, service.get(100000));
+    }
 
-   /* @Test
+    @Test
     public void testSetEnabledEquals() {
-        service.enable(USER_ID, false);
-        Assert.assertFalse(service.get(USER_ID).isEnabled());
-        service.enable(USER_ID, true);
-        Assert.assertTrue(service.get(USER_ID).isEnabled());
-    }*/
+        service.enable(100000, false);
+        Assert.assertFalse(service.get(100000).isEnabled());
+        service.enable(100000, true);
+        Assert.assertTrue(service.get(100000).isEnabled());
+    }
 }

@@ -7,6 +7,7 @@ import java.util.List;
  * Date:   22.11.2016.
  */
 public interface AbstractRepository<T> {
+
     T save(T user);
 
     // false if not found

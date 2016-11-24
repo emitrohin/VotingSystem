@@ -7,6 +7,7 @@ import ru.emitrohin.votingsystem.repository.datajpa.CrudUserRepository;
 import ru.emitrohin.votingsystem.repository.interfaces.AbstractRepository;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Author: E_Mitrohin
