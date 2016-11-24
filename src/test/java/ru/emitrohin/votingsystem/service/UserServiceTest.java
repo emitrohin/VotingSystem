@@ -3,12 +3,14 @@ package ru.emitrohin.votingsystem.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import ru.emitrohin.votingsystem.model.User;
 import ru.emitrohin.votingsystem.service.interfaces.AbstractService;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
+import java.util.Collections;
+import java.util.List;
 
 import static ru.emitrohin.votingsystem.testdata.UserTestData.MATCHER;
 import static ru.emitrohin.votingsystem.testdata.UserTestData.TEST_USERS;
@@ -25,8 +27,7 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Test
     public void testSave() throws Exception {
-
-        User newUser = new User(null, "New", "Password", "new@email.not", "Ololoev", "ololosha", new Date(), null, true);
+        User newUser = new User(null, "New", "Password", "new@email.not", "Ololoev", "ololosha", true);
         User created = service.save(newUser);
         newUser.setId(created.getId());
         Collection<User> result = new ArrayList<>(TEST_USERS);
@@ -34,17 +35,20 @@ public class UserServiceTest extends AbstractServiceTest {
         MATCHER.assertCollectionEquals(result, service.getAll());
     }
 
-   /* @Test(expected = DataAccessException.class)
-    public void testDuplicateMailSave() throws Exception {
-        service.save(new User(null, "Duplicate", "user@yandex.ru", "newPass", 2000, Role.ROLE_USER));
+    @Test(expected = DataAccessException.class)
+    public void testDuplicateLoginSave() throws Exception {
+        service.save(new User(null, "A_Ustumov", "Password", "new@email.not", "Ololoev", "ustimov", true));
     }
+
 
     @Test
     public void testDelete() throws Exception {
-        service.delete(USER_ID);
-        MATCHER.assertCollectionEquals(Collections.singletonList(ADMIN), service.getAll());
+        service.delete(100000);
+        List<User> result = new ArrayList<>(TEST_USERS);
+        result.remove(result.get(0));
+        MATCHER.assertCollectionEquals(Collections.unmodifiableList(result), service.getAll());
     }
-
+/*
     @Test(expected = NotFoundException.class)
     public void testNotFoundDelete() throws Exception {
         service.delete(1);

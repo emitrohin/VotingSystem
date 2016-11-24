@@ -1,17 +1,16 @@
 package ru.emitrohin.votingsystem.model;
 
-import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.util.CollectionUtils;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import java.util.Date;
 
 /**
  * Author: E_Mitrohin
@@ -19,6 +18,8 @@ import java.util.*;
  */
 
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "login", name = "users_unique_email_idx")})
 public class User extends BaseEntity {
 
     @NotEmpty
@@ -36,21 +37,13 @@ public class User extends BaseEntity {
 
     @NotEmpty
     @SafeHtml
+    @Column(name = "first_name")
     private String firstName;
 
     @NotEmpty
     @SafeHtml
+    @Column(name = "last_name")
     private String lastName;
-
-    @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateOfBirth;
-
-    @Enumerated(EnumType.STRING)
-    @ElementCollection(fetch = FetchType.EAGER)
-    @BatchSize(size = 200)
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Role> roles;
 
     @Column(name = "enabled", nullable = false)
     private boolean enabled = true;
@@ -62,23 +55,21 @@ public class User extends BaseEntity {
     }
 
     public User(User u) {
-        this(u.getId(), u.getLogin(), u.getPassword(), u.getEmail(), u.getFirstName(), u.getLastName(), u.getDateOfBirth(), u.getRoles(), u.isEnabled());
+        this(u.getId(), u.getLogin(), u.getPassword(), u.getEmail(), u.getFirstName(), u.getLastName(), u.isEnabled());
     }
 
-    public User(Integer id, String login, String password, String email, String firstName, String lastName, Date dateOfBirth, Role role, Role... roles) {
-        this(id, login, password, email, firstName, lastName, dateOfBirth, EnumSet.of(role, roles), true);
+    public User(Integer id, String login, String password, String email, String firstName, String lastName) {
+        this(id, login, password, email, firstName, lastName, true);
     }
 
-    public User(Integer id, String login, String password, String email, String firstName, String lastName, Date dateOfBirth, Set<Role> roles, boolean enabled) {
+    public User(Integer id, String login, String password, String email, String firstName, String lastName, boolean enabled) {
         super(id);
         this.login = login;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
         this.enabled = enabled;
-        setRoles(roles);
     }
 
     public String getLogin() {
@@ -119,22 +110,6 @@ public class User extends BaseEntity {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Collection<Role> roles) {
-        this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
 
     public boolean isEnabled() {
