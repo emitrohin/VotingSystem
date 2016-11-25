@@ -1,6 +1,5 @@
 package ru.emitrohin.votingsystem.web;
 
-import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -11,12 +10,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
-import ru.emitrohin.votingsystem.service.interfaces.UserService;
-import ru.emitrohin.votingsystem.util.JpaUtil;
 
 import javax.annotation.PostConstruct;
-
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 /**
  * User: gkislin
@@ -39,13 +34,7 @@ abstract public class AbstractControllerTest {
         CHARACTER_ENCODING_FILTER.setForceEncoding(true);
     }
 
-    @Autowired
-    private JpaUtil jpaUtil;
-
     MockMvc mockMvc;
-
-    @Autowired
-    protected UserService userService;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -59,9 +48,5 @@ abstract public class AbstractControllerTest {
                 .build();
     }
 
-    @Before
-    public void setUp() {
-        userService.evictCache();
-        jpaUtil.clear2ndLevelHibernateCache();
-    }
+
 }

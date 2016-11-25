@@ -2,8 +2,8 @@ package ru.emitrohin.votingsystem.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.emitrohin.votingsystem.model.User;
-import ru.emitrohin.votingsystem.repository.datajpa.JpaUserRepository;
+import ru.emitrohin.votingsystem.model.Restaurant;
+import ru.emitrohin.votingsystem.repository.datajpa.JpaRestaurantRepository;
 import ru.emitrohin.votingsystem.repository.interfaces.AbstractRepository;
 
 import java.util.List;
@@ -14,14 +14,14 @@ import java.util.List;
  */
 
 @Repository
-public class UserRepositoryImpl implements AbstractRepository<User> {
+public class RestaurantRepositoryImpl implements AbstractRepository<Restaurant> {
 
     @Autowired
-    private JpaUserRepository repository;
+    private JpaRestaurantRepository repository;
 
     @Override
-    public User save(User user) {
-        return repository.save(user);
+    public Restaurant save(Restaurant restaurant) {
+        return repository.save(restaurant);
     }
 
     @Override
@@ -30,12 +30,12 @@ public class UserRepositoryImpl implements AbstractRepository<User> {
     }
 
     @Override
-    public User get(int id) {
+    public Restaurant get(int id) {
         return repository.findOne(id);
     }
 
     @Override
-    public List<User> getAll() {
+    public List<Restaurant> getAll() {
         return repository.findAll();
     }
 }

@@ -19,8 +19,4 @@ public interface AbstractService<T> {
     List<T> getAll();
 
     void update(T item);
-
-    void evictCache();
-
-
 }

@@ -5,8 +5,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.emitrohin.votingsystem.model.User;
-import ru.emitrohin.votingsystem.service.interfaces.UserService;
+import ru.emitrohin.votingsystem.model.Restaurant;
+import ru.emitrohin.votingsystem.service.interfaces.RestaurantService;
 
 import java.net.URI;
 import java.util.List;
@@ -18,21 +18,21 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping(UserController.CONTROLLER_URL)
-public class UserController {
+@RequestMapping(RestaurantController.CONTROLLER_URL)
+public class RestaurantController {
 
-    static final String CONTROLLER_URL = RootController.REST_URL + "users/";
+    static final String CONTROLLER_URL = RootController.REST_URL + "restaurant/";
 
     @Autowired
-    private UserService service;
+    private RestaurantService service;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<User> users() {
+    public List<Restaurant> restaurants() {
         return service.getAll();
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User get(@PathVariable("id") int id) {
+    public Restaurant get(@PathVariable("id") int id) {
         return service.get(id);
     }
 
@@ -42,13 +42,13 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody User user, @PathVariable("id") int id) {
-        service.update(user);
+    public void update(@RequestBody Restaurant restaurant, @PathVariable("id") int id) {
+        service.update(restaurant);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> create(@RequestBody User user) {
-        User created = service.save(user);
+    public ResponseEntity<Restaurant> create(@RequestBody Restaurant restaurant) {
+        Restaurant created = service.save(restaurant);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(CONTROLLER_URL + "/{id}")
