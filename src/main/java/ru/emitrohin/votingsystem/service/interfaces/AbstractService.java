@@ -10,7 +10,9 @@ import java.util.List;
  */
 public interface AbstractService<T> {
 
-    T save(T item);
+    default T save(T item) {
+        throw new UnsupportedOperationException();
+    }
 
     void delete(int id) throws NotFoundException;
 
@@ -18,5 +20,7 @@ public interface AbstractService<T> {
 
     List<T> getAll();
 
-    void update(T item);
+    default void update(T item) {
+        throw new UnsupportedOperationException();
+    }
 }

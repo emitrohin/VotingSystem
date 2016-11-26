@@ -1,16 +1,15 @@
 package ru.emitrohin.votingsystem.model;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
+import org.springframework.util.CollectionUtils;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import java.util.Date;
+import javax.persistence.*;
+import java.util.*;
 
 /**
  * Author: E_Mitrohin
@@ -48,6 +47,15 @@ public class User extends BaseEntity {
     @Column(name = "enabled", nullable = false)
     private boolean enabled = true;
 
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
+    @BatchSize(size = 200)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Role> roles;
+
+
     @Column(name = "registered", columnDefinition = "timestamp default now()")
     private Date registered = new Date();
 
@@ -55,14 +63,14 @@ public class User extends BaseEntity {
     }
 
     public User(User u) {
-        this(u.getId(), u.getLogin(), u.getPassword(), u.getEmail(), u.getFirstName(), u.getLastName(), u.isEnabled());
+        this(u.getId(), u.getLogin(), u.getPassword(), u.getEmail(), u.getFirstName(), u.getLastName(), u.isEnabled(), u.getRoles());
     }
 
-    public User(Integer id, String login, String password, String email, String firstName, String lastName) {
-        this(id, login, password, email, firstName, lastName, true);
+    public User(Integer id, String login, String password, String email, String firstName, String lastName, Role role, Role... roles) {
+        this(id, login, password, email, firstName, lastName, true, EnumSet.of(role, roles));
     }
 
-    public User(Integer id, String login, String password, String email, String firstName, String lastName, boolean enabled) {
+    public User(Integer id, String login, String password, String email, String firstName, String lastName, boolean enabled, Set<Role> roles) {
         super(id);
         this.login = login;
         this.password = password;
@@ -118,6 +126,14 @@ public class User extends BaseEntity {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
 
     public Date getRegistered() {

@@ -3,8 +3,11 @@ package ru.emitrohin.votingsystem.service;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import ru.emitrohin.votingsystem.model.Menu;
 import ru.emitrohin.votingsystem.model.Restaurant;
+import ru.emitrohin.votingsystem.service.interfaces.MenuService;
 import ru.emitrohin.votingsystem.service.interfaces.RestaurantService;
+import ru.emitrohin.votingsystem.testdata.MenuTestData;
 import ru.emitrohin.votingsystem.util.exception.NotFoundException;
 
 import java.util.ArrayList;
@@ -12,13 +15,20 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import static ru.emitrohin.votingsystem.testdata.MenuTestData.TEST_MENUS;
 import static ru.emitrohin.votingsystem.testdata.RestaurantTestData.MATCHER;
 import static ru.emitrohin.votingsystem.testdata.RestaurantTestData.TEST_RESTAURANTS;
 
 public class RestaurantServiceTest extends AbstractServiceTest {
 
+    //TODO: get one with menus
+    //TODO: get all with menus
+
     @Autowired
     protected RestaurantService service;
+
+    @Autowired
+    protected MenuService menuService;
 
     @Test
     public void testSave() throws Exception {
@@ -42,6 +52,14 @@ public class RestaurantServiceTest extends AbstractServiceTest {
         List<Restaurant> result = new ArrayList<>(TEST_RESTAURANTS);
         result.remove(result.get(0));
         MATCHER.assertCollectionEquals(Collections.unmodifiableList(result), service.getAll());
+    }
+
+    @Test
+    public void testCascadeMenuDelete() throws Exception {
+        service.delete(100008);
+        List<Menu> result = new ArrayList<>(TEST_MENUS);
+        result.remove(0);
+        MenuTestData.MATCHER.assertCollectionEquals(Collections.unmodifiableList(result), menuService.getAll());
     }
 
     @Test(expected = NotFoundException.class)

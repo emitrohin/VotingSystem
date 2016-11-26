@@ -21,6 +21,9 @@ public class UserRepositoryImpl implements AbstractRepository<User> {
 
     @Override
     public User save(User user) {
+        if (!user.isNew() && get(user.getId()) == null) {
+            return null;
+        }
         return repository.save(user);
     }
 

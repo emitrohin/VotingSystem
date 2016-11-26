@@ -9,11 +9,9 @@ import ru.emitrohin.votingsystem.model.User;
 import ru.emitrohin.votingsystem.service.interfaces.UserService;
 import ru.emitrohin.votingsystem.util.exception.NotFoundException;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
+import static ru.emitrohin.votingsystem.model.Role.ROLE_USER;
 import static ru.emitrohin.votingsystem.testdata.UserTestData.MATCHER;
 import static ru.emitrohin.votingsystem.testdata.UserTestData.TEST_USERS;
 
@@ -29,7 +27,7 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Test
     public void testSave() throws Exception {
-        User newUser = new User(null, "New", "Password", "new@email.not", "Ololoev", "ololosha", true);
+        User newUser = new User(null, "New", "Password", "new@email.not", "Ololoev", "ololosha", true, EnumSet.of(ROLE_USER));
         User created = service.save(newUser);
         newUser.setId(created.getId());
         Collection<User> result = new ArrayList<>(TEST_USERS);
@@ -39,7 +37,7 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Test(expected = DataAccessException.class)
     public void testDuplicateLoginSave() throws Exception {
-        service.save(new User(null, "A_Ustumov", "Password", "new@email.not", "Ololoev", "ustimov", true));
+        service.save(new User(null, "A_Ustumov", "Password", "new@email.not", "Ololoev", "ustimov", true, EnumSet.of(ROLE_USER)));
     }
 
 

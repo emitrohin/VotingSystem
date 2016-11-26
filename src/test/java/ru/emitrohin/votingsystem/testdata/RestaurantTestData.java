@@ -14,7 +14,7 @@ import java.util.Objects;
  * Date:   22.11.2016.
  */
 public class RestaurantTestData {
-
+    public final static List<Restaurant> TEST_RESTAURANTS = new ArrayList<>();
     public static final ModelMatcher<Restaurant> MATCHER = ModelMatcher.of(Restaurant.class,
             (expected, actual) -> expected == actual ||
                     (
@@ -24,7 +24,6 @@ public class RestaurantTestData {
                     )
     );
     private static final Logger LOG = LoggerFactory.getLogger(RestaurantTestData.class);
-    public static List<Restaurant> TEST_RESTAURANTS = new ArrayList<>();
 
     static {
         TEST_RESTAURANTS.add(new Restaurant(100008, "Ривьера", "http://restoranaltona.ru/images/vip%202/IMG_9280.jpg"));
@@ -32,5 +31,4 @@ public class RestaurantTestData {
         TEST_RESTAURANTS.add(new Restaurant(100010, "Асеана", "http://restoranaltona.ru/images/vip%202/IMG_9324.jpg"));
         TEST_RESTAURANTS.add(new Restaurant(100011, "У Ашота", null));
     }
-
 }

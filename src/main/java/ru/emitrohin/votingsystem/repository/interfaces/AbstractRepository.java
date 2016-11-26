@@ -8,7 +8,9 @@ import java.util.List;
  */
 public interface AbstractRepository<T> {
 
-    T save(T user);
+    default T save(T user) {
+        throw new UnsupportedOperationException();
+    }
 
     // false if not found
     boolean delete(int id);
