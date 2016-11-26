@@ -23,8 +23,12 @@ public class UserController {
 
     static final String CONTROLLER_URL = RootController.REST_URL + "users/";
 
-    @Autowired
     private UserService service;
+
+    @Autowired
+    public UserController(UserService service) {
+        this.service = service;
+    }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> users() {

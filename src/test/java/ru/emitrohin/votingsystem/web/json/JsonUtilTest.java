@@ -1,9 +1,5 @@
 package ru.emitrohin.votingsystem.web.json;
 
-import org.junit.Test;
-
-import java.util.List;
-
 /**
  * GKislin
  * 22.07.2015.

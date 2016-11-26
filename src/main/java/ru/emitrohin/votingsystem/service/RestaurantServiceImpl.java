@@ -18,8 +18,12 @@ import java.util.List;
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
 
-    @Autowired
     private AbstractRepository<Restaurant> repository;
+
+    @Autowired
+    public RestaurantServiceImpl(AbstractRepository<Restaurant> repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Restaurant save(Restaurant restaurant) {

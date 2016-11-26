@@ -16,8 +16,12 @@ import java.util.List;
 @Repository
 public class RestaurantRepositoryImpl implements AbstractRepository<Restaurant> {
 
-    @Autowired
     private JpaRestaurantRepository repository;
+
+    @Autowired
+    public RestaurantRepositoryImpl(JpaRestaurantRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Restaurant save(Restaurant restaurant) {

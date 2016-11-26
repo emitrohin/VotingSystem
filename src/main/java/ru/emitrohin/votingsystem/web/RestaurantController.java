@@ -23,8 +23,12 @@ public class RestaurantController {
 
     static final String CONTROLLER_URL = RootController.REST_URL + "restaurants/";
 
-    @Autowired
     private RestaurantService service;
+
+    @Autowired
+    public RestaurantController(RestaurantService service) {
+        this.service = service;
+    }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Restaurant> restaurants() {

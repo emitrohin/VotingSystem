@@ -18,8 +18,12 @@ import java.util.List;
 @Service
 public class MenuServiceImpl implements MenuService {
 
-    @Autowired
     private MenuRepository repository;
+
+    @Autowired
+    public MenuServiceImpl(MenuRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Menu save(Menu menu, int id) {

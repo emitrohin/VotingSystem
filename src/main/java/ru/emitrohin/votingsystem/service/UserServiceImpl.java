@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.emitrohin.votingsystem.model.User;
 import ru.emitrohin.votingsystem.repository.interfaces.AbstractRepository;
-import ru.emitrohin.votingsystem.service.interfaces.AbstractService;
 import ru.emitrohin.votingsystem.service.interfaces.UserService;
 import ru.emitrohin.votingsystem.util.exception.ExceptionUtil;
 
@@ -22,8 +21,12 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     private AbstractRepository<User> repository;
+
+    @Autowired
+    public UserServiceImpl(AbstractRepository<User> repository) {
+        this.repository = repository;
+    }
 
     @Override
     @CacheEvict(value = "users", allEntries = true)

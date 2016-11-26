@@ -22,11 +22,14 @@ import java.util.List;
 @RequestMapping(MenuController.CONTROLLER_URL)
 public class MenuController {
 
-    static final String CONTROLLER_URL = RootController.REST_URL + "menus";
+    static final String CONTROLLER_URL = RootController.REST_URL + "menus/";
 
-    @Autowired
     private MenuService service;
 
+    @Autowired
+    public MenuController(MenuService service) {
+        this.service = service;
+    }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Menu> menus() {
@@ -43,14 +46,14 @@ public class MenuController {
         service.delete(id);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Menu> create(@RequestBody Menu menu, @PathVariable("id") Integer restaurantId) {
+    @PostMapping(value = "restaurant/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Menu> create(@RequestBody Menu menu, @PathVariable("id") Integer id) {
 
-        if (restaurantId == null) {
+        if (id == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        Menu created = service.save(menu, restaurantId);
+        Menu created = service.save(menu, id);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(CONTROLLER_URL + "/{id}")

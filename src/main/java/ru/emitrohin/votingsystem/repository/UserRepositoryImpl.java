@@ -16,8 +16,12 @@ import java.util.List;
 @Repository
 public class UserRepositoryImpl implements AbstractRepository<User> {
 
-    @Autowired
     private JpaUserRepository repository;
+
+    @Autowired
+    public UserRepositoryImpl(JpaUserRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public User save(User user) {
