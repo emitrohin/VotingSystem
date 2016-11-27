@@ -5,8 +5,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.emitrohin.votingsystem.model.Restaurant;
-import ru.emitrohin.votingsystem.service.interfaces.RestaurantService;
+import ru.emitrohin.votingsystem.model.Dish;
+import ru.emitrohin.votingsystem.service.interfaces.DishService;
 
 import java.net.URI;
 import java.util.List;
@@ -18,25 +18,25 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping(RestaurantController.CONTROLLER_URL)
-public class RestaurantController {
+@RequestMapping(DishController.CONTROLLER_URL)
+public class DishController {
 
-    static final String CONTROLLER_URL = RootController.REST_URL + "restaurants/";
+    static final String CONTROLLER_URL = RootController.REST_URL + "dishes/";
 
-    private RestaurantService service;
+    private DishService service;
 
     @Autowired
-    public RestaurantController(RestaurantService service) {
+    public DishController(DishService service) {
         this.service = service;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Restaurant> restaurants() {
+    public List<Dish> restaurants() {
         return service.getAll();
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Restaurant get(@PathVariable("id") int id) {
+    public Dish get(@PathVariable("id") int id) {
         return service.get(id);
     }
 
@@ -46,14 +46,14 @@ public class RestaurantController {
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody Restaurant restaurant, @PathVariable("id") int id) {
-        restaurant.setId(id);
-        service.update(restaurant);
+    public void update(@RequestBody Dish dish, @PathVariable("id") int id) {
+        dish.setId(id);
+        service.update(dish);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Restaurant> create(@RequestBody Restaurant restaurant) {
-        Restaurant created = service.save(restaurant);
+    public ResponseEntity<Dish> create(@RequestBody Dish dish) {
+        Dish created = service.save(dish);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(CONTROLLER_URL + "/{id}")

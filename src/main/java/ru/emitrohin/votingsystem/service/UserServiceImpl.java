@@ -3,11 +3,14 @@ package ru.emitrohin.votingsystem.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import ru.emitrohin.votingsystem.AuthorizedUser;
 import ru.emitrohin.votingsystem.model.User;
-import ru.emitrohin.votingsystem.repository.interfaces.AbstractRepository;
+import ru.emitrohin.votingsystem.repository.interfaces.UserRepository;
 import ru.emitrohin.votingsystem.service.interfaces.UserService;
 import ru.emitrohin.votingsystem.util.exception.ExceptionUtil;
 
@@ -18,13 +21,13 @@ import java.util.List;
  * Date:   18.11.2016.
  */
 
-@Service
-public class UserServiceImpl implements UserService {
+@Service("userService")
+public class UserServiceImpl implements UserService, UserDetailsService {
 
-    private AbstractRepository<User> repository;
+    private UserRepository repository;
 
     @Autowired
-    public UserServiceImpl(AbstractRepository<User> repository) {
+    public UserServiceImpl(UserRepository repository) {
         this.repository = repository;
     }
 
@@ -71,5 +74,15 @@ public class UserServiceImpl implements UserService {
     @CacheEvict(value = "users", allEntries = true)
     @Override
     public void evictCache() {
+    }
+
+    @Override
+    public AuthorizedUser loadUserByUsername(String login) throws UsernameNotFoundException {
+        User user = repository.findByLogin(login);
+        if (user == null) {
+            throw new UsernameNotFoundException("User is not found");
+        }
+        AuthorizedUser a = new AuthorizedUser(user);
+        return a;
     }
 }

@@ -4,17 +4,19 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
- * Author: E_Mitrohin
- * Date:   25.11.2016.
+ * @author emitrohin
+ * @version 1.0
+ *          27.11.2016
  */
 
 @Entity
-@Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "restaurants_unique_name_idx")})
-public class Restaurant extends BaseEntity {
+@Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"}, name = "dishes_name_idx")})
+public class Dish extends BaseEntity {
 
     @NotEmpty
     @SafeHtml
@@ -24,21 +26,17 @@ public class Restaurant extends BaseEntity {
     @SafeHtml
     private String imageLink;
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "restaurant")
-    // @OrderBy("dateOfMenu DESC")
-    protected List<Menu> menus;
-
-    public Restaurant() {
+    public Dish() {
     }
 
-    public Restaurant(Integer id, String name, String imageLink) {
+    public Dish(Dish dish) {
+        this(dish.getId(), dish.getImageLink(), dish.getImageLink());
+    }
+
+    public Dish(Integer id, String name, String imageLink) {
         super(id);
         this.name = name;
         this.imageLink = imageLink;
-    }
-
-    public Restaurant(Restaurant restaurant) {
-        this(restaurant.getId(), restaurant.getName(), restaurant.getImageLink());
     }
 
     public String getName() {
@@ -57,4 +55,3 @@ public class Restaurant extends BaseEntity {
         this.imageLink = imageLink;
     }
 }
-

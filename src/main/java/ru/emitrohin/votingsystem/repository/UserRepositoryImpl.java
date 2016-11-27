@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.emitrohin.votingsystem.model.User;
 import ru.emitrohin.votingsystem.repository.datajpa.JpaUserRepository;
-import ru.emitrohin.votingsystem.repository.interfaces.AbstractRepository;
+import ru.emitrohin.votingsystem.repository.interfaces.UserRepository;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 @Repository
-public class UserRepositoryImpl implements AbstractRepository<User> {
+public class UserRepositoryImpl implements UserRepository {
 
     private JpaUserRepository repository;
 
@@ -44,5 +44,10 @@ public class UserRepositoryImpl implements AbstractRepository<User> {
     @Override
     public List<User> getAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public User findByLogin(String login) {
+        return repository.findByLogin(login);
     }
 }

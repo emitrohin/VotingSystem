@@ -1,3 +1,4 @@
+DELETE FROM dishes;
 DELETE FROM menus;
 DELETE FROM restaurants;
 DELETE FROM user_roles;
@@ -36,3 +37,20 @@ INSERT INTO menus (restaurant_id, dateOfMenu) VALUES
   (100008, DATE '2016-11-26'),
   (100009, DATE '2016-11-26'),
   (100010, DATE '2016-11-26');
+
+
+INSERT INTO dishes (name, imageLink) VALUES
+  ('Картофель, в мундире',
+   'http://img07.rl0.ru/eda/c300x300/s2.afisha-eda.ru/Photos/120214125956-120214130233-p-O-kartofel-zapechennij-v-mundire.jpg'),
+  ('Рататуй', 'http://img04.rl0.ru/eda/c172x172/s2.afisha-eda.ru/Photos/150810204910-150818154229-p-O-ratatuj.jpg'),
+  ('Борщ',
+   'http://img08.rl0.ru/eda/c172x172/s2.afisha-eda.ru/Photos/120131084941-120214160730-p-O-kurica-zapechennaja-v-hrustjaschej-korochke-s-imbirem-apelsinami.jpg'),
+  ('Гратен дофинуа',
+   'http://img08.rl0.ru/eda/c172x172/s2.afisha-eda.ru/Photos/151002075307-151009125656-p-O-graten-dofinua.jpg'),
+  ('Чахохбили из курицы',
+   'http://img05.rl0.ru/eda/c172x172/s1.afisha-eda.ru/Photos/120213175727-120213180044-p-O-chahohbili-iz-kurici.jpg'),
+  ('Жареный рис с яйцом по‑китайски',
+   'http://img05.rl0.ru/eda/c172x172/s1.afisha-eda.ru/Photos/150428090447-150505141508-p-O-zharenij-ris-s-jajcom-po-kitajski.jpg'),
+  ('Хинкали', 'http://img05.rl0.ru/eda/c172x172/s2.afisha-eda.ru/Photos/120131112107-150527002516-p-O-hinkali.jpg'),
+  ('Тикка-масала',
+   'http://img04.rl0.ru/eda/c172x172/s1.afisha-eda.ru/Photos/120131082425-130725170057-p-O-tikka-masala.jpg');

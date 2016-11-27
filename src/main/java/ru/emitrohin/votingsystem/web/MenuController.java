@@ -32,6 +32,7 @@ public class MenuController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    //should return only current menus
     public List<Menu> menus() {
         return service.getAll();
     }

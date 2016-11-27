@@ -32,8 +32,8 @@ public class MenuControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL + 100012))
-                // .with(userHttpBasic(ADMIN)))
+        mockMvc.perform(get(REST_URL + 100012)
+               /* .with(userHttpBasic(TEST_USERS.get(0)))*/)
                 .andDo(print())
                 .andExpect(status().isOk())
 // https://jira.spring.io/browse/SPR-14472

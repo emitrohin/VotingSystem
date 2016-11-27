@@ -26,9 +26,9 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public Menu save(Menu menu, int id) {
-        Assert.notNull(menu, "user must not be null");
-        return repository.save(menu, id);
+    public Menu save(Menu menu, int restaurantId) {
+        Assert.notNull(menu, "menu must not be null");
+        return repository.save(menu, restaurantId);
     }
 
     @Override
@@ -38,12 +38,16 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Menu get(int id) {
+
         return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
     }
 
     @Override
     public List<Menu> getAll() {
+        //TODO: get filtering by current date and greater
         return repository.getAll();
     }
+
+    //TODO: get all by date
 
 }
