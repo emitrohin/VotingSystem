@@ -25,12 +25,10 @@ public class DishRepositoryImpl implements DishRepository {
 
     @Override
     public Dish save(Dish dish) {
+        if (!dish.isNew() && get(dish.getId()) == null) {
+            return null;
+        }
         return repository.save(dish);
-    }
-
-    @Override
-    public Dish saveToMenu(Dish dish, int menuId) {
-        throw new UnsupportedOperationException();
     }
 
     @Override

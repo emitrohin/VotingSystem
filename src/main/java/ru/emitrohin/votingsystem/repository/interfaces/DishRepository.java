@@ -9,5 +9,4 @@ import ru.emitrohin.votingsystem.model.Dish;
  */
 public interface DishRepository extends AbstractRepository<Dish> {
 
-    Dish saveToMenu(Dish dish, int menuId);
 }

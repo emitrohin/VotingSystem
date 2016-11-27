@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-import ru.emitrohin.votingsystem.model.Dish;
+import ru.emitrohin.votingsystem.model.DishMenu;
 
 import java.util.List;
 
@@ -14,17 +14,22 @@ import java.util.List;
  * Date:   18.11.2016.
  */
 @Transactional(readOnly = true)
-public interface JpaDishRepository extends Repository<Dish, Integer> {
+public interface JpaDishMenuRepository extends Repository<DishMenu, Integer> {
+
+    //TODO: impements findAllByMenuId(). Problems with named query
 
     @Transactional
     @Modifying
-    @Query("DELETE FROM Dish u WHERE u.id=:id")
+    @Query("DELETE FROM DishMenu u WHERE u.id=:id")
     int delete(@Param("id") int id);
 
     @Transactional
-    Dish save(Dish dish);
+    DishMenu save(DishMenu dishMenu);
 
-    Dish findOne(Integer id);
+    DishMenu findOne(Integer id);
 
-    List<Dish> findAll();
+    List<DishMenu> findAll();
+
+  /*  @Query("SELECT * FROM DishMenu as u WHERE u.menu.id=:menuId")
+    List<DishMenu> findAllByMenuId(@Param("menuId") int menuId);*/
 }

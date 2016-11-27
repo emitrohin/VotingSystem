@@ -10,7 +10,7 @@
 
     <version>1.0-SNAPSHOT</version>
 
-    <name>Система голосования за ресторан 2016</name>
+    <name>ru.emitrohin.votingsystem</name>
     <url>http://RestaurantVotingSystem2016.herokuapp.com/</url>
 
     <properties>

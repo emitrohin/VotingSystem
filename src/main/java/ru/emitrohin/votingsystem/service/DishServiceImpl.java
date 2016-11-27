@@ -35,14 +35,6 @@ public class DishServiceImpl implements DishService {
         return repository.save(dish);
     }
 
-    @Override
-    public Dish saveToMenu(Dish dish, int menuId) {
-        Assert.notNull(dish, "dish must not be null");
-        ExceptionUtil.checkNotFoundWithId(menuRepository.get(menuId), menuId);
-        //TODO: check if menus date is lower than now
-        return repository.saveToMenu(dish, menuId);
-    }
-
     //TODO: save to multiple menus with menus which date is greater than now
 
     @Override

@@ -31,7 +31,7 @@ public class DishController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Dish> restaurants() {
+    public List<Dish> dishes() {
         return service.getAll();
     }
 

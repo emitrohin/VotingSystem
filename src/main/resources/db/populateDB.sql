@@ -54,3 +54,14 @@ INSERT INTO dishes (name, imageLink) VALUES
   ('Хинкали', 'http://img05.rl0.ru/eda/c172x172/s2.afisha-eda.ru/Photos/120131112107-150527002516-p-O-hinkali.jpg'),
   ('Тикка-масала',
    'http://img04.rl0.ru/eda/c172x172/s1.afisha-eda.ru/Photos/120131082425-130725170057-p-O-tikka-masala.jpg');
+
+INSERT INTO menus_dishes (dish_id, menu_id, price) VALUES
+  (100015, 100012, 150.00),
+  (100016, 100012, 180.00),
+  (100017, 100012, 210.00),
+  (100019, 100013, 100.00),
+  (100020, 100013, 160.00),
+  (100021, 100013, 190.00),
+  (100015, 100014, 190.00),
+  (100016, 100014, 300.00),
+  (100017, 100014, 110.00);

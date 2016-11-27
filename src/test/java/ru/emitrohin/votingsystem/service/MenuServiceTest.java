@@ -21,6 +21,7 @@ import static ru.emitrohin.votingsystem.testdata.RestaurantTestData.TEST_RESTAUR
 public class MenuServiceTest extends AbstractServiceTest {
 
     //TODO: тест меню на дату
+    //TODO: bad request tests
 
     @Autowired
     protected MenuService service;

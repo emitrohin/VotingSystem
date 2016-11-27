@@ -8,6 +8,4 @@ import ru.emitrohin.votingsystem.model.Dish;
  */
 public interface DishService extends AbstractService<Dish> {
 
-    Dish saveToMenu(Dish item, int menuId);
-
 }
