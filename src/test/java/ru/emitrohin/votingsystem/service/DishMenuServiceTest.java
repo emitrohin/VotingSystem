@@ -7,12 +7,15 @@ import ru.emitrohin.votingsystem.model.DishMenu;
 import ru.emitrohin.votingsystem.service.interfaces.DishMenuService;
 import ru.emitrohin.votingsystem.to.DishMenuTo;
 import ru.emitrohin.votingsystem.util.DishMenuUtil;
+import ru.emitrohin.votingsystem.util.TimeUtil;
 import ru.emitrohin.votingsystem.util.exception.NotFoundException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ru.emitrohin.votingsystem.testdata.DishMenuTestData.MATCHER;
 import static ru.emitrohin.votingsystem.testdata.DishMenuTestData.TEST_MENU_DISHES;
@@ -32,6 +35,8 @@ public class DishMenuServiceTest extends AbstractServiceTest {
 
     @Test
     public void testSaveFromTo() throws Exception {
+        TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 0, 0));
+
         DishMenuTo dishMenuTo = DishMenuUtil.asTo(
                 new DishMenu(null, TEST_MENUS.get(2), TEST_DISHES.get(3), 100.00));
         DishMenu created = service.save(dishMenuTo);
@@ -41,8 +46,17 @@ public class DishMenuServiceTest extends AbstractServiceTest {
         MATCHER.assertCollectionEquals(result, service.getAll());
     }
 
+    @Test(expected = Exception.class)
+    public void testSaveFromToInvalidDate() throws Exception {
+        DishMenuTo dishMenuTo = DishMenuUtil.asTo(
+                new DishMenu(null, TEST_MENUS.get(2), TEST_DISHES.get(3), 100.00));
+        DishMenu created = service.save(dishMenuTo);
+    }
+
     @Test(expected = DataAccessException.class)
     public void testDuplicateNameSave() throws Exception {
+        TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 0, 0));
+
         DishMenuTo dishMenuTo = DishMenuUtil.asTo(
                 new DishMenu(null, TEST_MENUS.get(0), TEST_DISHES.get(0), 100.00));
         service.save(dishMenuTo);
@@ -78,6 +92,16 @@ public class DishMenuServiceTest extends AbstractServiceTest {
     public void testGetAll() throws Exception {
         Collection<DishMenu> all = service.getAll();
         MATCHER.assertCollectionEquals(TEST_MENU_DISHES, all);
+    }
+
+    @Test
+    public void testGetAllByMenuId() throws Exception {
+        Collection<DishMenu> all = service.findAllByMenuId(TEST_MENUS.get(2).getId());
+        List<DishMenu> result = new ArrayList<>(TEST_MENU_DISHES
+                .stream()
+                .filter(x -> x.getMenu().getId() == TEST_MENUS.get(2).getId())
+                .collect(Collectors.toList()));
+        MATCHER.assertCollectionEquals(result, all);
     }
 
     @Test

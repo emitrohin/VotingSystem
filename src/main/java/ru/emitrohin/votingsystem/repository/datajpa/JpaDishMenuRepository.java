@@ -16,8 +16,6 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface JpaDishMenuRepository extends Repository<DishMenu, Integer> {
 
-    //TODO: impements findAllByMenuId(). Problems with named query
-
     @Transactional
     @Modifying
     @Query("DELETE FROM DishMenu u WHERE u.id=:id")
@@ -30,6 +28,5 @@ public interface JpaDishMenuRepository extends Repository<DishMenu, Integer> {
 
     List<DishMenu> findAll();
 
-  /*  @Query("SELECT * FROM DishMenu as u WHERE u.menu.id=:menuId")
-    List<DishMenu> findAllByMenuId(@Param("menuId") int menuId);*/
+    List<DishMenu> findAllByMenuId(int menuId);
 }

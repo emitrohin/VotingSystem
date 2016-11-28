@@ -70,8 +70,10 @@ public class MenuController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
+    /* dish menus */
+
     @PostMapping(value = "dishmenu/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DishMenu> addDishToMenu(@Valid @RequestBody DishMenuTo dishMenuTo) {
+    public ResponseEntity<DishMenu> addDishToMenu(@Valid @RequestBody DishMenuTo dishMenuTo) throws Exception {
 
         DishMenu created = dishMenuService.save(dishMenuTo);
 
@@ -83,7 +85,7 @@ public class MenuController {
     }
 
     @PutMapping(value = "dishmenu/{price}/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void updateDishInMenu(@RequestBody DishMenu dishMenu, @PathVariable("price") Double price) {
+    public void updateDishInMenu(@Valid @RequestBody DishMenu dishMenu, @PathVariable("price") Double price) {
         dishMenu.setPrice(price);
         DishMenu created = dishMenuService.save(dishMenu);
     }

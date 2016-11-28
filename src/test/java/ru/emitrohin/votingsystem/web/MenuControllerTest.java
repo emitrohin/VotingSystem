@@ -28,7 +28,7 @@ public class MenuControllerTest extends AbstractControllerTest {
     private static final String REST_URL = MenuController.CONTROLLER_URL;
 
     @Autowired
-    protected MenuService restaurantService;
+    protected MenuService menuService;
 
     @Test
     public void testGet() throws Exception {
@@ -56,7 +56,7 @@ public class MenuControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk());
         List<Menu> result = new ArrayList<>(TEST_MENUS);
         result.remove(result.get(0));
-        MATCHER.assertCollectionEquals(Collections.unmodifiableList(result), restaurantService.getAll());
+        MATCHER.assertCollectionEquals(Collections.unmodifiableList(result), menuService.getAll());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class MenuControllerTest extends AbstractControllerTest {
         result.add(expected);
 
         MATCHER.assertEquals(expected, returned);
-        MATCHER.assertCollectionEquals(Collections.unmodifiableCollection(result), restaurantService.getAll());
+        MATCHER.assertCollectionEquals(Collections.unmodifiableCollection(result), menuService.getAll());
     }
 
     @Test

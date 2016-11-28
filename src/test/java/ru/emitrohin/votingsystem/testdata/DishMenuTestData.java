@@ -18,9 +18,19 @@ import static ru.emitrohin.votingsystem.testdata.MenuTestData.TEST_MENUS;
  */
 public class DishMenuTestData {
 
+    public final static List<DishMenu> TEST_MENU_DISHES = new ArrayList<>();
+    public static final ModelMatcher<DishMenu> MATCHER = ModelMatcher.of(DishMenu.class,
+            (expected, actual) -> expected == actual ||
+                    (
+                            Objects.equals(expected.getId(), actual.getId())
+                                    && Objects.equals(expected.getDish().getId(), actual.getDish().getId())
+                                   /*   && Objects.equals(expected.getDish().getImageLink(), actual.getDish().getImageLink())*/
+                                    && Objects.equals(expected.getMenu().getId(), actual.getMenu().getId())
+                    )
+    );
     private static final Logger LOG = LoggerFactory.getLogger(DishMenuTestData.class);
 
-    public final static List<DishMenu> TEST_MENU_DISHES = new ArrayList<>();
+    //TODO: decide whether it is needed to compare image links
 
     static {
         TEST_MENU_DISHES.add(new DishMenu(100023, TEST_MENUS.get(0), TEST_DISHES.get(0), 150.00));
@@ -33,18 +43,6 @@ public class DishMenuTestData {
         TEST_MENU_DISHES.add(new DishMenu(100030, TEST_MENUS.get(2), TEST_DISHES.get(1), 300.00));
         TEST_MENU_DISHES.add(new DishMenu(100031, TEST_MENUS.get(2), TEST_DISHES.get(2), 110.00));
     }
-
-    //TODO: decide whether it is needed to compare image links
-
-    public static final ModelMatcher<DishMenu> MATCHER = ModelMatcher.of(DishMenu.class,
-            (expected, actual) -> expected == actual ||
-                    (
-                            Objects.equals(expected.getId(), actual.getId())
-                                    && Objects.equals(expected.getDish().getName(), actual.getDish().getName())
-                                   /*   && Objects.equals(expected.getDish().getImageLink(), actual.getDish().getImageLink())*/
-                                    && Objects.equals(expected.getMenu().getDateOfMenu(), actual.getMenu().getDateOfMenu())
-                    )
-    );
 
 
 }

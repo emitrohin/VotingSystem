@@ -26,7 +26,7 @@ public class DishControllerTest extends AbstractControllerTest {
     private static final String REST_URL = DishController.CONTROLLER_URL;
 
     @Autowired
-    protected DishService service;
+    protected DishService dishService;
 
     @Test
     public void testGet() throws Exception {
@@ -54,7 +54,7 @@ public class DishControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk());
         List<Dish> result = new ArrayList<>(TEST_DISHES);
         result.remove(result.get(1));
-        MATCHER.assertCollectionEquals(Collections.unmodifiableList(result), service.getAll());
+        MATCHER.assertCollectionEquals(Collections.unmodifiableList(result), dishService.getAll());
     }
 
     @Test
@@ -80,7 +80,7 @@ public class DishControllerTest extends AbstractControllerTest {
         result.add(expected);
 
         MATCHER.assertEquals(expected, returned);
-        MATCHER.assertCollectionEquals(Collections.unmodifiableCollection(result), service.getAll());
+        MATCHER.assertCollectionEquals(Collections.unmodifiableCollection(result), dishService.getAll());
     }
 
     @Test

@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.emitrohin.votingsystem.model.DishMenu;
+import ru.emitrohin.votingsystem.model.Menu;
 import ru.emitrohin.votingsystem.repository.interfaces.DishMenuRepository;
 import ru.emitrohin.votingsystem.repository.interfaces.DishRepository;
 import ru.emitrohin.votingsystem.repository.interfaces.MenuRepository;
 import ru.emitrohin.votingsystem.service.interfaces.DishMenuService;
 import ru.emitrohin.votingsystem.to.DishMenuTo;
 import ru.emitrohin.votingsystem.util.DishMenuUtil;
+import ru.emitrohin.votingsystem.util.TimeUtil;
 import ru.emitrohin.votingsystem.util.exception.ExceptionUtil;
 
 import java.util.List;
@@ -34,8 +36,16 @@ public class DishMenuServiceImpl implements DishMenuService {
     }
 
     @Override
-    public DishMenu save(DishMenuTo dishMenuTo) {
+    public DishMenu save(DishMenuTo dishMenuTo) throws Exception {
         Assert.notNull(dishMenuTo, "dishMenuTo must not be null");
+
+        Menu menu = menuRepository.get(dishMenuTo.getMenuId());
+        ExceptionUtil.checkNotFoundWithId(menu, dishMenuTo.getMenuId());
+        if (menu.getDateOfMenu().compareTo(TimeUtil.now()) < 0) {
+            throw new Exception("Date of menu if lower than now");
+        }
+        ExceptionUtil.checkNotFoundWithId(dishRepository.get(dishMenuTo.getDishId()), dishMenuTo.getDishId());
+
         DishMenu newDishMenu = DishMenuUtil.createNewFromTo(dishMenuTo);
         return dishMenuRepository.save(newDishMenu);
     }

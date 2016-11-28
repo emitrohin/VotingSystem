@@ -13,8 +13,8 @@ import ru.emitrohin.votingsystem.to.DishMenuTo;
 public class DishMenuUtil {
 
     public static DishMenu createNewFromTo(DishMenuTo to) {
-        Menu menu = new Menu(to.getMenuId(), to.getDateOfMenu());
-        Dish dish = new Dish(to.getDishId(), to.getName(), null);
+        Menu menu = new Menu(to.getMenuId(), null);
+        Dish dish = new Dish(to.getDishId(), null, null);
         return new DishMenu(to.getId(), menu, dish, to.getPrice());
     }
 
@@ -22,8 +22,6 @@ public class DishMenuUtil {
         return new DishMenuTo(dishMenu.getId(),
                 dishMenu.getMenu().getId(),
                 dishMenu.getDish().getId(),
-                dishMenu.getMenu().getDateOfMenu(),
-                dishMenu.getDish().getName(),
                 dishMenu.getPrice());
     }
 

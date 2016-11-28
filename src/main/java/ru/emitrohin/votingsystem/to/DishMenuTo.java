@@ -1,14 +1,8 @@
 package ru.emitrohin.votingsystem.to;
 
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.SafeHtml;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDate;
 
 /**
  * @author emitrohin
@@ -27,15 +21,6 @@ public class DishMenuTo implements Serializable {
     @NotNull
     private Integer dishId;
 
-    @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dateOfMenu;
-
-    @NotEmpty
-    @SafeHtml
-    @Length(min = 3)
-    private String name;
-
     @Column(precision = 10, scale = 2)
     @NotNull
     private Double price;
@@ -43,10 +28,8 @@ public class DishMenuTo implements Serializable {
     public DishMenuTo() {
     }
 
-    public DishMenuTo(Integer id, Integer menuId, Integer dishId, LocalDate dateOfMenu, String name, Double price) {
+    public DishMenuTo(Integer id, Integer menuId, Integer dishId, Double price) {
         this.id = id;
-        this.dateOfMenu = dateOfMenu;
-        this.name = name;
         this.price = price;
         this.menuId = menuId;
         this.dishId = dishId;
@@ -74,22 +57,6 @@ public class DishMenuTo implements Serializable {
 
     public void setDishId(Integer dishId) {
         this.dishId = dishId;
-    }
-
-    public LocalDate getDateOfMenu() {
-        return dateOfMenu;
-    }
-
-    public void setDateOfMenu(LocalDate dateOfMenu) {
-        this.dateOfMenu = dateOfMenu;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Double getPrice() {

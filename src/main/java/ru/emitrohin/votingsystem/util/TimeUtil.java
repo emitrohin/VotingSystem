@@ -2,9 +2,7 @@ package ru.emitrohin.votingsystem.util;
 
 import org.springframework.util.StringUtils;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -16,6 +14,10 @@ public class TimeUtil {
 
     public static final LocalDate MIN_DATE = LocalDate.of(1, 1, 1);
     public static final LocalDate MAX_DATE = LocalDate.of(3000, 1, 1);
+
+    private static Clock clock = Clock.systemDefaultZone();
+    private static ZoneId zoneId = ZoneId.systemDefault();
+
 
     private TimeUtil() {
     }
@@ -42,5 +44,21 @@ public class TimeUtil {
 
     public static LocalDateTime parseLocalDateTime(String str, DateTimeFormatter formatter) {
         return StringUtils.isEmpty(str) ? LocalDateTime.now() : LocalDateTime.parse(str, formatter);
+    }
+
+    public static LocalDate now() {
+        return LocalDate.now(getClock());
+    }
+
+    public static void useFixedClockAt(LocalDateTime date) {
+        clock = Clock.fixed(date.atZone(zoneId).toInstant(), zoneId);
+    }
+
+    public static void useSystemDefaultZoneClock() {
+        clock = Clock.systemDefaultZone();
+    }
+
+    private static Clock getClock() {
+        return clock;
     }
 }

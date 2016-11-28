@@ -48,7 +48,6 @@ public class DishMenuRepositoryImpl implements DishMenuRepository {
 
     @Override
     public List<DishMenu> findAllByMenuId(int menuId) {
-        throw new UnsupportedOperationException();
-        // return repository.findAllByMenuId(menuId);
+        return repository.findAllByMenuId(menuId);
     }
 }
