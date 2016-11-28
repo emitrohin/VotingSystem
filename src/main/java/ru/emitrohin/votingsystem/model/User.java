@@ -7,9 +7,14 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.util.CollectionUtils;
+import ru.emitrohin.votingsystem.util.TimeUtil;
 
 import javax.persistence.*;
-import java.util.*;
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.Set;
 
 /**
  * Author: E_Mitrohin
@@ -57,7 +62,7 @@ public class User extends BaseEntity {
 
 
     @Column(name = "registered", columnDefinition = "timestamp default now()")
-    private Date registered = new Date();
+    private LocalDate registered = TimeUtil.now();
 
     public User() {
     }
@@ -136,11 +141,7 @@ public class User extends BaseEntity {
         this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
 
-    public Date getRegistered() {
+    public LocalDate getRegistered() {
         return registered;
-    }
-
-    public void setRegistered(Date registered) {
-        this.registered = registered;
     }
 }

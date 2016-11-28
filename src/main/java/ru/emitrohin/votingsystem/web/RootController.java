@@ -18,9 +18,9 @@ public class RootController {
 
     static final String REST_URL = "/api/v1.0/";
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> root() {
-        return ResponseEntity.ok().body("This is your success!");
+        return ResponseEntity.ok().body("Welcome to restaurant voting system, here is some curl sample commands to test this service");
     }
 
 }

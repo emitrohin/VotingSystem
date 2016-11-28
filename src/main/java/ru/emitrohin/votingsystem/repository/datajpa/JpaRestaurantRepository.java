@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.emitrohin.votingsystem.model.Restaurant;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -27,4 +28,7 @@ public interface JpaRestaurantRepository extends Repository<Restaurant, Integer>
     Restaurant findOne(Integer id);
 
     List<Restaurant> findAll();
+
+    @Query("SELECT r FROM Restaurant r JOIN FETCH r.menus a WHERE a.dateOfMenu = ?1")
+    List<Restaurant> getAllWithMenuByDate(LocalDate date);
 }

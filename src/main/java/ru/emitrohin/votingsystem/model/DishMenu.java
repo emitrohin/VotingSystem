@@ -13,10 +13,12 @@ import javax.validation.constraints.NotNull;
 @Table(name = "menus_dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"dish_id", "menu_id"}, name = "dish_id_menu_id_idx")})
 public class DishMenu extends BaseEntity {
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "dish_id")
     private Dish dish;

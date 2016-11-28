@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.emitrohin.votingsystem.model.Restaurant;
 import ru.emitrohin.votingsystem.repository.datajpa.JpaRestaurantRepository;
-import ru.emitrohin.votingsystem.repository.interfaces.AbstractRepository;
+import ru.emitrohin.votingsystem.repository.interfaces.RestaurantRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  */
 
 @Repository
-public class RestaurantRepositoryImpl implements AbstractRepository<Restaurant> {
+public class RestaurantRepositoryImpl implements RestaurantRepository {
 
     private JpaRestaurantRepository repository;
 
@@ -44,5 +45,10 @@ public class RestaurantRepositoryImpl implements AbstractRepository<Restaurant> 
     @Override
     public List<Restaurant> getAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<Restaurant> getAllWithMenuByDate(LocalDate date) {
+        return repository.getAllWithMenuByDate(date);
     }
 }

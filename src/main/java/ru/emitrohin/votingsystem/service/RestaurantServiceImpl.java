@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.emitrohin.votingsystem.model.Restaurant;
-import ru.emitrohin.votingsystem.repository.interfaces.AbstractRepository;
+import ru.emitrohin.votingsystem.repository.interfaces.RestaurantRepository;
 import ru.emitrohin.votingsystem.service.interfaces.RestaurantService;
 import ru.emitrohin.votingsystem.util.exception.ExceptionUtil;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -18,10 +19,10 @@ import java.util.List;
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
 
-    private AbstractRepository<Restaurant> repository;
+    private RestaurantRepository repository;
 
     @Autowired
-    public RestaurantServiceImpl(AbstractRepository<Restaurant> repository) {
+    public RestaurantServiceImpl(RestaurantRepository repository) {
         this.repository = repository;
     }
 
@@ -52,4 +53,8 @@ public class RestaurantServiceImpl implements RestaurantService {
         return repository.getAll();
     }
 
+    @Override
+    public List<Restaurant> getAllWithMenuByDate(LocalDate date) {
+        return repository.getAllWithMenuByDate(date);
+    }
 }

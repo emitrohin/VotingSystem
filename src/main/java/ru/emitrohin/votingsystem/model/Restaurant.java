@@ -25,8 +25,7 @@ public class Restaurant extends BaseEntity {
     private String imageLink;
 
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "restaurant")
-    // @OrderBy("dateOfMenu DESC")
-    protected List<Menu> menus;
+    private List<Menu> menus;
 
     public Restaurant() {
     }
@@ -55,6 +54,10 @@ public class Restaurant extends BaseEntity {
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
+    }
+
+    public List<Menu> getMenus() {
+        return menus;
     }
 }
 

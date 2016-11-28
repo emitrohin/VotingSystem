@@ -38,7 +38,7 @@ public class DishMenuController {
         return dishMenuService.get(id);
     }
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<DishMenu> getAll() {
         return dishMenuService.getAll();
     }

@@ -48,6 +48,7 @@ public class DishMenuServiceTest extends AbstractServiceTest {
 
     @Test(expected = Exception.class)
     public void testSaveFromToInvalidDate() throws Exception {
+        TimeUtil.useFixedClockAt(LocalDateTime.now());
         DishMenuTo dishMenuTo = DishMenuUtil.asTo(
                 new DishMenu(null, TEST_MENUS.get(2), TEST_DISHES.get(3), 100.00));
         DishMenu created = service.save(dishMenuTo);
