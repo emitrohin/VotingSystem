@@ -1,19 +1,16 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns="http://www.springframework.org/schema/beans"
        xmlns:security="http://www.springframework.org/schema/security"
-       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-
     <bean class="ru.emitrohin.votingsystem.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
 
+    <!-- serve static resources (*.html, ...) from src/main/webapp/ -->
     <mvc:default-servlet-handler/>
-
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
 
     <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"/>
 
@@ -43,5 +40,9 @@
     </bean>
 
     <context:component-scan base-package="ru.emitrohin.**.web"/>
+
+    <!--  all resources inside folder src/main/webapp/resources are mapped so they can be referred to inside JSP files -->
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+
 
 </beans>

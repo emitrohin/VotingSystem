@@ -29,10 +29,10 @@ public class TestUtil {
     }*/
 
     public static RequestPostProcessor userHttpBasic(User user) {
-        return SecurityMockMvcRequestPostProcessors.httpBasic(user.getEmail(), user.getPassword());
+        return SecurityMockMvcRequestPostProcessors.httpBasic(user.getLogin(), user.getPassword());
     }
 
     public static RequestPostProcessor userAuth(User user) {
-        return SecurityMockMvcRequestPostProcessors.authentication(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+        return SecurityMockMvcRequestPostProcessors.authentication(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
     }
 }

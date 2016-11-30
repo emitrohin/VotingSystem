@@ -18,8 +18,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static ru.emitrohin.votingsystem.TestUtil.userHttpBasic;
 import static ru.emitrohin.votingsystem.testdata.DishTestData.MATCHER;
 import static ru.emitrohin.votingsystem.testdata.DishTestData.TEST_DISHES;
+import static ru.emitrohin.votingsystem.testdata.UserTestData.TEST_USERS;
 
 public class DishControllerTest extends AbstractControllerTest {
 
@@ -31,17 +33,17 @@ public class DishControllerTest extends AbstractControllerTest {
     @Test
     public void testGet() throws Exception {
         mockMvc.perform(get(REST_URL + 100015)
-               /* .with(userHttpBasic(TEST_USERS.get(0)))*/)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andDo(print())
                 .andExpect(status().isOk())
-// https://jira.spring.io/browse/SPR-14472
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentMatcher(TEST_DISHES.get(0)));
     }
 
     @Test
     public void testGetNotFound() throws Exception {
-        mockMvc.perform(get(REST_URL + 1))
+        mockMvc.perform(get(REST_URL + 1)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isUnprocessableEntity())
                 .andDo(print());
     }
@@ -49,7 +51,8 @@ public class DishControllerTest extends AbstractControllerTest {
 
     @Test
     public void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL + 100016))
+        mockMvc.perform(delete(REST_URL + 100016)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andDo(print())
                 .andExpect(status().isOk());
         List<Dish> result = new ArrayList<>(TEST_DISHES);
@@ -59,7 +62,8 @@ public class DishControllerTest extends AbstractControllerTest {
 
     @Test
     public void testDeleteNotFound() throws Exception {
-        mockMvc.perform(delete(REST_URL + 1))
+        mockMvc.perform(delete(REST_URL + 1)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isUnprocessableEntity())
                 .andDo(print());
     }
@@ -70,7 +74,8 @@ public class DishControllerTest extends AbstractControllerTest {
 
         ResultActions action = mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(expected)))
+                .content(JsonUtil.writeValue(expected))
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isCreated());
 
         Dish returned = MATCHER.fromJsonAction(action);
@@ -85,9 +90,16 @@ public class DishControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetAll() throws Exception {
-        TestUtil.print(mockMvc.perform(get(REST_URL))
+        TestUtil.print(mockMvc.perform(get(REST_URL)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentListMatcher(TEST_DISHES)));
+    }
+
+    @Test
+    public void testUnAuth() throws Exception {
+        TestUtil.print(mockMvc.perform(get(REST_URL)))
+                .andExpect(status().isUnauthorized());
     }
 }

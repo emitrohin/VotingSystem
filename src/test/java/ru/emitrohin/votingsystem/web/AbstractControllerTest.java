@@ -13,6 +13,8 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.annotation.PostConstruct;
 
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+
 /**
  * User: gkislin
  * Date: 10.08.2014
@@ -44,7 +46,7 @@ abstract public class AbstractControllerTest {
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(webApplicationContext)
                 .addFilter(CHARACTER_ENCODING_FILTER)
-               // .apply(springSecurity())
+                .apply(springSecurity())
                 .build();
     }
 

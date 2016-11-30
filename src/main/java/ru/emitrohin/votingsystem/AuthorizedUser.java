@@ -4,8 +4,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import ru.emitrohin.votingsystem.model.User;
 
-import java.util.Collections;
-
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -19,7 +17,8 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
     private User user;
 
     public AuthorizedUser(User user) {
-        super(user.getLogin(), user.getPassword(), user.isEnabled(), true, true, true, Collections.emptySet());
+        super(user.getLogin(), user.getPassword(), user.isEnabled(), true, true, true, user.getRoles());
+        this.user = user;
     }
 
     public static AuthorizedUser safeGet() {
@@ -47,10 +46,6 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
 
     public void update(User newUser) {
         user = newUser;
-    }
-
-    public User getUser() {
-        return user;
     }
 
     @Override

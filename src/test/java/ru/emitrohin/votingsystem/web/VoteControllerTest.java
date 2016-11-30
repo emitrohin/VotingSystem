@@ -14,7 +14,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.emitrohin.votingsystem.TestUtil.userHttpBasic;
 import static ru.emitrohin.votingsystem.testdata.RestaurantTestData.TEST_RESTAURANTS;
@@ -37,8 +36,8 @@ public class VoteControllerTest extends AbstractControllerTest {
         Vote expected = new Vote(null, TEST_RESTAURANTS.get(2), TEST_USERS.get(7), TimeUtil.now());
 
         ResultActions action = mockMvc.perform(get(REST_URL + "/" + TEST_RESTAURANTS.get(2).getId())
+                .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(TEST_USERS.get(0))))
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
 
         Vote returned = MATCHER.fromJsonAction(action);

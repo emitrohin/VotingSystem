@@ -83,6 +83,7 @@ public class User extends BaseEntity {
         this.firstName = firstName;
         this.lastName = lastName;
         this.enabled = enabled;
+        setRoles(roles);
     }
 
     public String getLogin() {
