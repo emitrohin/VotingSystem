@@ -12,30 +12,42 @@ import java.util.Map;
  */
 public class VoteTo {
 
-    private Map<Integer, Integer> results;
+    private int winnerId;
+    private Map<String, Integer> results;
     private boolean votingIsOver;
 
-    public VoteTo(Map<Integer, Integer> results, boolean votingIsOver) {
+    public VoteTo(int winnerId, Map<String, Integer> results, boolean votingIsOver) {
+        this.winnerId = winnerId;
         this.results = results;
         this.votingIsOver = votingIsOver;
     }
 
-    public static Map<Integer, Integer> parseResults(List<Vote> voteList) {
-        Map<Integer, Integer> map = new HashMap<>();
+    public static VoteTo parseSubTotals(List<Vote> voteList) {
+        return new VoteTo(-1, parseVoteList(voteList), false);
+    }
+
+    public static VoteTo parseResults(List<Vote> voteList) {
+        Map<String, Integer> map = parseVoteList(voteList);
+        int winnerId = map.values().stream().max(Integer::compareTo).orElse(0);
+        return new VoteTo(winnerId, map, true);
+    }
+
+    public static Map<String, Integer> parseVoteList(List<Vote> voteList) {
+        Map<String, Integer> map = new HashMap<>();
         for (Vote v : voteList) {
-            if (map.containsKey(v.getRestaurant().getId()))
-                map.put(v.getRestaurant().getId(), 1);
+            if (map.containsKey(v.getRestaurant().getName()))
+                map.put(v.getRestaurant().getName(), 1);
             else
-                map.put(v.getRestaurant().getId(), map.get(v.getRestaurant().getId()) + 1);
+                map.put(v.getRestaurant().getName(), map.get(v.getRestaurant().getName()) + 1);
         }
         return map;
     }
 
-    public Map<Integer, Integer> getResults() {
+    public Map<String, Integer> getResults() {
         return results;
     }
 
-    public void setResults(Map<Integer, Integer> results) {
+    public void setResults(Map<String, Integer> results) {
         this.results = results;
     }
 
@@ -46,4 +58,14 @@ public class VoteTo {
     public void setVotingIsOver(boolean votingIsOver) {
         this.votingIsOver = votingIsOver;
     }
+
+    public int getWinnerId() {
+        return winnerId;
+    }
+
+    public void setWinnerId(int winnerId) {
+        this.winnerId = winnerId;
+    }
+
+
 }

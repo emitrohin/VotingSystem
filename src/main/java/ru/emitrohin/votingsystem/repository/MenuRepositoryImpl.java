@@ -29,9 +29,6 @@ public class MenuRepositoryImpl implements MenuRepository {
 
     @Override
     public Menu save(Menu menu, int restaurantId) {
-        if (!menu.isNew() && get(menu.getId()) == null) {
-            return null;
-        }
         menu.setRestaurant(restaurantRepository.findOne(restaurantId));
         return menuRepository.save(menu);
     }

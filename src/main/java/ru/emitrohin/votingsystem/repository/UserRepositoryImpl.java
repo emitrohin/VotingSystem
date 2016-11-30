@@ -25,9 +25,6 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User save(User user) {
-        if (!user.isNew() && get(user.getId()) == null) {
-            return null;
-        }
         return repository.save(user);
     }
 

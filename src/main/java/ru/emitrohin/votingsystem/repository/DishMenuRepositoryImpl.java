@@ -25,9 +25,6 @@ public class DishMenuRepositoryImpl implements DishMenuRepository {
 
     @Override
     public DishMenu save(DishMenu dishMenu) {
-        if (!dishMenu.isNew() && get(dishMenu.getId()) == null) {
-            return null;
-        }
         return repository.save(dishMenu);
     }
 

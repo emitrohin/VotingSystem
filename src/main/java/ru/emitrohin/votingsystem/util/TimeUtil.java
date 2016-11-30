@@ -13,7 +13,7 @@ public class TimeUtil {
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public static final LocalDate MIN_DATE = LocalDate.of(1, 1, 1);
-    public static final LocalDate MAX_DATE = LocalDate.of(3000, 1, 1);
+    public static final LocalTime VOTING_TIME = LocalTime.of(11, 0);
 
     private static Clock clock = Clock.systemDefaultZone();
     private static ZoneId zoneId = ZoneId.systemDefault();
@@ -48,6 +48,10 @@ public class TimeUtil {
 
     public static LocalDate now() {
         return LocalDate.now(getClock());
+    }
+
+    public static LocalTime nowTime() {
+        return LocalTime.now(getClock());
     }
 
     public static void useFixedClockAt(LocalDateTime date) {
