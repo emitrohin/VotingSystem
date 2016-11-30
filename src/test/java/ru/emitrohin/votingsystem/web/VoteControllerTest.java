@@ -2,7 +2,25 @@ package ru.emitrohin.votingsystem.web;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.ResultActions;
+import ru.emitrohin.votingsystem.model.Vote;
 import ru.emitrohin.votingsystem.service.interfaces.VoteService;
+import ru.emitrohin.votingsystem.util.TimeUtil;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static ru.emitrohin.votingsystem.TestUtil.userHttpBasic;
+import static ru.emitrohin.votingsystem.testdata.RestaurantTestData.TEST_RESTAURANTS;
+import static ru.emitrohin.votingsystem.testdata.UserTestData.TEST_USERS;
+import static ru.emitrohin.votingsystem.testdata.VoteTestData.MATCHER;
+import static ru.emitrohin.votingsystem.testdata.VoteTestData.TEST_VOTES;
 
 public class VoteControllerTest extends AbstractControllerTest {
 
@@ -11,19 +29,15 @@ public class VoteControllerTest extends AbstractControllerTest {
     @Autowired
     protected VoteService voteService;
 
+
     @Test
-    public void testNewVoteVoteOnTime() throws Exception {
-        System.out.println();
-    }
-
-
- /*   @Test
     public void testNewVoteVoteOnTime() throws Exception {
         TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 10, 0));
 
         Vote expected = new Vote(null, TEST_RESTAURANTS.get(2), TEST_USERS.get(7), TimeUtil.now());
 
-        ResultActions action = mockMvc.perform(get(REST_URL + "/" + TEST_RESTAURANTS.get(2).getId()))
+        ResultActions action = mockMvc.perform(get(REST_URL + "/" + TEST_RESTAURANTS.get(2).getId())
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
 
@@ -35,7 +49,7 @@ public class VoteControllerTest extends AbstractControllerTest {
 
         MATCHER.assertEquals(expected, returned);
         MATCHER.assertCollectionEquals(Collections.unmodifiableCollection(result), voteService.getAll());
-    }*/
+    }
 
   /*  @Test
     public void testGetAll() throws Exception {
