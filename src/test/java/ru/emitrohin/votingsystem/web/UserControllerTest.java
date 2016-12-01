@@ -88,9 +88,9 @@ public class UserControllerTest extends AbstractControllerTest {
     @Test
     public void testUpdate() throws Exception {
         User updated = TEST_USERS.get(2);
-        updated.setFirstName("UpdatedName");
+        updated.setFirstName("UpdatedNam1e");
 
-        ResultActions action = mockMvc.perform(put(REST_URL)
+        mockMvc.perform(put(REST_URL + "/" + TEST_USERS.get(2).getId())
                 .with(userHttpBasic(TEST_USERS.get(0)))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))

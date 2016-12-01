@@ -2,7 +2,6 @@ package ru.emitrohin.votingsystem.repository.interfaces;
 
 import ru.emitrohin.votingsystem.model.Restaurant;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -11,5 +10,5 @@ import java.util.List;
  *          26.11.2016
  */
 public interface RestaurantRepository extends AbstractRepository<Restaurant> {
-    List<Restaurant> getAllWithMenuByDate(LocalDate date);
+    List<Restaurant> getRestaurantsWithCurrentMenu();
 }

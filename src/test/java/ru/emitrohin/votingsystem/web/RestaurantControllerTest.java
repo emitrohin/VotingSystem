@@ -110,7 +110,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetAll() throws Exception {
-        TestUtil.print(mockMvc.perform(get(REST_URL)
+        TestUtil.print(mockMvc.perform(get(REST_URL + "/all")
                 .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

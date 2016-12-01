@@ -1,6 +1,7 @@
 package ru.emitrohin.votingsystem.service;
 
 import org.springframework.stereotype.Service;
+import ru.emitrohin.votingsystem.model.Menu;
 import ru.emitrohin.votingsystem.model.Restaurant;
 import ru.emitrohin.votingsystem.model.User;
 import ru.emitrohin.votingsystem.model.Vote;
@@ -11,6 +12,7 @@ import ru.emitrohin.votingsystem.repository.interfaces.VoteRepository;
 import ru.emitrohin.votingsystem.service.interfaces.VoteService;
 import ru.emitrohin.votingsystem.util.TimeUtil;
 import ru.emitrohin.votingsystem.util.exception.ExceptionUtil;
+import ru.emitrohin.votingsystem.util.exception.VotingException;
 
 import java.util.List;
 
@@ -37,10 +39,10 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public Vote vote(int userId, int restaurantId) throws Exception {
+    public Vote vote(int userId, int restaurantId) {
 
         if (TimeUtil.nowTime().compareTo(VOTING_TIME) > 0) {
-            throw new Exception("You can't vote for not existing menu");
+            throw new VotingException("Voting is over. Votes are accepted only before 11:00");
         }
 
         Restaurant restaurant = restaurantRepository.get(restaurantId);
@@ -49,8 +51,13 @@ public class VoteServiceImpl implements VoteService {
         User user = userRepository.get(userId);
         ExceptionUtil.checkNotFoundWithId(user, userId);
 
+        Menu menu = menuRepository.getByRestaurantId(restaurantId);
         if (menuRepository.getByRestaurantId(restaurantId) == null) {
-            throw new Exception("You can't vote for not existing menu");
+            throw new VotingException("You can't vote for not existing menu");
+        }
+
+        if (menu.getDishMenus().size() == 0) {
+            throw new VotingException("Menu for this restaurant is not ready");
         }
 
         Vote vote = repository.getByUserId(userId);

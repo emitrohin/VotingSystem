@@ -8,10 +8,8 @@ import ru.emitrohin.votingsystem.model.Restaurant;
 import ru.emitrohin.votingsystem.service.interfaces.MenuService;
 import ru.emitrohin.votingsystem.service.interfaces.RestaurantService;
 import ru.emitrohin.votingsystem.testdata.MenuTestData;
-import ru.emitrohin.votingsystem.util.TimeUtil;
 import ru.emitrohin.votingsystem.util.exception.NotFoundException;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -81,17 +79,6 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     public void testGetAll() throws Exception {
         Collection<Restaurant> all = service.getAll();
         MATCHER.assertCollectionEquals(TEST_RESTAURANTS, all);
-    }
-
-    @Test
-    public void testGetAllWithCurrentMenus() throws Exception {
-        TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 0, 0));
-        Collection<Restaurant> all = service.getAllWithMenuByDate(TimeUtil.now());
-        List<Menu> result = new ArrayList<>();
-        for (Restaurant r : all) {
-            result.addAll(r.getMenus());
-        }
-        MenuTestData.MATCHER.assertCollectionEquals(TEST_MENUS, result);
     }
 
     @Test

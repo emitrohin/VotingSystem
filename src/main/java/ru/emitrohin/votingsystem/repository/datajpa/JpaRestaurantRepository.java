@@ -29,6 +29,6 @@ public interface JpaRestaurantRepository extends Repository<Restaurant, Integer>
 
     List<Restaurant> findAll();
 
-    @Query("SELECT r FROM Restaurant r JOIN FETCH r.menus a WHERE a.dateOfMenu = ?1")
+    @Query("SELECT r FROM Restaurant r JOIN r.menus a WHERE a.dateOfMenu = ?1")
     List<Restaurant> getAllWithMenuByDate(LocalDate date);
 }

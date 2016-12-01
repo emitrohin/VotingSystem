@@ -8,7 +8,6 @@ import ru.emitrohin.votingsystem.repository.interfaces.RestaurantRepository;
 import ru.emitrohin.votingsystem.service.interfaces.RestaurantService;
 import ru.emitrohin.votingsystem.util.exception.ExceptionUtil;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -54,7 +53,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<Restaurant> getAllWithMenuByDate(LocalDate date) {
-        return repository.getAllWithMenuByDate(date);
+    public List<Restaurant> getRestaurantsWithCurrentMenu() {
+        return repository.getRestaurantsWithCurrentMenu();
     }
 }

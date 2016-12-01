@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.emitrohin.votingsystem.TestUtil.userHttpBasic;
 import static ru.emitrohin.votingsystem.testdata.RestaurantTestData.TEST_RESTAURANTS;
@@ -43,7 +44,7 @@ public class VoteControllerTest extends AbstractControllerTest {
 
         Vote expected = new Vote(null, TEST_RESTAURANTS.get(2), TEST_USERS.get(7), TimeUtil.now());
 
-        ResultActions action = mockMvc.perform(get(REST_URL + "/" + TEST_RESTAURANTS.get(2).getId())
+        ResultActions action = mockMvc.perform(post(REST_URL + "/" + TEST_RESTAURANTS.get(2).getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(TEST_USERS.get(7))))
                 .andExpect(status().isCreated());
@@ -65,7 +66,7 @@ public class VoteControllerTest extends AbstractControllerTest {
         Vote expected = TEST_VOTES.get(5);
         expected.setRestaurant(TEST_RESTAURANTS.get(1));
 
-        ResultActions action = mockMvc.perform(get(REST_URL + "/" + TEST_RESTAURANTS.get(1).getId())
+        ResultActions action = mockMvc.perform(post(REST_URL + "/" + TEST_RESTAURANTS.get(1).getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(TEST_USERS.get(5))))
                 .andExpect(status().isCreated());
@@ -112,7 +113,7 @@ public class VoteControllerTest extends AbstractControllerTest {
 
         Vote expected = new Vote(null, TEST_RESTAURANTS.get(2), TEST_USERS.get(7), TimeUtil.now());
 
-        ResultActions action = mockMvc.perform(get(REST_URL + "/" + TEST_RESTAURANTS.get(2).getId())
+        ResultActions action = mockMvc.perform(post(REST_URL + "/" + TEST_RESTAURANTS.get(2).getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(TEST_USERS.get(7))))
                 .andExpect(status().isCreated());
@@ -128,7 +129,7 @@ public class VoteControllerTest extends AbstractControllerTest {
 
         expected.setRestaurant(TEST_RESTAURANTS.get(0));
 
-        action = mockMvc.perform(get(REST_URL + "/" + TEST_RESTAURANTS.get(0).getId())
+        action = mockMvc.perform(post(REST_URL + "/" + TEST_RESTAURANTS.get(0).getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(TEST_USERS.get(7))))
                 .andExpect(status().isCreated());

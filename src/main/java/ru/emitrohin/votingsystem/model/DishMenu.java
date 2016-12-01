@@ -1,5 +1,7 @@
 package ru.emitrohin.votingsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -16,6 +18,7 @@ public class DishMenu extends BaseEntity {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "menu_id")
+    @JsonBackReference
     private Menu menu;
 
     @NotNull

@@ -2,13 +2,14 @@ package ru.emitrohin.votingsystem.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import ru.emitrohin.votingsystem.model.Menu;
 import ru.emitrohin.votingsystem.repository.interfaces.MenuRepository;
 import ru.emitrohin.votingsystem.service.interfaces.MenuService;
+import ru.emitrohin.votingsystem.util.TimeUtil;
 import ru.emitrohin.votingsystem.util.exception.ExceptionUtil;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Author: E_Mitrohin
@@ -26,9 +27,8 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public Menu save(Menu menu, int restaurantId) {
-        Assert.notNull(menu, "menu must not be null");
-        return repository.save(menu, restaurantId);
+    public Menu save(int restaurantId) {
+        return repository.save(new Menu(null, TimeUtil.now()), restaurantId);
     }
 
     @Override
@@ -55,6 +55,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Menu> getAllCurrent() {
-        return repository.getAllCurrent();
+        List<Menu> all = repository.getAllCurrent();
+        return all.stream().filter(x -> x.getDishMenus().size() > 0).collect(Collectors.toList());
     }
 }

@@ -1,7 +1,6 @@
 package ru.emitrohin.votingsystem.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -44,6 +43,11 @@ public class MenuController {
         return service.getAllCurrent();
     }
 
+    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Menu> menusAll() {
+        return service.getAll();
+    }
+
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Menu get(@PathVariable("id") int id) {
         return service.get(id);
@@ -55,15 +59,11 @@ public class MenuController {
         service.delete(id);
     }
 
-    @PostMapping(value = "restaurant/{restaurantId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "restaurant/{restaurantId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("ROLE_ADMIN")
-    public ResponseEntity<Menu> create(@Valid @RequestBody Menu menu, @PathVariable("restaurantId") Integer restaurantId) {
+    public ResponseEntity<Menu> create(@PathVariable("restaurantId") Integer restaurantId) {
 
-        if (restaurantId == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-
-        Menu created = service.save(menu, restaurantId);
+        Menu created = service.save(restaurantId);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(CONTROLLER_URL + "/{id}")

@@ -1,5 +1,6 @@
 package ru.emitrohin.votingsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
@@ -25,6 +26,7 @@ public class Restaurant extends BaseEntity {
     private String imageLink;
 
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @JsonIgnore
     private List<Menu> menus;
 
     public Restaurant() {

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.emitrohin.votingsystem.model.Restaurant;
 import ru.emitrohin.votingsystem.service.interfaces.RestaurantService;
-import ru.emitrohin.votingsystem.util.TimeUtil;
 
 import java.net.URI;
 import java.util.List;
@@ -32,20 +31,18 @@ public class RestaurantController {
         this.service = service;
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("ROLE_ADMIN")
     public List<Restaurant> restaurants() {
         return service.getAll();
     }
 
-    @GetMapping(value = "/current", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Restaurant> getRestaurantsWithCurrentMenu() {
-        return service.getAllWithMenuByDate(TimeUtil.now());
+        return service.getRestaurantsWithCurrentMenu();
     }
 
-
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Secured("ROLE_ADMIN")
     public Restaurant get(@PathVariable("id") int id) {
         return service.get(id);
     }

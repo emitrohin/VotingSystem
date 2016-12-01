@@ -5,8 +5,8 @@ import org.springframework.stereotype.Repository;
 import ru.emitrohin.votingsystem.model.Restaurant;
 import ru.emitrohin.votingsystem.repository.datajpa.JpaRestaurantRepository;
 import ru.emitrohin.votingsystem.repository.interfaces.RestaurantRepository;
+import ru.emitrohin.votingsystem.util.TimeUtil;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -45,7 +45,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     }
 
     @Override
-    public List<Restaurant> getAllWithMenuByDate(LocalDate date) {
-        return repository.getAllWithMenuByDate(date);
+    public List<Restaurant> getRestaurantsWithCurrentMenu() {
+        return repository.getAllWithMenuByDate(TimeUtil.now());
     }
 }

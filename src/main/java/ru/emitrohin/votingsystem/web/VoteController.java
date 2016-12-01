@@ -3,10 +3,7 @@ package ru.emitrohin.votingsystem.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.emitrohin.votingsystem.AuthorizedUser;
 import ru.emitrohin.votingsystem.model.Vote;
@@ -37,7 +34,7 @@ public class VoteController {
         this.service = service;
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Vote> vote(@PathVariable("id") int restaurantId) throws Exception {
         Vote newVote = service.vote(AuthorizedUser.id(), restaurantId);
 

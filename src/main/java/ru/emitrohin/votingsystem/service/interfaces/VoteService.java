@@ -9,7 +9,7 @@ import java.util.List;
  * Date:   25.11.2016.
  */
 public interface VoteService {
-    Vote vote(int userId, int restaurantId) throws Exception;
+    Vote vote(int userId, int restaurantId);
 
     List<Vote> getAll();
 

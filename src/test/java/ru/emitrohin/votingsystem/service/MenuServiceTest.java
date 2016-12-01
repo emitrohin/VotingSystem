@@ -22,16 +22,13 @@ import static ru.emitrohin.votingsystem.testdata.RestaurantTestData.TEST_RESTAUR
 
 public class MenuServiceTest extends AbstractServiceTest {
 
-    //TODO: тест меню на дату
-    //TODO: bad request tests
-
     @Autowired
     protected MenuService service;
 
     @Test
     public void testSave() throws Exception {
         Menu newMenu = new Menu(null, LocalDate.now());
-        Menu created = service.save(newMenu, TEST_RESTAURANTS.get(3).getId());
+        Menu created = service.save(TEST_RESTAURANTS.get(3).getId());
         newMenu.setId(created.getId());
         List<Menu> result = new ArrayList<>(TEST_MENUS);
         result.add(created);
@@ -42,10 +39,11 @@ public class MenuServiceTest extends AbstractServiceTest {
     //Maybe
     @Test(expected = DataAccessException.class)
     public void testDuplicateIdAndDateSave() throws Exception {
-        service.save(new Menu(null, LocalDate.of(2016, 11, 26)), 100009);
+        TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 10, 0));
+
+        service.save(100009);
         System.out.println(service.getAll().size());
     }
-
 
     @Test
     public void testDelete() throws Exception {
@@ -70,7 +68,6 @@ public class MenuServiceTest extends AbstractServiceTest {
     public void testGet() throws Exception {
         Menu menu = service.get(100013);
         MATCHER.assertEquals(TEST_MENUS.get(1), menu);
-        RestaurantTestData.MATCHER.assertEquals(TEST_MENUS.get(1).getRestaurant(), menu.getRestaurant());
     }
 
 
@@ -78,7 +75,6 @@ public class MenuServiceTest extends AbstractServiceTest {
     public void testGetAll() throws Exception {
         Collection<Menu> all = service.getAll();
         MATCHER.assertCollectionEquals(TEST_MENUS, all);
-        //TODO: проверить в содержимом рестораны
     }
 
     @Test
@@ -87,15 +83,4 @@ public class MenuServiceTest extends AbstractServiceTest {
         Collection<Menu> all = service.getAllCurrent();
         MATCHER.assertCollectionEquals(TEST_MENUS, all);
     }
-
-    //TODO: прикрутить еду?
-  /*  @Test
-    public void testUpdate() throws Exception {
-        Menu updated = new Restaurant(TEST_RESTAURANTS.get(0));
-        updated.setName("UpdatedName");
-        updated.setImageLink("UpdatedLink");
-        service.update(updated);
-        MATCHER.assertEquals(updated, service.get(100008));
-    }*/
-
 }

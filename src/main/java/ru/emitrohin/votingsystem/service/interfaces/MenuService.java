@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface MenuService extends AbstractService<Menu> {
 
-    Menu save(Menu item, int restaurantID);
+    Menu save(int restaurantID);
 
     Menu getByRestaurantId(int restaurantId);
 

@@ -1,10 +1,12 @@
 package ru.emitrohin.votingsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author emitrohin
@@ -24,6 +26,10 @@ public class Menu extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
+
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "menu")
+    @JsonManagedReference
+    private List<DishMenu> dishMenus;
 
     public Menu() {
     }
@@ -52,5 +58,13 @@ public class Menu extends BaseEntity {
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public List<DishMenu> getDishMenus() {
+        return dishMenus;
+    }
+
+    public void setDishMenus(List<DishMenu> dishMenus) {
+        this.dishMenus = dishMenus;
     }
 }

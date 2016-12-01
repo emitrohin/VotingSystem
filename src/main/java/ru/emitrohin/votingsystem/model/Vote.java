@@ -1,5 +1,7 @@
 package ru.emitrohin.votingsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -21,6 +23,7 @@ public class Vote extends BaseEntity {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @NotNull
