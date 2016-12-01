@@ -6,6 +6,7 @@ import ru.emitrohin.votingsystem.model.Menu;
 import ru.emitrohin.votingsystem.repository.datajpa.JpaMenuRepository;
 import ru.emitrohin.votingsystem.repository.datajpa.JpaRestaurantRepository;
 import ru.emitrohin.votingsystem.repository.interfaces.MenuRepository;
+import ru.emitrohin.votingsystem.util.TimeUtil;
 
 import java.util.List;
 
@@ -46,5 +47,10 @@ public class MenuRepositoryImpl implements MenuRepository {
     @Override
     public List<Menu> getAll() {
         return menuRepository.findAll();
+    }
+
+    @Override
+    public List<Menu> getAllCurrent() {
+        return menuRepository.findAllByDateOfMenu(TimeUtil.now());
     }
 }

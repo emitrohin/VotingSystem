@@ -14,7 +14,7 @@ INSERT INTO users (login, password, email, first_name, last_name, enabled) VALUE
   ('N_Gimaldinova', 'gimaldinona', 'ngimaldinova@nomail.com', 'Наталья', 'Гимальдинова', TRUE),
   ('A_Ustumov', 'ustimov', 'austimov@nomail.com', 'Александр', 'Устимов', TRUE),
   ('N_Dubanich', 'dubanich', 'ndubanich@nomail.com', 'Николай', 'Дубанич', FALSE),
-  ('O_Domashnikov', 'domashnikov', 'odomashnikov@nomail.com', 'Олег', 'Домашников', FALSE);
+  ('O_Domashnikov', 'domashnikov', 'odomashnikov@nomail.com', 'Олег', 'Домашников', TRUE);
 
 INSERT INTO user_roles (user_id, role) VALUES
   (100000, 'ROLE_USER'),

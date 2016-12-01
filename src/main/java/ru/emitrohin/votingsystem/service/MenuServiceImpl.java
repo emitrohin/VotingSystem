@@ -44,10 +44,11 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Menu> getAll() {
-        //TODO: get filtering by current date and greater
         return repository.getAll();
     }
 
-    //TODO: get all by date
-
+    @Override
+    public List<Menu> getAllCurrent() {
+        return repository.getAllCurrent();
+    }
 }

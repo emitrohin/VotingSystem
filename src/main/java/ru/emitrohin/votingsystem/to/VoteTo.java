@@ -12,33 +12,38 @@ import java.util.Map;
  */
 public class VoteTo {
 
-    private int winnerId;
-    private Map<String, Integer> results;
+    private String winnerName;
+    private HashMap<String, Integer> results;
     private boolean votingIsOver;
 
-    public VoteTo(int winnerId, Map<String, Integer> results, boolean votingIsOver) {
-        this.winnerId = winnerId;
+    public VoteTo() {
+    }
+
+    public VoteTo(String winnerName, HashMap<String, Integer> results, boolean votingIsOver) {
+        this.winnerName = winnerName;
         this.results = results;
         this.votingIsOver = votingIsOver;
     }
 
     public static VoteTo parseSubTotals(List<Vote> voteList) {
-        return new VoteTo(-1, parseVoteList(voteList), false);
+        return new VoteTo("Name will be available after 11:00", parseVoteList(voteList), false);
     }
 
     public static VoteTo parseResults(List<Vote> voteList) {
-        Map<String, Integer> map = parseVoteList(voteList);
-        int winnerId = map.values().stream().max(Integer::compareTo).orElse(0);
-        return new VoteTo(winnerId, map, true);
+        HashMap<String, Integer> map = parseVoteList(voteList);
+        String name = map.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey();
+        return new VoteTo(name, map, true);
     }
 
-    public static Map<String, Integer> parseVoteList(List<Vote> voteList) {
-        Map<String, Integer> map = new HashMap<>();
+    public static HashMap<String, Integer> parseVoteList(List<Vote> voteList) {
+        HashMap<String, Integer> map = new HashMap<>();
         for (Vote v : voteList) {
-            if (map.containsKey(v.getRestaurant().getName()))
+            Integer count = map.get(v.getRestaurant().getName());
+            if (count == null) {
                 map.put(v.getRestaurant().getName(), 1);
-            else
-                map.put(v.getRestaurant().getName(), map.get(v.getRestaurant().getName()) + 1);
+            } else {
+                map.put(v.getRestaurant().getName(), count + 1);
+            }
         }
         return map;
     }
@@ -47,7 +52,7 @@ public class VoteTo {
         return results;
     }
 
-    public void setResults(Map<String, Integer> results) {
+    public void setResults(HashMap<String, Integer> results) {
         this.results = results;
     }
 
@@ -59,12 +64,12 @@ public class VoteTo {
         this.votingIsOver = votingIsOver;
     }
 
-    public int getWinnerId() {
-        return winnerId;
+    public String getWinnerName() {
+        return winnerName;
     }
 
-    public void setWinnerId(int winnerId) {
-        this.winnerId = winnerId;
+    public void setWinnerName(String winnerName) {
+        this.winnerName = winnerName;
     }
 
 

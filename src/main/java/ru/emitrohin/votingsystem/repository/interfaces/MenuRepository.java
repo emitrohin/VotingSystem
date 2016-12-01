@@ -2,6 +2,8 @@ package ru.emitrohin.votingsystem.repository.interfaces;
 
 import ru.emitrohin.votingsystem.model.Menu;
 
+import java.util.List;
+
 /**
  * @author emitrohin
  * @version 1.0
@@ -9,4 +11,6 @@ import ru.emitrohin.votingsystem.model.Menu;
  */
 public interface MenuRepository extends AbstractRepository<Menu> {
     Menu save(Menu menu, int restaurantId);
+
+    List<Menu> getAllCurrent();
 }

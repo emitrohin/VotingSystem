@@ -41,7 +41,7 @@ public class UserTestData {
         TEST_USERS.add(new User(100003, "Y_Mitrohina", "mitrohina", "ymitrohina@nomail.com", "Юлия", "Митрохина", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
         TEST_USERS.add(new User(100004, "N_Gimaldinova", "gimaldinona", "ngimaldinova@nomail.com", "Наталья", "Гимальдинова", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
         TEST_USERS.add(new User(100005, "A_Ustumov", "ustimov", "austimov@nomail.com", "Александр", "Устимов", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
-        TEST_USERS.add(new User(100006, "N_Dubanich", "dubanich", "ndubanich@nomail.com", "Николай", "Дубанич", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
+        TEST_USERS.add(new User(100006, "N_Dubanich", "dubanich", "ndubanich@nomail.com", "Николай", "Дубанич", false, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
         TEST_USERS.add(new User(100007, "O_Domashnikov", "domashnikov", "odomashnikov@nomail.com", "Олег", "Домашников", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
     }
 

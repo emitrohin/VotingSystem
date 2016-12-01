@@ -18,8 +18,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static ru.emitrohin.votingsystem.TestUtil.userHttpBasic;
 import static ru.emitrohin.votingsystem.testdata.RestaurantTestData.MATCHER;
 import static ru.emitrohin.votingsystem.testdata.RestaurantTestData.TEST_RESTAURANTS;
+import static ru.emitrohin.votingsystem.testdata.UserTestData.TEST_USERS;
 
 public class RestaurantControllerTest extends AbstractControllerTest {
 
@@ -30,18 +32,18 @@ public class RestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL + 100008))
-                // .with(userHttpBasic(ADMIN)))
+        mockMvc.perform(get(REST_URL + 100008)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andDo(print())
                 .andExpect(status().isOk())
-// https://jira.spring.io/browse/SPR-14472
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentMatcher(TEST_RESTAURANTS.get(0)));
     }
 
     @Test
     public void testGetNotFound() throws Exception {
-        mockMvc.perform(get(REST_URL + 1))
+        mockMvc.perform(get(REST_URL + 1)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isUnprocessableEntity())
                 .andDo(print());
     }
@@ -49,7 +51,8 @@ public class RestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     public void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL + 100008))
+        mockMvc.perform(delete(REST_URL + 100008)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andDo(print())
                 .andExpect(status().isOk());
         List<Restaurant> result = new ArrayList<>(TEST_RESTAURANTS);
@@ -59,7 +62,8 @@ public class RestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     public void testDeleteNotFound() throws Exception {
-        mockMvc.perform(delete(REST_URL + 1))
+        mockMvc.perform(delete(REST_URL + 1)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isUnprocessableEntity())
                 .andDo(print());
     }
@@ -70,6 +74,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
         Restaurant updated = new Restaurant(TEST_RESTAURANTS.get(0));
         updated.setName("UpdatedName");
         mockMvc.perform(put(REST_URL + 100008)
+                .with(userHttpBasic(TEST_USERS.get(0)))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk());
@@ -81,6 +86,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
     public void testCreate() throws Exception {
         Restaurant expected = new Restaurant(null, "WowOhMyGod", "isThatLink");
         ResultActions action = mockMvc.perform(post(REST_URL)
+                .with(userHttpBasic(TEST_USERS.get(0)))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(expected)))
                 .andExpect(status().isCreated());
@@ -97,7 +103,8 @@ public class RestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetAll() throws Exception {
-        TestUtil.print(mockMvc.perform(get(REST_URL))
+        TestUtil.print(mockMvc.perform(get(REST_URL)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentListMatcher(TEST_RESTAURANTS)));

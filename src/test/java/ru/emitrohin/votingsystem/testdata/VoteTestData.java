@@ -32,16 +32,10 @@ public class VoteTestData {
     public static List<Vote> TEST_VOTES = new ArrayList<>();
 
     static {
-        TEST_VOTES.add(new Vote(100032, TEST_RESTAURANTS.get(1), TEST_USERS.get(0), LocalDate.of(2016, 11, 26)));
-        TEST_VOTES.add(new Vote(100033, TEST_RESTAURANTS.get(1), TEST_USERS.get(1), LocalDate.of(2016, 11, 26)));
-        TEST_VOTES.add(new Vote(100034, TEST_RESTAURANTS.get(1), TEST_USERS.get(2), LocalDate.of(2016, 11, 26)));
-        TEST_VOTES.add(new Vote(100035, TEST_RESTAURANTS.get(0), TEST_USERS.get(3), LocalDate.of(2016, 11, 26)));
-        TEST_VOTES.add(new Vote(100036, TEST_RESTAURANTS.get(0), TEST_USERS.get(4), LocalDate.of(2016, 11, 26)));
-        TEST_VOTES.add(new Vote(100037, TEST_RESTAURANTS.get(2), TEST_USERS.get(5), LocalDate.of(2016, 11, 26)));
+        reinit();
     }
 
     public static void reinit() {
-        if (TEST_VOTES.size() > 0) {
             TEST_VOTES.clear();
             TEST_VOTES.add(new Vote(100032, TEST_RESTAURANTS.get(1), TEST_USERS.get(0), LocalDate.of(2016, 11, 26)));
             TEST_VOTES.add(new Vote(100033, TEST_RESTAURANTS.get(1), TEST_USERS.get(1), LocalDate.of(2016, 11, 26)));
@@ -49,8 +43,6 @@ public class VoteTestData {
             TEST_VOTES.add(new Vote(100035, TEST_RESTAURANTS.get(0), TEST_USERS.get(3), LocalDate.of(2016, 11, 26)));
             TEST_VOTES.add(new Vote(100036, TEST_RESTAURANTS.get(0), TEST_USERS.get(4), LocalDate.of(2016, 11, 26)));
             TEST_VOTES.add(new Vote(100037, TEST_RESTAURANTS.get(2), TEST_USERS.get(5), LocalDate.of(2016, 11, 26)));
-
-        }
     }
 
 }

@@ -17,9 +17,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static ru.emitrohin.votingsystem.TestUtil.userHttpBasic;
 import static ru.emitrohin.votingsystem.testdata.DishMenuTestData.MATCHER;
 import static ru.emitrohin.votingsystem.testdata.DishMenuTestData.TEST_MENU_DISHES;
 import static ru.emitrohin.votingsystem.testdata.MenuTestData.TEST_MENUS;
+import static ru.emitrohin.votingsystem.testdata.UserTestData.TEST_USERS;
 
 public class DishMenuControllerTest extends AbstractControllerTest {
 
@@ -31,17 +33,17 @@ public class DishMenuControllerTest extends AbstractControllerTest {
     @Test
     public void testGet() throws Exception {
         mockMvc.perform(get(REST_URL + 100023)
-               /* .with(userHttpBasic(TEST_USERS.get(0)))*/)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andDo(print())
                 .andExpect(status().isOk())
-// https://jira.spring.io/browse/SPR-14472
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentMatcher(TEST_MENU_DISHES.get(0)));
     }
 
     @Test
     public void testGetNotFound() throws Exception {
-        mockMvc.perform(get(REST_URL + 1))
+        mockMvc.perform(get(REST_URL + 1)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isUnprocessableEntity())
                 .andDo(print());
     }
@@ -49,7 +51,8 @@ public class DishMenuControllerTest extends AbstractControllerTest {
 
     @Test
     public void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL + 100030))
+        mockMvc.perform(delete(REST_URL + 100030)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andDo(print())
                 .andExpect(status().isOk());
         List<DishMenu> result = new ArrayList<>(TEST_MENU_DISHES);
@@ -59,7 +62,8 @@ public class DishMenuControllerTest extends AbstractControllerTest {
 
     @Test
     public void testDeleteNotFound() throws Exception {
-        mockMvc.perform(delete(REST_URL + 1))
+        mockMvc.perform(delete(REST_URL + 1)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isUnprocessableEntity())
                 .andDo(print());
     }
@@ -86,7 +90,8 @@ public class DishMenuControllerTest extends AbstractControllerTest {
   */
     @Test
     public void testGetAll() throws Exception {
-        TestUtil.print(mockMvc.perform(get(REST_URL))
+        TestUtil.print(mockMvc.perform(get(REST_URL)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentListMatcher(TEST_MENU_DISHES)));
@@ -94,7 +99,8 @@ public class DishMenuControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetAllByMenuId() throws Exception {
-        TestUtil.print(mockMvc.perform(get(REST_URL + "/menu/" + TEST_MENUS.get(0).getId()))
+        TestUtil.print(mockMvc.perform(get(REST_URL + "/menu/" + TEST_MENUS.get(0).getId())
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentListMatcher(TEST_MENU_DISHES.stream()

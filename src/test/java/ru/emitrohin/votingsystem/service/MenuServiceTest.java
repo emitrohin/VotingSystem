@@ -6,9 +6,11 @@ import org.springframework.dao.DataAccessException;
 import ru.emitrohin.votingsystem.model.Menu;
 import ru.emitrohin.votingsystem.service.interfaces.MenuService;
 import ru.emitrohin.votingsystem.testdata.RestaurantTestData;
+import ru.emitrohin.votingsystem.util.TimeUtil;
 import ru.emitrohin.votingsystem.util.exception.NotFoundException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -79,7 +81,14 @@ public class MenuServiceTest extends AbstractServiceTest {
         //TODO: проверить в содержимом рестораны
     }
 
-//TODO: прикрутить еду?
+    @Test
+    public void testGetAllCurrent() throws Exception {
+        TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 10, 0));
+        Collection<Menu> all = service.getAllCurrent();
+        MATCHER.assertCollectionEquals(TEST_MENUS, all);
+    }
+
+    //TODO: прикрутить еду?
   /*  @Test
     public void testUpdate() throws Exception {
         Menu updated = new Restaurant(TEST_RESTAURANTS.get(0));

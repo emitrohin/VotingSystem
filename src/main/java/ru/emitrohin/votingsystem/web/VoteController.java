@@ -51,11 +51,11 @@ public class VoteController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<VoteTo> results() {
         if (TimeUtil.nowTime().compareTo(LocalTime.of(11, 0)) > 0) {
-            VoteTo voteTo = VoteTo.parseSubTotals(service.getAllCurrent());
+            VoteTo voteTo = VoteTo.parseResults(service.getAllCurrent());
             return ResponseEntity.ok().body(voteTo);
         }
 
-        VoteTo voteTo = VoteTo.parseResults(service.getAllCurrent());
-        return ResponseEntity.ok().body(service.getSubtotals());
+        VoteTo voteTo = VoteTo.parseSubTotals(service.getAllCurrent());
+        return ResponseEntity.ok().body(voteTo);
     }
 }

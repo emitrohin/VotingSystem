@@ -17,6 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static ru.emitrohin.votingsystem.TestUtil.userHttpBasic;
 import static ru.emitrohin.votingsystem.model.Role.ROLE_USER;
 import static ru.emitrohin.votingsystem.testdata.UserTestData.MATCHER;
 import static ru.emitrohin.votingsystem.testdata.UserTestData.TEST_USERS;
@@ -39,18 +40,18 @@ public class UserControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL + 100000))
-               // .with(userHttpBasic(ADMIN)))
+        mockMvc.perform(get(REST_URL + 100000)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andDo(print())
                 .andExpect(status().isOk())
-// https://jira.spring.io/browse/SPR-14472
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentMatcher(TEST_USERS.get(0)));
     }
 
     @Test
     public void testGetNotFound() throws Exception {
-        mockMvc.perform(get(REST_URL + 1))
+        mockMvc.perform(get(REST_URL + 1)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isUnprocessableEntity())
                 .andDo(print());
     }
@@ -58,7 +59,8 @@ public class UserControllerTest extends AbstractControllerTest {
 
     @Test
     public void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL + 100000))
+        mockMvc.perform(delete(REST_URL + 100000)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andDo(print())
                 .andExpect(status().isOk());
         List<User> result = new ArrayList<>(TEST_USERS);
@@ -68,7 +70,8 @@ public class UserControllerTest extends AbstractControllerTest {
 
     @Test
     public void testDeleteNotFound() throws Exception {
-        mockMvc.perform(delete(REST_URL + 1))
+        mockMvc.perform(delete(REST_URL + 1)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isUnprocessableEntity())
                 .andDo(print());
     }
@@ -79,6 +82,7 @@ public class UserControllerTest extends AbstractControllerTest {
         User updated = new User(TEST_USERS.get(0));
         updated.setFirstName("UpdatedName");
         mockMvc.perform(put(REST_URL + 100000)
+                .with(userHttpBasic(TEST_USERS.get(0)))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk());
@@ -90,6 +94,7 @@ public class UserControllerTest extends AbstractControllerTest {
     public void testCreate() throws Exception {
         User expected = new User(null, "Ololosha", "Password", "new@email.not", "Ololoev", "ustimov", true, EnumSet.of(ROLE_USER));
         ResultActions action = mockMvc.perform(post(REST_URL)
+                .with(userHttpBasic(TEST_USERS.get(0)))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(expected)))
                 .andExpect(status().isCreated());
@@ -106,7 +111,8 @@ public class UserControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetAll() throws Exception {
-        TestUtil.print(mockMvc.perform(get(REST_URL))
+        TestUtil.print(mockMvc.perform(get(REST_URL)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentListMatcher(TEST_USERS)));

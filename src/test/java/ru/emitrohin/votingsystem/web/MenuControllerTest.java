@@ -19,9 +19,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static ru.emitrohin.votingsystem.TestUtil.userHttpBasic;
 import static ru.emitrohin.votingsystem.testdata.MenuTestData.MATCHER;
 import static ru.emitrohin.votingsystem.testdata.MenuTestData.TEST_MENUS;
 import static ru.emitrohin.votingsystem.testdata.RestaurantTestData.TEST_RESTAURANTS;
+import static ru.emitrohin.votingsystem.testdata.UserTestData.TEST_USERS;
 
 public class MenuControllerTest extends AbstractControllerTest {
 
@@ -33,7 +35,7 @@ public class MenuControllerTest extends AbstractControllerTest {
     @Test
     public void testGet() throws Exception {
         mockMvc.perform(get(REST_URL + 100012)
-               /* .with(userHttpBasic(TEST_USERS.get(0)))*/)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andDo(print())
                 .andExpect(status().isOk())
 // https://jira.spring.io/browse/SPR-14472
@@ -43,7 +45,8 @@ public class MenuControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetNotFound() throws Exception {
-        mockMvc.perform(get(REST_URL + 1))
+        mockMvc.perform(get(REST_URL + 1)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isUnprocessableEntity())
                 .andDo(print());
     }
@@ -51,7 +54,8 @@ public class MenuControllerTest extends AbstractControllerTest {
 
     @Test
     public void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL + 100012))
+        mockMvc.perform(delete(REST_URL + 100012)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andDo(print())
                 .andExpect(status().isOk());
         List<Menu> result = new ArrayList<>(TEST_MENUS);
@@ -61,7 +65,8 @@ public class MenuControllerTest extends AbstractControllerTest {
 
     @Test
     public void testDeleteNotFound() throws Exception {
-        mockMvc.perform(delete(REST_URL + 1))
+        mockMvc.perform(delete(REST_URL + 1)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isUnprocessableEntity())
                 .andDo(print());
     }
@@ -71,6 +76,7 @@ public class MenuControllerTest extends AbstractControllerTest {
         Menu expected = new Menu(null, LocalDate.of(2016, 11, 26));
 
         ResultActions action = mockMvc.perform(post(REST_URL + "/restaurant/" + TEST_RESTAURANTS.get(3).getId())
+                .with(userHttpBasic(TEST_USERS.get(0)))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(expected)))
                 .andExpect(status().isCreated());
@@ -88,7 +94,8 @@ public class MenuControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetAll() throws Exception {
-        TestUtil.print(mockMvc.perform(get(REST_URL))
+        TestUtil.print(mockMvc.perform(get(REST_URL)
+                .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentListMatcher(TEST_MENUS)));

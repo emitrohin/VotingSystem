@@ -1,7 +1,6 @@
 package ru.emitrohin.votingsystem.service.interfaces;
 
 import ru.emitrohin.votingsystem.model.Vote;
-import ru.emitrohin.votingsystem.to.VoteTo;
 
 import java.util.List;
 
@@ -11,8 +10,6 @@ import java.util.List;
  */
 public interface VoteService {
     Vote vote(int userId, int restaurantId) throws Exception;
-
-    VoteTo getSubtotals();
 
     List<Vote> getAll();
 

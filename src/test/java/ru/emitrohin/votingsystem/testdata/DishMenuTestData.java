@@ -24,13 +24,10 @@ public class DishMenuTestData {
                     (
                             Objects.equals(expected.getId(), actual.getId())
                                     && Objects.equals(expected.getDish().getId(), actual.getDish().getId())
-                                   /*   && Objects.equals(expected.getDish().getImageLink(), actual.getDish().getImageLink())*/
                                     && Objects.equals(expected.getMenu().getId(), actual.getMenu().getId())
                     )
     );
     private static final Logger LOG = LoggerFactory.getLogger(DishMenuTestData.class);
-
-    //TODO: decide whether it is needed to compare image links
 
     static {
         TEST_MENU_DISHES.add(new DishMenu(100023, TEST_MENUS.get(0), TEST_DISHES.get(0), 150.00));

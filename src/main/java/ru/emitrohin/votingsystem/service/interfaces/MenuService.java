@@ -2,6 +2,8 @@ package ru.emitrohin.votingsystem.service.interfaces;
 
 import ru.emitrohin.votingsystem.model.Menu;
 
+import java.util.List;
+
 /**
  * @author emitrohin
  * @version 1.0
@@ -10,4 +12,6 @@ import ru.emitrohin.votingsystem.model.Menu;
 public interface MenuService extends AbstractService<Menu> {
 
     Menu save(Menu item, int restaurantID);
+
+    List<Menu> getAllCurrent();
 }

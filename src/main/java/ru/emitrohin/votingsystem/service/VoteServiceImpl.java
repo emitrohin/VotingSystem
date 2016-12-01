@@ -8,7 +8,6 @@ import ru.emitrohin.votingsystem.repository.interfaces.RestaurantRepository;
 import ru.emitrohin.votingsystem.repository.interfaces.UserRepository;
 import ru.emitrohin.votingsystem.repository.interfaces.VoteRepository;
 import ru.emitrohin.votingsystem.service.interfaces.VoteService;
-import ru.emitrohin.votingsystem.to.VoteTo;
 import ru.emitrohin.votingsystem.util.TimeUtil;
 import ru.emitrohin.votingsystem.util.exception.ExceptionUtil;
 
@@ -64,11 +63,6 @@ public class VoteServiceImpl implements VoteService {
     @Override
     public List<Vote> getAllCurrent() {
         return repository.getAllCurrent(TimeUtil.now());
-    }
-
-    @Override
-    public VoteTo getSubtotals() {
-        return null;
     }
 }
 
