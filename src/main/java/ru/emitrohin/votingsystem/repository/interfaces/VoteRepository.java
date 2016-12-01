@@ -1,7 +1,6 @@
 package ru.emitrohin.votingsystem.repository.interfaces;
 
 import ru.emitrohin.votingsystem.model.Vote;
-import ru.emitrohin.votingsystem.to.VoteTo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,10 +13,6 @@ import java.util.List;
 public interface VoteRepository {
 
     Vote save(Vote vote);
-
-    VoteTo getFinalResult();
-
-    VoteTo getSubtotals();
 
     Vote getByUserId(int userId);
 

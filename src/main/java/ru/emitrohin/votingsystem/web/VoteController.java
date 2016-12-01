@@ -15,7 +15,8 @@ import ru.emitrohin.votingsystem.to.VoteTo;
 import ru.emitrohin.votingsystem.util.TimeUtil;
 
 import java.net.URI;
-import java.time.LocalTime;
+
+import static ru.emitrohin.votingsystem.util.TimeUtil.VOTING_TIME;
 
 /**
  * @author emitrohin
@@ -50,7 +51,7 @@ public class VoteController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<VoteTo> results() {
-        if (TimeUtil.nowTime().compareTo(LocalTime.of(11, 0)) > 0) {
+        if (TimeUtil.nowTime().compareTo(VOTING_TIME) > 0) {
             VoteTo voteTo = VoteTo.parseResults(service.getAllCurrent());
             return ResponseEntity.ok().body(voteTo);
         }

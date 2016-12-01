@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import ru.emitrohin.votingsystem.model.Vote;
 import ru.emitrohin.votingsystem.repository.datajpa.JpaVoteRepository;
 import ru.emitrohin.votingsystem.repository.interfaces.VoteRepository;
-import ru.emitrohin.votingsystem.to.VoteTo;
 import ru.emitrohin.votingsystem.util.TimeUtil;
 
 import java.time.LocalDate;
@@ -29,16 +28,6 @@ public class VoteRepositoryImpl implements VoteRepository {
     @Override
     public Vote save(Vote vote) {
         return repository.save(vote);
-    }
-
-    @Override
-    public VoteTo getFinalResult() {
-        return null;
-    }
-
-    @Override
-    public VoteTo getSubtotals() {
-        return null;
     }
 
     @Override

@@ -23,12 +23,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @param <T> : Entity
  */
+
+@SuppressWarnings("unchecked")
 public class ModelMatcher<T> {
     private static final Comparator DEFAULT_COMPARATOR =
             (Object expected, Object actual) -> expected == actual || String.valueOf(expected).equals(String.valueOf(actual));
 
     private Comparator<T> comparator;
     private Class<T> entityClass;
+
 
     public ModelMatcher(Class<T> entityClass) {
         this(entityClass, (Comparator<T>) DEFAULT_COMPARATOR);

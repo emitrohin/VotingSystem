@@ -21,12 +21,9 @@ public class DishServiceImpl implements DishService {
 
     private DishRepository repository;
 
-    private MenuRepository menuRepository;
-
     @Autowired
     public DishServiceImpl(DishRepository repository, MenuRepository menuRepository) {
         this.repository = repository;
-        this.menuRepository = menuRepository;
     }
 
     @Override
@@ -34,8 +31,6 @@ public class DishServiceImpl implements DishService {
         Assert.notNull(dish, "dish must not be null");
         return repository.save(dish);
     }
-
-    //TODO: save to multiple menus with menus which date is greater than now
 
     @Override
     public void delete(int id) {

@@ -23,6 +23,7 @@ public class RestaurantTestData {
                                     && Objects.equals(expected.getImageLink(), actual.getImageLink())
                     )
     );
+
     private static final Logger LOG = LoggerFactory.getLogger(RestaurantTestData.class);
 
     static {

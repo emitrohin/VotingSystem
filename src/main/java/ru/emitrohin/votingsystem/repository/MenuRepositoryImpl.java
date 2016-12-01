@@ -45,6 +45,11 @@ public class MenuRepositoryImpl implements MenuRepository {
     }
 
     @Override
+    public Menu getByRestaurantId(int restaurantId) {
+        return menuRepository.findOneByRestaurantIdAndDateOfMenu(restaurantId, TimeUtil.now());
+    }
+
+    @Override
     public List<Menu> getAll() {
         return menuRepository.findAll();
     }

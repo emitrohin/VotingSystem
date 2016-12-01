@@ -82,7 +82,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User is not found");
         }
-        AuthorizedUser a = new AuthorizedUser(user);
-        return a;
+        return new AuthorizedUser(user);
     }
 }

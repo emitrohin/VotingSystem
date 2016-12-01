@@ -58,6 +58,13 @@ public class VoteServiceTest extends AbstractServiceTest {
         service.vote(TEST_USERS.get(0).getId(), TEST_RESTAURANTS.get(1).getId());
     }
 
+    @Test(expected = Exception.class)
+    public void testVoteWhenNoMenuIsPresent() throws Exception {
+        TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 9, 0));
+        service.vote(TEST_USERS.get(0).getId(), TEST_RESTAURANTS.get(3).getId());
+    }
+
+
     @Test
     public void testGetAll() throws Exception {
         TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 0, 0));

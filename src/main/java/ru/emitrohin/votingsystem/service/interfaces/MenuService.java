@@ -13,5 +13,7 @@ public interface MenuService extends AbstractService<Menu> {
 
     Menu save(Menu item, int restaurantID);
 
+    Menu getByRestaurantId(int restaurantId);
+
     List<Menu> getAllCurrent();
 }

@@ -12,5 +12,7 @@ import java.util.List;
 public interface MenuRepository extends AbstractRepository<Menu> {
     Menu save(Menu menu, int restaurantId);
 
+    Menu getByRestaurantId(int restaurantId);
+
     List<Menu> getAllCurrent();
 }

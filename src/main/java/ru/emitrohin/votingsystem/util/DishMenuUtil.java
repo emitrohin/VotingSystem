@@ -24,10 +24,4 @@ public class DishMenuUtil {
                 dishMenu.getDish().getId(),
                 dishMenu.getPrice());
     }
-
-    public static DishMenu updateFromTo(DishMenu dishMenu, DishMenuTo dishMenuTo) {
-        dishMenu.setPrice(dishMenuTo.getPrice());
-        return dishMenu;
-    }
-
 }

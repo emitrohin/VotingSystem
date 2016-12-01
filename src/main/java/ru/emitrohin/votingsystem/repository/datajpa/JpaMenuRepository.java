@@ -30,4 +30,6 @@ public interface JpaMenuRepository extends Repository<Menu, Integer> {
     List<Menu> findAll();
 
     List<Menu> findAllByDateOfMenu(LocalDate now);
+
+    Menu findOneByRestaurantIdAndDateOfMenu(int restaurantId, LocalDate now);
 }
