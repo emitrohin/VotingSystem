@@ -271,6 +271,9 @@
 
     <profiles>
         <profile>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <id>hsqldb</id>
             <dependencies>
                 <dependency>
