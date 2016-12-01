@@ -43,9 +43,9 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Test
     public void testDelete() throws Exception {
-        service.delete(100000);
+        service.delete(100005);
         List<User> result = new ArrayList<>(TEST_USERS);
-        result.remove(result.get(0));
+        result.remove(result.get(5));
         MATCHER.assertCollectionEquals(Collections.unmodifiableList(result), service.getAll());
     }
 

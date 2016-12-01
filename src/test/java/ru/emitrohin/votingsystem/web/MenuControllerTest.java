@@ -7,9 +7,11 @@ import org.springframework.test.web.servlet.ResultActions;
 import ru.emitrohin.votingsystem.TestUtil;
 import ru.emitrohin.votingsystem.model.Menu;
 import ru.emitrohin.votingsystem.service.interfaces.MenuService;
+import ru.emitrohin.votingsystem.util.TimeUtil;
 import ru.emitrohin.votingsystem.web.json.JsonUtil;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -32,13 +34,21 @@ public class MenuControllerTest extends AbstractControllerTest {
     @Autowired
     protected MenuService menuService;
 
+
+    @Test
+    public void testNotAdmin() throws Exception {
+        mockMvc.perform(delete(REST_URL + 100012)
+                .with(userHttpBasic(TEST_USERS.get(2))))
+                .andExpect(status().isForbidden());
+    }
+
+
     @Test
     public void testGet() throws Exception {
         mockMvc.perform(get(REST_URL + 100012)
                 .with(userHttpBasic(TEST_USERS.get(0))))
                 .andDo(print())
                 .andExpect(status().isOk())
-// https://jira.spring.io/browse/SPR-14472
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentMatcher(TEST_MENUS.get(0)));
     }
@@ -94,6 +104,8 @@ public class MenuControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetAll() throws Exception {
+        TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 10, 0));
+
         TestUtil.print(mockMvc.perform(get(REST_URL)
                 .with(userHttpBasic(TEST_USERS.get(0))))
                 .andExpect(status().isOk())

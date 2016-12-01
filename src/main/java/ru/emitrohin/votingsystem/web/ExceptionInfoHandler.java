@@ -6,6 +6,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -29,7 +30,6 @@ public class ExceptionInfoHandler {
 
     Logger LOG = LoggerFactory.getLogger(ExceptionInfoHandler.class);
 
-    //  http://stackoverflow.com/a/22358422/548473
     @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(NotFoundException.class)
     @ResponseBody
@@ -60,6 +60,14 @@ public class ExceptionInfoHandler {
     @Order(Ordered.HIGHEST_PRECEDENCE + 2)
     public ErrorInfo restValidationError(HttpServletRequest req, MethodArgumentNotValidException e) {
         return logAndGetValidationErrorInfo(req, e.getBindingResult());
+    }
+
+    @ResponseStatus(value = HttpStatus.FORBIDDEN)
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseBody
+    @Order(Ordered.HIGHEST_PRECEDENCE + 3)
+    public ErrorInfo handleError(HttpServletRequest req, AccessDeniedException e) {
+        return logAndGetErrorInfo(req, e, false);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

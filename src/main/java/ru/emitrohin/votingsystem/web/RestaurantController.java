@@ -3,6 +3,7 @@ package ru.emitrohin.votingsystem.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.emitrohin.votingsystem.model.Restaurant;
@@ -32,6 +33,7 @@ public class RestaurantController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("ROLE_ADMIN")
     public List<Restaurant> restaurants() {
         return service.getAll();
     }
@@ -43,22 +45,26 @@ public class RestaurantController {
 
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("ROLE_ADMIN")
     public Restaurant get(@PathVariable("id") int id) {
         return service.get(id);
     }
 
     @DeleteMapping(value = "/{id}")
+    @Secured("ROLE_ADMIN")
     public void delete(@PathVariable("id") int id) {
         service.delete(id);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("ROLE_ADMIN")
     public void update(@RequestBody Restaurant restaurant, @PathVariable("id") int id) {
         restaurant.setId(id);
         service.update(restaurant);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<Restaurant> create(@RequestBody Restaurant restaurant) {
         Restaurant created = service.save(restaurant);
 

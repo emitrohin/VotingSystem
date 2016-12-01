@@ -16,6 +16,8 @@ import ru.emitrohin.votingsystem.util.exception.ExceptionUtil;
 
 import java.util.List;
 
+import static ru.emitrohin.votingsystem.util.UserUtil.prepareToSave;
+
 /**
  * Author: E_Mitrohin
  * Date:   18.11.2016.
@@ -35,7 +37,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @CacheEvict(value = "users", allEntries = true)
     public User save(User user) {
         Assert.notNull(user, "user must not be null");
-        return repository.save(user);
+        return repository.save(prepareToSave(user));
     }
 
     @Override
@@ -52,9 +54,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
-        /*user.setPassword(PasswordUtil.encode(user.getPassword()));
-        user.setEmail(user.getEmail().toLowerCase());*/
-        repository.save(user);
+        repository.save(prepareToSave(user));
     }
 
     @Cacheable("users")

@@ -7,14 +7,22 @@ DELETE FROM users;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 INSERT INTO users (login, password, email, first_name, last_name, enabled) VALUES
-  ('E_Mitrohin', 'admin', 'emitrohin@icloud.com', 'Евгений', 'Митрохин', TRUE),
-  ('D_Uskov', 'uskov', 'duskov@nomail.com', 'Денис', 'Усков', TRUE),
-  ('L_Lapteva', 'lapteva', 'llapteva@nomail.com', 'Людмила', 'Лаптева', TRUE),
-  ('Y_Mitrohina', 'mitrohina', 'ymitrohina@nomail.com', 'Юлия', 'Митрохина', TRUE),
-  ('N_Gimaldinova', 'gimaldinona', 'ngimaldinova@nomail.com', 'Наталья', 'Гимальдинова', TRUE),
-  ('A_Ustumov', 'ustimov', 'austimov@nomail.com', 'Александр', 'Устимов', TRUE),
-  ('N_Dubanich', 'dubanich', 'ndubanich@nomail.com', 'Николай', 'Дубанич', FALSE),
-  ('O_Domashnikov', 'domashnikov', 'odomashnikov@nomail.com', 'Олег', 'Домашников', TRUE);
+  ('E_Mitrohin', '$2a$10$5bpi0FCtWcfNcBgGhi9Peuyr.G.2MEIq4a6HEx5zebePevh3NqoPS', 'emitrohin@icloud.com', 'Евгений',
+   'Митрохин', TRUE),
+  ('D_Uskov', '$2a$10$K9vI/76VvCRYrw3PF8ddruQ7yoKAZ1chZ72UxBGy4wg1L/.t7pkrW', 'duskov@nomail.com', 'Денис', 'Усков',
+   TRUE),
+  ('L_Lapteva', '$2a$10$snhPy3Fb1NW2DPMNyT837unvZ/tlmf.yNvs3rgTWRck2oAgFGMEMC', 'llapteva@nomail.com', 'Людмила',
+   'Лаптева', TRUE),
+  ('Y_Mitrohina', '$2a$10$5p87KOjDCFlrA27jQhxgn.it.k./Cp6n/8lmaezMOazNry4oF5lKS', 'ymitrohina@nomail.com', 'Юлия',
+   'Митрохина', TRUE),
+  ('N_Gimaldinova', '$2a$10$8rI7OiAhHGrElGjrXDKShura4KsQYPeysdK9PQhYHohgaSRoVJ6o2', 'ngimaldinova@nomail.com',
+   'Наталья', 'Гимальдинова', TRUE),
+  ('A_Ustumov', '$2a$10$MaLNbzeCSVycZlALJEIxdeJrHvlpAfrk5p/qDL82DoidAyAdNH38W', 'austimov@nomail.com', 'Александр',
+   'Устимов', TRUE),
+  ('N_Dubanich', '$2a$10$bxYH2kDBhVbWy7GyWOfx4eKkcfR88FYmx4FKdLXv1jkJAha58O0xa', 'ndubanich@nomail.com', 'Николай',
+   'Дубанич', FALSE),
+  ('O_Domashnikov', '$2a$10$cfhDk5kp/THYri2HcoN6c.21/8CgktQMD141UhhpaC.Sm/7oplDDi', 'odomashnikov@nomail.com', 'Олег',
+   'Домашников', TRUE);
 
 INSERT INTO user_roles (user_id, role) VALUES
   (100000, 'ROLE_USER'),

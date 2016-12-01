@@ -1,13 +1,19 @@
 package ru.emitrohin.votingsystem.web;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ru.emitrohin.votingsystem.View;
 import ru.emitrohin.votingsystem.model.User;
 import ru.emitrohin.votingsystem.service.interfaces.UserService;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -19,6 +25,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(UserController.CONTROLLER_URL)
+@Secured("ROLE_ADMIN")
 public class UserController {
 
     static final String CONTROLLER_URL = RootController.REST_URL + "users/";
@@ -36,6 +43,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @JsonView(View.REST.class)
     public User get(@PathVariable("id") int id) {
         return service.get(id);
     }
@@ -45,14 +53,17 @@ public class UserController {
         service.delete(id);
     }
 
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody User user, @PathVariable("id") int id) {
-        user.setId(id);
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void update(@Valid @RequestBody User user, BindingResult bindingResult) throws BindException {
+        if (bindingResult.hasErrors()) {
+            throw new BindException(bindingResult);
+        }
+
         service.update(user);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> create(@RequestBody User user) {
+    public ResponseEntity<User> create(@Valid @RequestBody User user) {
         User created = service.save(user);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -60,6 +71,11 @@ public class UserController {
                 .buildAndExpand(created.getId()).toUri();
 
         return ResponseEntity.created(uriOfNewResource).body(created);
+    }
+
+    @PostMapping(value = "/enable/{id}")
+    public void enabled(@PathVariable("id") int id, @RequestParam("enabled") boolean enabled) {
+        service.enable(id, enabled);
     }
 
 }

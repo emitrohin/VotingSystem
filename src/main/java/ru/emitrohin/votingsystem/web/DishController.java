@@ -3,6 +3,7 @@ package ru.emitrohin.votingsystem.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.emitrohin.votingsystem.model.Dish;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(DishController.CONTROLLER_URL)
+@Secured("ROLE_ADMIN")
 public class DishController {
 
     static final String CONTROLLER_URL = RootController.REST_URL + "dishes/";

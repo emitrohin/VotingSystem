@@ -20,21 +20,26 @@ import static ru.emitrohin.votingsystem.model.Role.ROLE_USER;
  */
 public class UserTestData {
 
+    private static final Logger LOG = LoggerFactory.getLogger(UserTestData.class);
     public static final ModelMatcher<User> MATCHER = ModelMatcher.of(User.class,
             (expected, actual) -> expected == actual ||
-                    (/*comparePassword(expected.getPassword(), actual.getPassword())*/
+                    (
                             Objects.equals(expected.getId(), actual.getId())
                                     && Objects.equals(expected.getFirstName(), actual.getFirstName())
                                     && Objects.equals(expected.getLastName(), actual.getLastName())
                                     && Objects.equals(expected.getEmail(), actual.getEmail())
                                     && Objects.equals(expected.getLogin(), actual.getLogin())
-                                    && Objects.equals(expected.getPassword(), actual.getPassword())
+                                    && comparePassword(expected.getPassword(), actual.getPassword())
                     )
     );
-    private static final Logger LOG = LoggerFactory.getLogger(UserTestData.class);
     public static List<User> TEST_USERS = new ArrayList<>();
 
     static {
+        reinit();
+    }
+
+    public static void reinit() {
+        TEST_USERS.clear();
         TEST_USERS.add(new User(100000, "E_Mitrohin", "admin", "emitrohin@icloud.com", "Евгений", "Митрохин", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
         TEST_USERS.add(new User(100001, "D_Uskov", "uskov", "duskov@nomail.com", "Денис", "Усков", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
         TEST_USERS.add(new User(100002, "L_Lapteva", "lapteva", "llapteva@nomail.com", "Людмила", "Лаптева", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));

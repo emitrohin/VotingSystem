@@ -30,6 +30,15 @@ public class DishControllerTest extends AbstractControllerTest {
     @Autowired
     protected DishService dishService;
 
+
+    @Test
+    public void testNotAdmin() throws Exception {
+        mockMvc.perform(get(REST_URL + 100015)
+                .with(userHttpBasic(TEST_USERS.get(2))))
+                .andDo(print())
+                .andExpect(status().isForbidden());
+    }
+
     @Test
     public void testGet() throws Exception {
         mockMvc.perform(get(REST_URL + 100015)

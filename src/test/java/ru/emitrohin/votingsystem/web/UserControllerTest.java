@@ -19,8 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.emitrohin.votingsystem.TestUtil.userHttpBasic;
 import static ru.emitrohin.votingsystem.model.Role.ROLE_USER;
-import static ru.emitrohin.votingsystem.testdata.UserTestData.MATCHER;
-import static ru.emitrohin.votingsystem.testdata.UserTestData.TEST_USERS;
+import static ru.emitrohin.votingsystem.testdata.UserTestData.*;
 
 public class UserControllerTest extends AbstractControllerTest {
 
@@ -37,6 +36,15 @@ public class UserControllerTest extends AbstractControllerTest {
         userService.evictCache();
         jpaUtil.clear2ndLevelHibernateCache();
     }
+
+
+    @Test
+    public void testNotAdmin() throws Exception {
+        mockMvc.perform(delete(REST_URL + 100000)
+                .with(userHttpBasic(TEST_USERS.get(2))))
+                .andExpect(status().isForbidden());
+    }
+
 
     @Test
     public void testGet() throws Exception {
@@ -59,12 +67,12 @@ public class UserControllerTest extends AbstractControllerTest {
 
     @Test
     public void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL + 100000)
+        mockMvc.perform(delete(REST_URL + 100006)
                 .with(userHttpBasic(TEST_USERS.get(0))))
                 .andDo(print())
                 .andExpect(status().isOk());
         List<User> result = new ArrayList<>(TEST_USERS);
-        result.remove(result.get(0));
+        result.remove(result.get(6));
         MATCHER.assertCollectionEquals(Collections.unmodifiableList(result), userService.getAll());
     }
 
@@ -79,15 +87,17 @@ public class UserControllerTest extends AbstractControllerTest {
 
     @Test
     public void testUpdate() throws Exception {
-        User updated = new User(TEST_USERS.get(0));
+        User updated = TEST_USERS.get(2);
         updated.setFirstName("UpdatedName");
-        mockMvc.perform(put(REST_URL + 100000)
+
+        ResultActions action = mockMvc.perform(put(REST_URL)
                 .with(userHttpBasic(TEST_USERS.get(0)))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk());
 
-        MATCHER.assertEquals(updated, userService.get(100000));
+        MATCHER.assertEquals(updated, userService.get(100002));
+        reinit();
     }
 
     @Test

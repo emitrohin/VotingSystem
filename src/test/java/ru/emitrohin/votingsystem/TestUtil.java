@@ -23,11 +23,6 @@ public class TestUtil {
         return action.andReturn().getResponse().getContentAsString();
     }
 
-   /* public static void mockAuthorize(User user) {
-        SecurityContextHolder.getContext().setAuthentication(
-                new UsernamePasswordAuthenticationToken(new AuthorizedUser(user), null, user.getRoles()));
-    }*/
-
     public static RequestPostProcessor userHttpBasic(User user) {
         return SecurityMockMvcRequestPostProcessors.httpBasic(user.getLogin(), user.getPassword());
     }

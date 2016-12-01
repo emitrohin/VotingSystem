@@ -1,5 +1,6 @@
 package ru.emitrohin.votingsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -7,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.util.CollectionUtils;
+import ru.emitrohin.votingsystem.View;
 import ru.emitrohin.votingsystem.util.TimeUtil;
 
 import javax.persistence.*;
@@ -33,6 +35,7 @@ public class User extends BaseEntity {
     @NotEmpty
     @Length(min = 8)
     @SafeHtml
+    @JsonView(View.REST.class)
     private String password;
 
     @NotEmpty

@@ -31,6 +31,14 @@ public class DishMenuControllerTest extends AbstractControllerTest {
     protected DishMenuService service;
 
     @Test
+    public void testNotAdmin() throws Exception {
+        mockMvc.perform(get(REST_URL + 100023)
+                .with(userHttpBasic(TEST_USERS.get(2))))
+                .andExpect(status().isForbidden());
+    }
+
+
+    @Test
     public void testGet() throws Exception {
         mockMvc.perform(get(REST_URL + 100023)
                 .with(userHttpBasic(TEST_USERS.get(0))))

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.emitrohin.votingsystem.model.DishMenu;
@@ -49,11 +50,13 @@ public class MenuController {
     }
 
     @DeleteMapping(value = "/{id}")
+    @Secured("ROLE_ADMIN")
     public void delete(@PathVariable("id") int id) {
         service.delete(id);
     }
 
     @PostMapping(value = "restaurant/{restaurantId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<Menu> create(@Valid @RequestBody Menu menu, @PathVariable("restaurantId") Integer restaurantId) {
 
         if (restaurantId == null) {
@@ -72,6 +75,7 @@ public class MenuController {
     /* dish menus */
 
     @PostMapping(value = "dishmenu/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<DishMenu> addDishToMenu(@Valid @RequestBody DishMenuTo dishMenuTo) throws Exception {
 
         DishMenu created = dishMenuService.save(dishMenuTo);
@@ -84,12 +88,14 @@ public class MenuController {
     }
 
     @PutMapping(value = "dishmenu/{price}/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("ROLE_ADMIN")
     public void updateDishInMenu(@Valid @RequestBody DishMenu dishMenu, @PathVariable("price") Double price) {
         dishMenu.setPrice(price);
         DishMenu created = dishMenuService.save(dishMenu);
     }
 
     @DeleteMapping(value = "dishmenu/{id}")
+    @Secured("ROLE_ADMIN")
     public void deleteDishFromMenu(@PathVariable("id") int id) {
         dishMenuService.delete(id);
     }
