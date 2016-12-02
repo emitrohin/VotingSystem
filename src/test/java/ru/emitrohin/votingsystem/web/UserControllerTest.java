@@ -8,7 +8,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import ru.emitrohin.votingsystem.TestUtil;
 import ru.emitrohin.votingsystem.model.User;
 import ru.emitrohin.votingsystem.service.interfaces.UserService;
-import ru.emitrohin.votingsystem.util.JpaUtil;
 import ru.emitrohin.votingsystem.web.json.JsonUtil;
 
 import java.util.*;
@@ -28,15 +27,10 @@ public class UserControllerTest extends AbstractControllerTest {
     @Autowired
     protected UserService userService;
 
-    @Autowired
-    protected JpaUtil jpaUtil;
-
     @Before
     public void setUp() {
         userService.evictCache();
-        jpaUtil.clear2ndLevelHibernateCache();
     }
-
 
     @Test
     public void testNotAdmin() throws Exception {

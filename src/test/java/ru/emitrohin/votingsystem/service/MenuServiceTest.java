@@ -1,5 +1,6 @@
 package ru.emitrohin.votingsystem.service;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -24,6 +25,11 @@ public class MenuServiceTest extends AbstractServiceTest {
 
     @Autowired
     protected MenuService service;
+
+    @Before
+    public void setUp() {
+        service.evictCache();
+    }
 
     @Test
     public void testSave() throws Exception {

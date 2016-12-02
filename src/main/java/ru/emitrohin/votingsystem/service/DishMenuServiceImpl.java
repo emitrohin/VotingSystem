@@ -1,6 +1,8 @@
 package ru.emitrohin.votingsystem.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.emitrohin.votingsystem.model.DishMenu;
@@ -37,6 +39,7 @@ public class DishMenuServiceImpl implements DishMenuService {
     }
 
     @Override
+    @CacheEvict(value = "dishmenus", allEntries = true)
     public DishMenu save(DishMenuTo dishMenuTo) {
         Assert.notNull(dishMenuTo, "dishMenuTo must not be null");
 
@@ -62,12 +65,20 @@ public class DishMenuServiceImpl implements DishMenuService {
     }
 
     @Override
+    @CacheEvict(value = "dishmenus", allEntries = true)
     public void update(DishMenuTo dishMenuTo) {
         Assert.notNull(dishMenuTo, "dish must not be null");
         DishMenu newDishMenu = DishMenuUtil.createNewFromTo(dishMenuTo);
         dishMenuRepository.save(newDishMenu);
     }
 
+    @Override
+    @CacheEvict(value = "dishmenus", allEntries = true)
+    public void evictCache() {
+
+    }
+
+    @Cacheable("dishmenus")
     @Override
     public List<DishMenu> getAll() {
         return dishMenuRepository.getAll();

@@ -9,6 +9,4 @@ import ru.emitrohin.votingsystem.model.User;
  */
 public interface UserService extends AbstractService<User>{
     void enable(int id, boolean enabled);
-
-    void evictCache();
 }

@@ -25,7 +25,59 @@
            diskExpiryThreadIntervalSeconds="1"
            memoryStoreEvictionPolicy="LRU"/>
 
+
+    <cache name="restaurants"
+           timeToLiveSeconds="60"
+           maxElementsInMemory="1000"
+           eternal="false"
+           overflowToDisk="false"
+           maxElementsOnDisk="10000000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="1"
+           memoryStoreEvictionPolicy="LRU"/>
+
+    <cache name="dishes"
+           timeToLiveSeconds="60"
+           maxElementsInMemory="1000"
+           eternal="false"
+           overflowToDisk="false"
+           maxElementsOnDisk="10000000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="1"
+           memoryStoreEvictionPolicy="LRU"/>
+
+    <cache name="dishmenus"
+           timeToLiveSeconds="60"
+           maxElementsInMemory="1000"
+           eternal="false"
+           overflowToDisk="false"
+           maxElementsOnDisk="10000000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="1"
+           memoryStoreEvictionPolicy="LRU"/>
+
+    <cache name="menus"
+           timeToLiveSeconds="60"
+           maxElementsInMemory="1000"
+           eternal="false"
+           overflowToDisk="false"
+           maxElementsOnDisk="10000000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="1"
+           memoryStoreEvictionPolicy="LRU"/>
+
     <cache name="ru.emitrohin.votingsystem.model.User"
            maxElementsInMemory="25000"/>
 
+    <cache name="ru.emitrohin.votingsystem.model.Restaurant"
+           maxElementsInMemory="25000"/>
+
+    <cache name="ru.emitrohin.votingsystem.model.Dish"
+           maxElementsInMemory="25000"/>
+
+    <cache name="ru.emitrohin.votingsystem.model.DishMenu"
+           maxElementsInMemory="25000"/>
+
+    <cache name="ru.emitrohin.votingsystem.model.Menu"
+           maxElementsInMemory="25000"/>
 </ehcache>

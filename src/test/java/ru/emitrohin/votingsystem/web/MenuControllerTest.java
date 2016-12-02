@@ -1,5 +1,6 @@
 package ru.emitrohin.votingsystem.web;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -34,6 +35,10 @@ public class MenuControllerTest extends AbstractControllerTest {
     @Autowired
     protected MenuService menuService;
 
+    @Before
+    public void setUp() {
+        menuService.evictCache();
+    }
 
     @Test
     public void testNotAdmin() throws Exception {

@@ -40,6 +40,7 @@ abstract public class AbstractServiceTest {
         }
     };
 
+
     @AfterClass
     public static void printResults() {
         results = new StringBuilder("\n---------------------------------")

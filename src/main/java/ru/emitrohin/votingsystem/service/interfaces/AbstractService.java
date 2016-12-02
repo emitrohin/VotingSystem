@@ -23,4 +23,8 @@ public interface AbstractService<T> {
     default void update(T item) {
         throw new UnsupportedOperationException();
     }
+
+    default void evictCache() {
+        throw new UnsupportedOperationException();
+    }
 }
