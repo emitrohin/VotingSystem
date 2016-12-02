@@ -1,7 +1,5 @@
 package ru.emitrohin.votingsystem.testdata;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.emitrohin.votingsystem.matcher.ModelMatcher;
 import ru.emitrohin.votingsystem.model.Menu;
 
@@ -27,7 +25,6 @@ public class MenuTestData {
                     )
 
     );
-    private static final Logger LOG = LoggerFactory.getLogger(MenuTestData.class);
 
     static {
         TEST_MENUS.add(new Menu(100012, LocalDate.of(2016, 11, 26)));

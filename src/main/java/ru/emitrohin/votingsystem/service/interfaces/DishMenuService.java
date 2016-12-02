@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface DishMenuService extends AbstractService<DishMenu> {
 
-    DishMenu save(DishMenuTo dishMenuTo) throws Exception;
+    DishMenu save(DishMenuTo dishMenuTo);
 
     void update(DishMenuTo dishMenuTo);
 

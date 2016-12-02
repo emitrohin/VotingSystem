@@ -8,6 +8,7 @@ import ru.emitrohin.votingsystem.service.interfaces.DishMenuService;
 import ru.emitrohin.votingsystem.to.DishMenuTo;
 import ru.emitrohin.votingsystem.util.DishMenuUtil;
 import ru.emitrohin.votingsystem.util.TimeUtil;
+import ru.emitrohin.votingsystem.util.exception.MenuException;
 import ru.emitrohin.votingsystem.util.exception.NotFoundException;
 
 import java.time.LocalDateTime;
@@ -30,7 +31,7 @@ public class DishMenuServiceTest extends AbstractServiceTest {
     @Test(expected = UnsupportedOperationException.class)
     public void testSaveUnsupportedOperation() throws Exception {
         DishMenu newDishMenu = new DishMenu(null, TEST_MENUS.get(2), TEST_DISHES.get(3), 100.00);
-        DishMenu created = service.save(newDishMenu);
+        service.save(newDishMenu);
     }
 
     @Test
@@ -46,12 +47,12 @@ public class DishMenuServiceTest extends AbstractServiceTest {
         MATCHER.assertCollectionEquals(result, service.getAll());
     }
 
-    @Test(expected = Exception.class)
+    @Test(expected = MenuException.class)
     public void testSaveFromToInvalidDate() throws Exception {
         TimeUtil.useFixedClockAt(LocalDateTime.now());
         DishMenuTo dishMenuTo = DishMenuUtil.asTo(
                 new DishMenu(null, TEST_MENUS.get(2), TEST_DISHES.get(3), 100.00));
-        DishMenu created = service.save(dishMenuTo);
+        service.save(dishMenuTo);
     }
 
     @Test(expected = DataAccessException.class)

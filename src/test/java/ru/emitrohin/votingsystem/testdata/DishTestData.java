@@ -1,7 +1,5 @@
 package ru.emitrohin.votingsystem.testdata;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.emitrohin.votingsystem.matcher.ModelMatcher;
 import ru.emitrohin.votingsystem.model.Dish;
 
@@ -15,9 +13,15 @@ import java.util.Objects;
  */
 public class DishTestData {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DishTestData.class);
-
     public final static List<Dish> TEST_DISHES = new ArrayList<>();
+    public static final ModelMatcher<Dish> MATCHER = ModelMatcher.of(Dish.class,
+            (expected, actual) -> expected == actual ||
+                    (
+                            Objects.equals(expected.getId(), actual.getId())
+                                    && Objects.equals(expected.getName(), actual.getName())
+                                    && Objects.equals(expected.getImageLink(), actual.getImageLink())
+                    )
+    );
 
     static {
         TEST_DISHES.add(new Dish(100015, "Картофель, в мундире", "http://img07.rl0.ru/eda/c300x300/s2.afisha-eda.ru/Photos/120214125956-120214130233-p-O-kartofel-zapechennij-v-mundire.jpg"));
@@ -29,15 +33,6 @@ public class DishTestData {
         TEST_DISHES.add(new Dish(100021, "Хинкали", "http://img05.rl0.ru/eda/c172x172/s2.afisha-eda.ru/Photos/120131112107-150527002516-p-O-hinkali.jpg"));
         TEST_DISHES.add(new Dish(100022, "Тикка-масала", "http://img04.rl0.ru/eda/c172x172/s1.afisha-eda.ru/Photos/120131082425-130725170057-p-O-tikka-masala.jpg"));
     }
-
-    public static final ModelMatcher<Dish> MATCHER = ModelMatcher.of(Dish.class,
-            (expected, actual) -> expected == actual ||
-                    (
-                            Objects.equals(expected.getId(), actual.getId())
-                                    && Objects.equals(expected.getName(), actual.getName())
-                                    && Objects.equals(expected.getImageLink(), actual.getImageLink())
-                    )
-    );
 
 
 }

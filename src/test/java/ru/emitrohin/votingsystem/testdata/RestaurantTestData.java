@@ -1,7 +1,5 @@
 package ru.emitrohin.votingsystem.testdata;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.emitrohin.votingsystem.matcher.ModelMatcher;
 import ru.emitrohin.votingsystem.model.Restaurant;
 
@@ -23,8 +21,6 @@ public class RestaurantTestData {
                                     && Objects.equals(expected.getImageLink(), actual.getImageLink())
                     )
     );
-
-    private static final Logger LOG = LoggerFactory.getLogger(RestaurantTestData.class);
 
     static {
         TEST_RESTAURANTS.add(new Restaurant(100008, "Ривьера", "http://restoranaltona.ru/images/vip%202/IMG_9280.jpg"));

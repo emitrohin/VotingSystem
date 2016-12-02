@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.emitrohin.votingsystem.model.Dish;
 import ru.emitrohin.votingsystem.repository.interfaces.DishRepository;
-import ru.emitrohin.votingsystem.repository.interfaces.MenuRepository;
 import ru.emitrohin.votingsystem.service.interfaces.DishService;
 import ru.emitrohin.votingsystem.util.exception.ExceptionUtil;
 
@@ -22,7 +21,7 @@ public class DishServiceImpl implements DishService {
     private DishRepository repository;
 
     @Autowired
-    public DishServiceImpl(DishRepository repository, MenuRepository menuRepository) {
+    public DishServiceImpl(DishRepository repository) {
         this.repository = repository;
     }
 

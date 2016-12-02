@@ -36,7 +36,7 @@ abstract public class AbstractControllerTest {
         CHARACTER_ENCODING_FILTER.setForceEncoding(true);
     }
 
-    MockMvc mockMvc;
+    protected MockMvc mockMvc;
 
     @Autowired
     private WebApplicationContext webApplicationContext;

@@ -28,7 +28,7 @@ import java.util.Arrays;
 @ControllerAdvice
 public class ExceptionInfoHandler {
 
-    Logger LOG = LoggerFactory.getLogger(ExceptionInfoHandler.class);
+    private static Logger LOG = LoggerFactory.getLogger(ExceptionInfoHandler.class);
 
     @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(NotFoundException.class)

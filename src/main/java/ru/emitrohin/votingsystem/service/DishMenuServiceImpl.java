@@ -13,6 +13,7 @@ import ru.emitrohin.votingsystem.to.DishMenuTo;
 import ru.emitrohin.votingsystem.util.DishMenuUtil;
 import ru.emitrohin.votingsystem.util.TimeUtil;
 import ru.emitrohin.votingsystem.util.exception.ExceptionUtil;
+import ru.emitrohin.votingsystem.util.exception.MenuException;
 
 import java.util.List;
 
@@ -36,13 +37,13 @@ public class DishMenuServiceImpl implements DishMenuService {
     }
 
     @Override
-    public DishMenu save(DishMenuTo dishMenuTo) throws Exception {
+    public DishMenu save(DishMenuTo dishMenuTo) {
         Assert.notNull(dishMenuTo, "dishMenuTo must not be null");
 
         Menu menu = menuRepository.get(dishMenuTo.getMenuId());
         ExceptionUtil.checkNotFoundWithId(menu, dishMenuTo.getMenuId());
         if (menu.getDateOfMenu().compareTo(TimeUtil.now()) < 0) {
-            throw new Exception("Date of menu if lower than now");
+            throw new MenuException("Date of menu if lower than now");
         }
         ExceptionUtil.checkNotFoundWithId(dishRepository.get(dishMenuTo.getDishId()), dishMenuTo.getDishId());
 

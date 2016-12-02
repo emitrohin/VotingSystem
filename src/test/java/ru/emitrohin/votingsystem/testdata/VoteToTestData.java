@@ -1,7 +1,5 @@
 package ru.emitrohin.votingsystem.testdata;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.emitrohin.votingsystem.matcher.ModelMatcher;
 import ru.emitrohin.votingsystem.to.VoteTo;
 
@@ -21,7 +19,6 @@ public class VoteToTestData {
                                     && Objects.equals(expected.isVotingIsOver(), actual.isVotingIsOver())
                     )
     );
-    private static final Logger LOG = LoggerFactory.getLogger(VoteToTestData.class);
 
     private static HashMap<String, Integer> results = new HashMap<>();
     public static VoteTo TEST_VOTE_TO_BEFORE_11_00 = new VoteTo("Name will be available after 11:00", results, false);

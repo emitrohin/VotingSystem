@@ -1,7 +1,5 @@
 package ru.emitrohin.votingsystem.testdata;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.emitrohin.votingsystem.matcher.ModelMatcher;
 import ru.emitrohin.votingsystem.model.DishMenu;
 
@@ -27,7 +25,6 @@ public class DishMenuTestData {
 //                                    && Objects.equals(expected.getMenu().getId(), actual.getMenu().getId())
                     )
     );
-    private static final Logger LOG = LoggerFactory.getLogger(DishMenuTestData.class);
 
     static {
         TEST_MENU_DISHES.add(new DishMenu(100023, TEST_MENUS.get(0), TEST_DISHES.get(0), 150.00));

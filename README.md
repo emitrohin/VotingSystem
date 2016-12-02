@@ -1,5 +1,5 @@
 ## Restaurant voting system 2016
-### JSON API using Spring (MVC, Security, Data) / Hibernate / REST(Jackson) / HSQLDB
+### JSON API using Spring (MVC, Security, Data) / Hibernate / REST(Jackson) / HSQLDB (in-memory)
 
 * Codacy: [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ff9b4f0e7af349348df178c133107c5d)](https://www.codacy.com/app/emitrohin/VotingSystem?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=emitrohin/VotingSystem&amp;utm_campaign=Badge_Grade)
 * Dependency CI: [![Dependency Status](https://dependencyci.com/github/emitrohin/VotingSystem/badge)](https://dependencyci.com/github/emitrohin/VotingSystem)
@@ -81,15 +81,21 @@ Admin has full control of this service:
 
 `curl -X DELETE -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/restaurants/{restaurant_id}"`
 
-* CRUD operation with dishes and prices
+* Operations with menus (no update)
 
-**get dish to menu**
+**get all menus**
 
-**remove dish from menu**
+`curl -X GET -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/menus/all"`
 
-**update dish in menu**
+**create new menu (only for current day)**
 
-**delete dish on menu**
+`curl -X POST -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/menus/{restaurant_id}"`
+
+**delete menu**
+
+`curl -X DELETE -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/menus/{menu_id}"`
+
+* Operations with dishes and prices
 
 **get dish**
 
@@ -110,6 +116,22 @@ Admin has full control of this service:
 **delete dishes**
 
 `curl -X DELETE -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/dishes/{dish_id}"`
+
+**add dish to menu**
+
+`curl -X POST -H "Authorization: Basic {your_encrypted_basic_auth}" -d '{"menuId": "Id", "dishId": "id", "price": "price value (double)"}' "http://{hostname}/api/v1.0/dishmenus/"`
+
+**get dish with price**
+
+`curl -X GET -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/dishmenus/{id}"`
+
+**update dish in menu**
+
+`curl -X PUT -H "Authorization: Basic {your_encrypted_basic_auth}" -d '{"menuId": "Id", "dishId": "id", "price": "price value (double)"}' "http://{hostname}/api/v1.0/dishmenus/{dishmenu_id}"`
+
+**remove dish from menu**
+
+`curl -X DELETE -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/dishmenus/{dishmenu}"`
 
 * CRUD operation with users
 
@@ -149,6 +171,5 @@ Admin has full control of this service:
 
 `curl -X DELETE -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/users/{user_id}"`
 
-* CRUD operation with menus
 
 * Operation that are allowed to ordinary users (see above)

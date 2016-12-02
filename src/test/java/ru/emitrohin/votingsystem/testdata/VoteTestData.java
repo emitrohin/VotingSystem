@@ -1,7 +1,5 @@
 package ru.emitrohin.votingsystem.testdata;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.emitrohin.votingsystem.matcher.ModelMatcher;
 import ru.emitrohin.votingsystem.model.Vote;
 
@@ -28,7 +26,7 @@ public class VoteTestData {
                                     && Objects.equals(expected.getVoteDate(), actual.getVoteDate())
                     )
     );
-    private static final Logger LOG = LoggerFactory.getLogger(VoteTestData.class);
+
     public static List<Vote> TEST_VOTES = new ArrayList<>();
 
     static {
