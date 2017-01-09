@@ -1,6 +1,6 @@
 package ru.emitrohin.votingsystem.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -23,19 +23,19 @@ public class Menu extends BaseEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfMenu;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "restaurant_id", nullable = false)
+    @JsonIgnore
     private Restaurant restaurant;
 
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "menu")
-    @JsonManagedReference
-    private List<DishMenu> dishMenus;
+    private List<Dish> dishList;
 
     public Menu() {
     }
 
-    public Menu(Menu menu) {
-        this(menu.getId(), menu.getDateOfMenu());
+    public Menu(Menu dishList) {
+        this(dishList.getId(), dishList.getDateOfMenu());
     }
 
     public Menu(Integer id, LocalDate dateOfMenu) {
@@ -60,11 +60,11 @@ public class Menu extends BaseEntity {
         this.restaurant = restaurant;
     }
 
-    public List<DishMenu> getDishMenus() {
-        return dishMenus;
+    public List<Dish> getDishList() {
+        return dishList;
     }
 
-    public void setDishMenus(List<DishMenu> dishMenus) {
-        this.dishMenus = dishMenus;
+    public void setDishList(List<Dish> dishList) {
+        this.dishList = dishList;
     }
 }

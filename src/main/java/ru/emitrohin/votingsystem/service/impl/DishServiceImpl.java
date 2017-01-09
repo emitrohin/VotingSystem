@@ -33,12 +33,12 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public void delete(int id) {
-        ExceptionUtil.checkNotFoundWithId(repository.delete(id), id);
+        repository.delete(id);
     }
 
     @Override
     public Dish get(int id) {
-        return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
+        return ExceptionUtil.checkNotFoundWithId(repository.findOne(id), id);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public List<Dish> getAll() {
-        return repository.getAll();
+        return repository.findAll();
     }
 
 }

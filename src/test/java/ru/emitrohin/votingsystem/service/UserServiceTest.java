@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import ru.emitrohin.votingsystem.model.User;
 import ru.emitrohin.votingsystem.util.exception.NotFoundException;
 
@@ -30,7 +31,7 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Test(expected = DataAccessException.class)
     public void testDuplicateLoginSave() throws Exception {
-        service.save(new User(null, "A_Ustumov", "Password", "new@email.not", "Ololoev", "ustimov", true, EnumSet.of(ROLE_USER)));
+        service.save(new User(null, "user5", "Password", "new@email.not", "Ololoev", "ustimov", true, EnumSet.of(ROLE_USER)));
     }
 
 
@@ -42,7 +43,7 @@ public class UserServiceTest extends AbstractServiceTest {
         MATCHER.assertCollectionEquals(Collections.unmodifiableList(result), service.getAll());
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test(expected = EmptyResultDataAccessException.class)
     public void testNotFoundDelete() throws Exception {
         service.delete(1);
     }

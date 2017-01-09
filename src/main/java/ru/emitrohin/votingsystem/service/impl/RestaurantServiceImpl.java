@@ -6,6 +6,7 @@ import org.springframework.util.Assert;
 import ru.emitrohin.votingsystem.model.Restaurant;
 import ru.emitrohin.votingsystem.repository.RestaurantRepository;
 import ru.emitrohin.votingsystem.service.RestaurantService;
+import ru.emitrohin.votingsystem.util.TimeUtil;
 import ru.emitrohin.votingsystem.util.exception.ExceptionUtil;
 
 import java.util.List;
@@ -33,12 +34,12 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public void delete(int id) {
-        ExceptionUtil.checkNotFoundWithId(repository.delete(id), id);
+        repository.delete(id);
     }
 
     @Override
     public Restaurant get(int id) {
-        return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
+        return ExceptionUtil.checkNotFoundWithId(repository.findOne(id), id);
     }
 
     @Override
@@ -49,11 +50,11 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public List<Restaurant> getAll() {
-        return repository.getAll();
+        return repository.findAll();
     }
 
     @Override
     public List<Restaurant> getRestaurantsWithCurrentMenu() {
-        return repository.getRestaurantsWithCurrentMenu();
+        return repository.getAllWithMenuByDate(TimeUtil.now());
     }
 }

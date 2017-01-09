@@ -40,7 +40,7 @@ public class VoteServiceImpl implements VoteService {
     @Override
     public Vote vote(int userId, int restaurantId) {
 
-        Restaurant restaurant = restaurantRepository.get(restaurantId);
+        Restaurant restaurant = restaurantRepository.findOne(restaurantId);
         ExceptionUtil.checkNotFoundWithId(restaurant, restaurantId);
 
         Menu menu = menuRepository.getByRestaurantId(restaurantId);
@@ -48,14 +48,14 @@ public class VoteServiceImpl implements VoteService {
             throw new VotingException("You can't vote for not existing menu");
         }
 
-        if (menu.getDishMenus().size() == 0) {
+        if (menu.getDishList().size() == 0) {
             throw new VotingException("Menu for this restaurant is not ready");
         }
 
-        Vote vote = repository.getByUserId(userId);
+        Vote vote = repository.getByUserId(userId, TimeUtil.now());
 
         if (vote == null) {
-            vote = new Vote(null, restaurant, userRepository.get(userId), TimeUtil.now());
+            vote = new Vote(null, restaurant, userRepository.findOne(userId), TimeUtil.now());
             return repository.save(vote);
         }
 
@@ -69,12 +69,12 @@ public class VoteServiceImpl implements VoteService {
 
     @Override
     public List<Vote> getAll() {
-        return repository.getAll();
+        return repository.findAll();
     }
 
     @Override
     public List<Vote> getAllCurrent() {
-        return repository.getAllCurrent(TimeUtil.now());
+        return repository.findAllCurrent(TimeUtil.now());
     }
 }
 

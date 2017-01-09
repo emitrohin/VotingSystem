@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
-import ru.emitrohin.votingsystem.TestUtil;
 import ru.emitrohin.votingsystem.model.Menu;
 import ru.emitrohin.votingsystem.service.MenuService;
 import ru.emitrohin.votingsystem.util.TimeUtil;
@@ -82,6 +81,7 @@ public class MenuControllerTest extends AbstractControllerTest {
 
     @Test
     public void testCreate() throws Exception {
+        TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 10, 0));
         Menu expected = new Menu(null, LocalDate.of(2016, 11, 26));
 
         ResultActions action = mockMvc.perform(post(REST_URL + "/restaurant/" + TEST_RESTAURANTS.get(3).getId())
@@ -99,16 +99,5 @@ public class MenuControllerTest extends AbstractControllerTest {
 
         MATCHER.assertEquals(expected, returned);
         MATCHER.assertCollectionEquals(Collections.unmodifiableCollection(result), menuService.getAll());
-    }
-
-    @Test
-    public void testGetAll() throws Exception {
-        TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 10, 0));
-
-        TestUtil.print(mockMvc.perform(get(REST_URL)
-                .with(userHttpBasic(TEST_USERS.get(0))))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentListMatcher(TEST_MENUS)));
     }
 }

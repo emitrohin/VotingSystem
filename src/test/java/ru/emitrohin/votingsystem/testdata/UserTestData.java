@@ -40,14 +40,14 @@ public class UserTestData {
 
     public static void reinit() {
         TEST_USERS.clear();
-        TEST_USERS.add(new User(100000, "E_Mitrohin", "admin", "emitrohin@icloud.com", "Евгений", "Митрохин", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
-        TEST_USERS.add(new User(100001, "D_Uskov", "uskov", "duskov@nomail.com", "Денис", "Усков", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
-        TEST_USERS.add(new User(100002, "L_Lapteva", "lapteva", "llapteva@nomail.com", "Людмила", "Лаптева", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
-        TEST_USERS.add(new User(100003, "Y_Mitrohina", "mitrohina", "ymitrohina@nomail.com", "Юлия", "Митрохина", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
-        TEST_USERS.add(new User(100004, "N_Gimaldinova", "gimaldinona", "ngimaldinova@nomail.com", "Наталья", "Гимальдинова", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
-        TEST_USERS.add(new User(100005, "A_Ustumov", "ustimov", "austimov@nomail.com", "Александр", "Устимов", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
-        TEST_USERS.add(new User(100006, "N_Dubanich", "dubanich", "ndubanich@nomail.com", "Николай", "Дубанич", false, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
-        TEST_USERS.add(new User(100007, "O_Domashnikov", "domashnikov", "odomashnikov@nomail.com", "Олег", "Домашников", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
+        TEST_USERS.add(new User(100000, "admin", "admin", "admin@icloud.com", "Евгений", "Митрохин", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
+        TEST_USERS.add(new User(100001, "user1", "uskov", "user1@nomail.com", "Денис", "Усков", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
+        TEST_USERS.add(new User(100002, "user2", "lapteva", "user2@nomail.com", "Людмила", "Лаптева", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
+        TEST_USERS.add(new User(100003, "user3", "mitrohina", "user3@nomail.com", "Юлия", "Митрохина", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
+        TEST_USERS.add(new User(100004, "user4", "gimaldinona", "user4@nomail.com", "Наталья", "Гимальдинова", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
+        TEST_USERS.add(new User(100005, "user5", "ustimov", "user5@nomail.com", "Александр", "Устимов", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
+        TEST_USERS.add(new User(100006, "user6", "dubanich", "user6@nomail.com", "Николай", "Дубанич", false, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
+        TEST_USERS.add(new User(100007, "user7", "domashnikov", "user7@nomail.com", "Олег", "Домашников", true, EnumSet.of(ROLE_USER, ROLE_ADMIN)));
     }
 
     private static boolean comparePassword(String rawOrEncodedPassword, String password) {

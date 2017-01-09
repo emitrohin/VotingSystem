@@ -40,7 +40,7 @@ public class DishControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL + 100015)
+        mockMvc.perform(get(REST_URL + 100012)
                 .with(userHttpBasic(TEST_USERS.get(0))))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -78,7 +78,7 @@ public class DishControllerTest extends AbstractControllerTest {
 
     @Test
     public void testCreate() throws Exception {
-        Dish expected = new Dish(null, "Шаурма", "http://yandex.ru/");
+        Dish expected = new Dish(null, "Шаурма", 10000L, "http://yandex.ru/");
 
         ResultActions action = mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)

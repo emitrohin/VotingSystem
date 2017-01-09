@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
@@ -31,10 +32,10 @@ public class ExceptionInfoHandler {
     private static Logger LOG = LoggerFactory.getLogger(ExceptionInfoHandler.class);
 
     @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
-    @ExceptionHandler(NotFoundException.class)
+    @ExceptionHandler({NotFoundException.class, EmptyResultDataAccessException.class})
     @ResponseBody
     @Order(Ordered.HIGHEST_PRECEDENCE)
-    public ErrorInfo handleError(HttpServletRequest req, NotFoundException e) {
+    public ErrorInfo notFoundHandleError(HttpServletRequest req, Exception e) {
         return logAndGetErrorInfo(req, e, false);
     }
 

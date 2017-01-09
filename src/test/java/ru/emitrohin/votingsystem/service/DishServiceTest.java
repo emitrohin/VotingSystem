@@ -3,6 +3,7 @@ package ru.emitrohin.votingsystem.service;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import ru.emitrohin.votingsystem.model.Dish;
 import ru.emitrohin.votingsystem.util.exception.NotFoundException;
 
@@ -24,7 +25,7 @@ public class DishServiceTest extends AbstractServiceTest {
 
     @Test
     public void testSave() throws Exception {
-        Dish newDish = new Dish(null, "New", "link");
+        Dish newDish = new Dish(null, "New", 10000L, "link");
         Dish created = service.save(newDish);
         newDish.setId(created.getId());
         Collection<Dish> result = new ArrayList<>(TEST_DISHES);
@@ -34,7 +35,7 @@ public class DishServiceTest extends AbstractServiceTest {
 
     @Test(expected = DataAccessException.class)
     public void testDuplicateNameSave() throws Exception {
-        service.save(new Dish(null, "Рататуй", "link"));
+        service.save(new Dish(null, "Рататуй", 10000L, "link"));
     }
 
 
@@ -46,7 +47,7 @@ public class DishServiceTest extends AbstractServiceTest {
         MATCHER.assertCollectionEquals(Collections.unmodifiableList(result), service.getAll());
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test(expected = EmptyResultDataAccessException.class)
     public void testNotFoundDelete() throws Exception {
         service.delete(1);
     }

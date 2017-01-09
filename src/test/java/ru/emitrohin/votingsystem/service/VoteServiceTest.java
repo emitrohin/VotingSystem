@@ -81,6 +81,7 @@ public class VoteServiceTest extends AbstractServiceTest {
     @Test
     public void testGetAllCurrent() throws Exception {
         TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 0, 0));
+
         Collection<Vote> all = service.getAllCurrent();
         Collection<Vote> actual = TEST_VOTES
                 .stream()

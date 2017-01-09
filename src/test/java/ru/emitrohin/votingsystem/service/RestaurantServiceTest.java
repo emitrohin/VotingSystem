@@ -3,6 +3,7 @@ package ru.emitrohin.votingsystem.service;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import ru.emitrohin.votingsystem.model.Menu;
 import ru.emitrohin.votingsystem.model.Restaurant;
 import ru.emitrohin.votingsystem.testdata.MenuTestData;
@@ -57,7 +58,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
         MenuTestData.MATCHER.assertCollectionEquals(Collections.unmodifiableList(result), menuService.getAll());
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test(expected = EmptyResultDataAccessException.class)
     public void testNotFoundDelete() throws Exception {
         service.delete(1);
     }

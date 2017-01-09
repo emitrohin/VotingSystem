@@ -7,21 +7,21 @@ DELETE FROM users;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 INSERT INTO users (login, password, email, first_name, last_name, enabled) VALUES
-  ('E_Mitrohin', '$2a$10$5bpi0FCtWcfNcBgGhi9Peuyr.G.2MEIq4a6HEx5zebePevh3NqoPS', 'emitrohin@icloud.com', 'Евгений',
+  ('admin', '$2a$10$5bpi0FCtWcfNcBgGhi9Peuyr.G.2MEIq4a6HEx5zebePevh3NqoPS', 'admin@icloud.com', 'Евгений',
    'Митрохин', TRUE),
-  ('D_Uskov', '$2a$10$K9vI/76VvCRYrw3PF8ddruQ7yoKAZ1chZ72UxBGy4wg1L/.t7pkrW', 'duskov@nomail.com', 'Денис', 'Усков',
+  ('user1', '$2a$10$K9vI/76VvCRYrw3PF8ddruQ7yoKAZ1chZ72UxBGy4wg1L/.t7pkrW', 'user1@nomail.com', 'Денис', 'Усков',
    TRUE),
-  ('L_Lapteva', '$2a$10$snhPy3Fb1NW2DPMNyT837unvZ/tlmf.yNvs3rgTWRck2oAgFGMEMC', 'llapteva@nomail.com', 'Людмила',
+  ('user2', '$2a$10$snhPy3Fb1NW2DPMNyT837unvZ/tlmf.yNvs3rgTWRck2oAgFGMEMC', 'user2@nomail.com', 'Людмила',
    'Лаптева', TRUE),
-  ('Y_Mitrohina', '$2a$10$5p87KOjDCFlrA27jQhxgn.it.k./Cp6n/8lmaezMOazNry4oF5lKS', 'ymitrohina@nomail.com', 'Юлия',
+  ('user3', '$2a$10$5p87KOjDCFlrA27jQhxgn.it.k./Cp6n/8lmaezMOazNry4oF5lKS', 'user3@nomail.com', 'Юлия',
    'Митрохина', TRUE),
-  ('N_Gimaldinova', '$2a$10$8rI7OiAhHGrElGjrXDKShura4KsQYPeysdK9PQhYHohgaSRoVJ6o2', 'ngimaldinova@nomail.com',
+  ('user4', '$2a$10$8rI7OiAhHGrElGjrXDKShura4KsQYPeysdK9PQhYHohgaSRoVJ6o2', 'user4@nomail.com',
    'Наталья', 'Гимальдинова', TRUE),
-  ('A_Ustumov', '$2a$10$MaLNbzeCSVycZlALJEIxdeJrHvlpAfrk5p/qDL82DoidAyAdNH38W', 'austimov@nomail.com', 'Александр',
+  ('user5', '$2a$10$MaLNbzeCSVycZlALJEIxdeJrHvlpAfrk5p/qDL82DoidAyAdNH38W', 'user5@nomail.com', 'Александр',
    'Устимов', TRUE),
-  ('N_Dubanich', '$2a$10$bxYH2kDBhVbWy7GyWOfx4eKkcfR88FYmx4FKdLXv1jkJAha58O0xa', 'ndubanich@nomail.com', 'Николай',
+  ('user6', '$2a$10$bxYH2kDBhVbWy7GyWOfx4eKkcfR88FYmx4FKdLXv1jkJAha58O0xa', 'user6@nomail.com', 'Николай',
    'Дубанич', FALSE),
-  ('O_Domashnikov', '$2a$10$cfhDk5kp/THYri2HcoN6c.21/8CgktQMD141UhhpaC.Sm/7oplDDi', 'odomashnikov@nomail.com', 'Олег',
+  ('user7', '$2a$10$cfhDk5kp/THYri2HcoN6c.21/8CgktQMD141UhhpaC.Sm/7oplDDi', 'user7@nomail.com', 'Олег',
    'Домашников', TRUE);
 
 INSERT INTO user_roles (user_id, role) VALUES
@@ -47,32 +47,25 @@ INSERT INTO menus (restaurant_id, dateOfMenu) VALUES
   (100010, DATE '2016-11-26');
 
 
-INSERT INTO dishes (name, imageLink) VALUES
-  ('Картофель, в мундире',
+INSERT INTO dishes (menu_id, name, price, imageLink) VALUES
+  (100012, 'Рататуй', 15000,
    'http://img07.rl0.ru/eda/c300x300/s2.afisha-eda.ru/Photos/120214125956-120214130233-p-O-kartofel-zapechennij-v-mundire.jpg'),
-  ('Рататуй', 'http://img04.rl0.ru/eda/c172x172/s2.afisha-eda.ru/Photos/150810204910-150818154229-p-O-ratatuj.jpg'),
-  ('Борщ',
+  (100012, 'Картофель, в мундире', 18000,
+   'http://img04.rl0.ru/eda/c172x172/s2.afisha-eda.ru/Photos/150810204910-150818154229-p-O-ratatuj.jpg'),
+  (100012, 'Борщ', 21000,
    'http://img08.rl0.ru/eda/c172x172/s2.afisha-eda.ru/Photos/120131084941-120214160730-p-O-kurica-zapechennaja-v-hrustjaschej-korochke-s-imbirem-apelsinami.jpg'),
-  ('Гратен дофинуа',
+  (100013, 'Гратен дофинуа', 10000,
    'http://img08.rl0.ru/eda/c172x172/s2.afisha-eda.ru/Photos/151002075307-151009125656-p-O-graten-dofinua.jpg'),
-  ('Чахохбили из курицы',
+  (100013, 'Чахохбили из курицы', 16000,
    'http://img05.rl0.ru/eda/c172x172/s1.afisha-eda.ru/Photos/120213175727-120213180044-p-O-chahohbili-iz-kurici.jpg'),
-  ('Жареный рис с яйцом по‑китайски',
+  (100013, 'Жареный рис с яйцом', 19000,
    'http://img05.rl0.ru/eda/c172x172/s1.afisha-eda.ru/Photos/150428090447-150505141508-p-O-zharenij-ris-s-jajcom-po-kitajski.jpg'),
-  ('Хинкали', 'http://img05.rl0.ru/eda/c172x172/s2.afisha-eda.ru/Photos/120131112107-150527002516-p-O-hinkali.jpg'),
-  ('Тикка-масала',
-   'http://img04.rl0.ru/eda/c172x172/s1.afisha-eda.ru/Photos/120131082425-130725170057-p-O-tikka-masala.jpg');
+  (100014, 'Хинкали', 19000,
+   'http://img05.rl0.ru/eda/c172x172/s2.afisha-eda.ru/Photos/120131112107-150527002516-p-O-hinkali.jpg'),
+  (100014, 'Тикка-масала', 30000,
+   'http://img04.rl0.ru/eda/c172x172/s1.afisha-eda.ru/Photos/120131082425-130725170057-p-O-tikka-masala.jpg'),
+  (100014, 'НЕ что', 11000, NULL);
 
-INSERT INTO menus_dishes (dish_id, menu_id, price) VALUES
-  (100015, 100012, 150.00),
-  (100016, 100012, 180.00),
-  (100017, 100012, 210.00),
-  (100019, 100013, 100.00),
-  (100020, 100013, 160.00),
-  (100021, 100013, 190.00),
-  (100015, 100014, 190.00),
-  (100016, 100014, 300.00),
-  (100017, 100014, 110.00);
 
 INSERT INTO votes (restaurant_id, user_id, vote_timestamp) VALUES
   (100009, 100000, DATE '2016-11-26'),

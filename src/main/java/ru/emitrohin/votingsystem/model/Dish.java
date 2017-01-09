@@ -4,9 +4,8 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author emitrohin
@@ -18,10 +17,18 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"}, name = "dishes_name_idx")})
 public class Dish extends BaseEntity {
 
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "menu_id", nullable = false)
+    private Menu menu;
+
     @NotEmpty
     @SafeHtml
     @Length(min = 3)
     private String name;
+
+    @NotNull
+    private Long price;
 
     @SafeHtml
     private String imageLink;
@@ -30,13 +37,14 @@ public class Dish extends BaseEntity {
     }
 
     public Dish(Dish dish) {
-        this(dish.getId(), dish.getImageLink(), dish.getImageLink());
+        this(dish.getId(), dish.getName(), dish.getPrice(), dish.getImageLink());
     }
 
-    public Dish(Integer id, String name, String imageLink) {
+    public Dish(Integer id, String name, Long price, String imageLink) {
         super(id);
         this.name = name;
         this.imageLink = imageLink;
+        this.price = price;
     }
 
     public String getName() {
@@ -53,5 +61,21 @@ public class Dish extends BaseEntity {
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
+
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
     }
 }

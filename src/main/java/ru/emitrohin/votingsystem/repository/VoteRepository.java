@@ -1,5 +1,8 @@
 package ru.emitrohin.votingsystem.repository;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.emitrohin.votingsystem.model.Vote;
 
 import java.time.LocalDate;
@@ -10,13 +13,16 @@ import java.util.List;
  * @version 1.0
  *          26.11.2016
  */
-public interface VoteRepository {
+public interface VoteRepository extends Repository<Vote, Integer> {
 
+    @Transactional
     Vote save(Vote vote);
 
-    Vote getByUserId(int userId);
+    @Query("SELECT v FROM Vote v JOIN v.user u JOIN v.restaurant r WHERE u.id=?1 and v.voteTimestamp =?2")
+    Vote getByUserId(int userId, LocalDate date);
 
-    List<Vote> getAll();
+    List<Vote> findAll();
 
-    List<Vote> getAllCurrent(LocalDate now);
+    @Query("SELECT v FROM Vote v JOIN v.user u JOIN v.restaurant r WHERE v.voteTimestamp =?1")
+    List<Vote> findAllCurrent(LocalDate now);
 }

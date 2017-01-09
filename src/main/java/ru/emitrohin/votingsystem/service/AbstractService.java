@@ -1,5 +1,6 @@
 package ru.emitrohin.votingsystem.service;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import ru.emitrohin.votingsystem.util.exception.NotFoundException;
 
 import java.util.List;
@@ -14,17 +15,13 @@ public interface AbstractService<T> {
         throw new UnsupportedOperationException();
     }
 
-    void delete(int id) throws NotFoundException;
+    void delete(int id) throws EmptyResultDataAccessException;
 
     T get(int id) throws NotFoundException;
 
     List<T> getAll();
 
     default void update(T item) {
-        throw new UnsupportedOperationException();
-    }
-
-    default void evictCache() {
         throw new UnsupportedOperationException();
     }
 }
