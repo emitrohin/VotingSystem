@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 public class Dish extends BaseEntity {
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "menu_id", nullable = false)
     private Menu menu;
 

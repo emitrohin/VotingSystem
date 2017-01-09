@@ -34,7 +34,7 @@ public class VoteTestData {
     }
 
     public static void reinit() {
-            TEST_VOTES.clear();
+        TEST_VOTES.clear();
         TEST_VOTES.add(new Vote(100024, TEST_RESTAURANTS.get(1), TEST_USERS.get(0), LocalDate.of(2016, 11, 26)));
         TEST_VOTES.add(new Vote(100025, TEST_RESTAURANTS.get(1), TEST_USERS.get(1), LocalDate.of(2016, 11, 26)));
         TEST_VOTES.add(new Vote(100026, TEST_RESTAURANTS.get(1), TEST_USERS.get(2), LocalDate.of(2016, 11, 26)));

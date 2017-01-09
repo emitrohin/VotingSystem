@@ -14,11 +14,12 @@ import java.util.List;
 
 import static ru.emitrohin.votingsystem.testdata.DishTestData.MATCHER;
 import static ru.emitrohin.votingsystem.testdata.DishTestData.TEST_DISHES;
+import static ru.emitrohin.votingsystem.testdata.MenuTestData.TEST_MENUS;
 
 public class DishServiceTest extends AbstractServiceTest {
 
     @Autowired
-    protected DishService service;
+    protected DishService dishService;
 
     @Autowired
     protected MenuService menuService;
@@ -26,57 +27,58 @@ public class DishServiceTest extends AbstractServiceTest {
     @Test
     public void testSave() throws Exception {
         Dish newDish = new Dish(null, "New", 10000L, "link");
-        Dish created = service.save(newDish);
+        Dish created = dishService.save(newDish, 100012);
         newDish.setId(created.getId());
         Collection<Dish> result = new ArrayList<>(TEST_DISHES);
         result.add(created);
-        MATCHER.assertCollectionEquals(result, service.getAll());
+        MATCHER.assertCollectionEquals(result, dishService.getAll());
     }
 
     @Test(expected = DataAccessException.class)
     public void testDuplicateNameSave() throws Exception {
-        service.save(new Dish(null, "Рататуй", 10000L, "link"));
+        dishService.save(new Dish(null, "Рататуй", 10000L, "link"), 100012);
     }
 
 
     @Test
     public void testDelete() throws Exception {
-        service.delete(100016);
+        dishService.delete(100016);
         List<Dish> result = new ArrayList<>(TEST_DISHES);
         result.remove(result.get(1));
-        MATCHER.assertCollectionEquals(Collections.unmodifiableList(result), service.getAll());
+        MATCHER.assertCollectionEquals(Collections.unmodifiableList(result), dishService.getAll());
     }
 
     @Test(expected = EmptyResultDataAccessException.class)
     public void testNotFoundDelete() throws Exception {
-        service.delete(1);
+        dishService.delete(1);
     }
 
 
     @Test(expected = NotFoundException.class)
     public void testGetNotFound() throws Exception {
-        service.get(1);
+        dishService.get(1);
     }
 
     @Test
     public void testGet() throws Exception {
-        Dish dish = service.get(100022);
+        Dish dish = dishService.get(100023);
         MATCHER.assertEquals(TEST_DISHES.get(TEST_DISHES.size() - 1), dish);
     }
 
     @Test
     public void testGetAll() throws Exception {
-        Collection<Dish> all = service.getAll();
+        Collection<Dish> all = dishService.getAll();
         MATCHER.assertCollectionEquals(TEST_DISHES, all);
     }
 
     @Test
     public void testUpdate() throws Exception {
         Dish updated = new Dish(TEST_DISHES.get(TEST_DISHES.size() - 1));
+        updated.setMenu(TEST_MENUS.get(0));
         updated.setName("UpdatedName");
         updated.setImageLink("UpdatedLink");
-        service.update(updated);
-        MATCHER.assertEquals(updated, service.get(100022));
+        dishService.update(updated);
+        MATCHER.assertEquals(updated, dishService.get(100023));
     }
 
 }

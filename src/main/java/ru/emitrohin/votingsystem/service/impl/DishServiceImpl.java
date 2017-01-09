@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.emitrohin.votingsystem.model.Dish;
 import ru.emitrohin.votingsystem.repository.DishRepository;
+import ru.emitrohin.votingsystem.repository.MenuRepository;
 import ru.emitrohin.votingsystem.service.DishService;
 import ru.emitrohin.votingsystem.util.exception.ExceptionUtil;
 
@@ -18,38 +19,40 @@ import java.util.List;
 @Service
 public class DishServiceImpl implements DishService {
 
-    private DishRepository repository;
+    private DishRepository dishRepository;
+    private MenuRepository menuRepository;
 
     @Autowired
-    public DishServiceImpl(DishRepository repository) {
-        this.repository = repository;
+    public DishServiceImpl(DishRepository dishRepository, MenuRepository menuRepository) {
+        this.dishRepository = dishRepository;
+        this.menuRepository = menuRepository;
     }
 
-    @Override
-    public Dish save(Dish dish) {
+    public Dish save(Dish dish, int menuId) {
         Assert.notNull(dish, "dish must not be null");
-        return repository.save(dish);
+        dish.setMenu(menuRepository.findOne(menuId));
+        return dishRepository.save(dish);
     }
 
     @Override
     public void delete(int id) {
-        repository.delete(id);
+        dishRepository.delete(id);
     }
 
     @Override
     public Dish get(int id) {
-        return ExceptionUtil.checkNotFoundWithId(repository.findOne(id), id);
+        return ExceptionUtil.checkNotFoundWithId(dishRepository.findOne(id), id);
     }
 
     @Override
     public void update(Dish dish) {
         Assert.notNull(dish, "dish must not be null");
-        repository.save(dish);
+        dishRepository.save(dish);
     }
 
     @Override
     public List<Dish> getAll() {
-        return repository.findAll();
+        return dishRepository.findAll();
     }
 
 }

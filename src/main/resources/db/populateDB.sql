@@ -48,22 +48,14 @@ INSERT INTO menus (restaurant_id, dateOfMenu) VALUES
 
 
 INSERT INTO dishes (menu_id, name, price, imageLink) VALUES
-  (100012, 'Рататуй', 15000,
-   'http://img07.rl0.ru/eda/c300x300/s2.afisha-eda.ru/Photos/120214125956-120214130233-p-O-kartofel-zapechennij-v-mundire.jpg'),
-  (100012, 'Картофель, в мундире', 18000,
-   'http://img04.rl0.ru/eda/c172x172/s2.afisha-eda.ru/Photos/150810204910-150818154229-p-O-ratatuj.jpg'),
-  (100012, 'Борщ', 21000,
-   'http://img08.rl0.ru/eda/c172x172/s2.afisha-eda.ru/Photos/120131084941-120214160730-p-O-kurica-zapechennaja-v-hrustjaschej-korochke-s-imbirem-apelsinami.jpg'),
-  (100013, 'Гратен дофинуа', 10000,
-   'http://img08.rl0.ru/eda/c172x172/s2.afisha-eda.ru/Photos/151002075307-151009125656-p-O-graten-dofinua.jpg'),
-  (100013, 'Чахохбили из курицы', 16000,
-   'http://img05.rl0.ru/eda/c172x172/s1.afisha-eda.ru/Photos/120213175727-120213180044-p-O-chahohbili-iz-kurici.jpg'),
-  (100013, 'Жареный рис с яйцом', 19000,
-   'http://img05.rl0.ru/eda/c172x172/s1.afisha-eda.ru/Photos/150428090447-150505141508-p-O-zharenij-ris-s-jajcom-po-kitajski.jpg'),
-  (100014, 'Хинкали', 19000,
-   'http://img05.rl0.ru/eda/c172x172/s2.afisha-eda.ru/Photos/120131112107-150527002516-p-O-hinkali.jpg'),
-  (100014, 'Тикка-масала', 30000,
-   'http://img04.rl0.ru/eda/c172x172/s1.afisha-eda.ru/Photos/120131082425-130725170057-p-O-tikka-masala.jpg'),
+  (100012, 'Рататуй', 15000, '1.jpg'),
+  (100012, 'Картофель, в мундире', 18000, '2.jpg'),
+  (100012, 'Борщ', 21000, '3.jpg'),
+  (100013, 'Гратен дофинуа', 10000, '4.jpg'),
+  (100013, 'Чахохбили из курицы', 16000, '5.jpg'),
+  (100013, 'Жареный рис с яйцом', 19000, '6.jpg'),
+  (100014, 'Хинкали', 19000, '7.jpg'),
+  (100014, 'Тикка-масала', 30000, '8.jpg'),
   (100014, 'НЕ что', 11000, NULL);
 
 
