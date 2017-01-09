@@ -25,7 +25,7 @@ import static ru.emitrohin.votingsystem.testdata.VoteTestData.*;
 
 public class VoteControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = VoteController.CONTROLLER_URL;
+    private static final String REST_URL = RootController.REST_URL;
 
     @Autowired
     protected VoteService voteService;
@@ -33,18 +33,39 @@ public class VoteControllerTest extends AbstractControllerTest {
 
     @Test
     public void testUnAuth() throws Exception {
-        mockMvc.perform(get(REST_URL + "/" + TEST_RESTAURANTS.get(2).getId())
+        mockMvc.perform(post(REST_URL + "/restaurants/" + TEST_RESTAURANTS.get(2).getId() + "/vote")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized());
     }
 
     @Test
-    public void testNewVoteVoteOnTime() throws Exception {
+    public void testNewVoteVoteBefore1100() throws Exception {
         TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 10, 0));
 
         Vote expected = new Vote(null, TEST_RESTAURANTS.get(2), TEST_USERS.get(7), TimeUtil.now());
 
-        ResultActions action = mockMvc.perform(post(REST_URL + "/" + TEST_RESTAURANTS.get(2).getId())
+        ResultActions action = mockMvc.perform(post(REST_URL + "/restaurants/" + TEST_RESTAURANTS.get(2).getId() + "/vote")
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(TEST_USERS.get(7))))
+                .andExpect(status().isCreated());
+
+        Vote returned = MATCHER.fromJsonAction(action);
+        expected.setId(returned.getId());
+
+        Collection<Vote> result = new ArrayList<>(TEST_VOTES);
+        result.add(expected);
+
+        MATCHER.assertEquals(expected, returned);
+        MATCHER.assertCollectionEquals(Collections.unmodifiableCollection(result), voteService.getAll());
+    }
+
+    @Test
+    public void testNewVoteVoteAfter1100() throws Exception {
+        TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 22, 0));
+
+        Vote expected = new Vote(null, TEST_RESTAURANTS.get(2), TEST_USERS.get(7), TimeUtil.now());
+
+        ResultActions action = mockMvc.perform(post(REST_URL + "/restaurants/" + TEST_RESTAURANTS.get(2).getId() + "/vote")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(TEST_USERS.get(7))))
                 .andExpect(status().isCreated());
@@ -66,7 +87,7 @@ public class VoteControllerTest extends AbstractControllerTest {
         Vote expected = TEST_VOTES.get(5);
         expected.setRestaurant(TEST_RESTAURANTS.get(1));
 
-        ResultActions action = mockMvc.perform(post(REST_URL + "/" + TEST_RESTAURANTS.get(1).getId())
+        ResultActions action = mockMvc.perform(post(REST_URL + "/restaurants/" + TEST_RESTAURANTS.get(1).getId() + "/vote")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(TEST_USERS.get(5))))
                 .andExpect(status().isCreated());
@@ -80,31 +101,17 @@ public class VoteControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testGetSubTotals() throws Exception {
-        TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 9, 0));
-
-        ResultActions action = mockMvc.perform(get(REST_URL)
-                .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(TEST_USERS.get(5))))
-                .andExpect(status().isOk());
-
-        VoteTo returned = VoteToTestData.MATCHER.fromJsonAction(action);
-
-        VoteToTestData.MATCHER.assertEquals(VoteToTestData.TEST_VOTE_TO_BEFORE_11_00, returned);
-    }
-
-    @Test
     public void testGetResults() throws Exception {
         TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 12, 0));
 
-        ResultActions action = mockMvc.perform(get(REST_URL)
+        ResultActions action = mockMvc.perform(get(REST_URL + "/restaurants/votes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(TEST_USERS.get(5))))
                 .andExpect(status().isOk());
 
         VoteTo returned = VoteToTestData.MATCHER.fromJsonAction(action);
 
-        VoteToTestData.MATCHER.assertEquals(VoteToTestData.TEST_VOTE_TO_AFTER_11_00, returned);
+        VoteToTestData.MATCHER.assertEquals(VoteToTestData.TEST_VOTES, returned);
     }
 
     @Test
@@ -113,7 +120,7 @@ public class VoteControllerTest extends AbstractControllerTest {
 
         Vote expected = new Vote(null, TEST_RESTAURANTS.get(2), TEST_USERS.get(7), TimeUtil.now());
 
-        ResultActions action = mockMvc.perform(post(REST_URL + "/" + TEST_RESTAURANTS.get(2).getId())
+        ResultActions action = mockMvc.perform(post(REST_URL + "/restaurants/" + TEST_RESTAURANTS.get(2).getId() + "/vote")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(TEST_USERS.get(7))))
                 .andExpect(status().isCreated());
@@ -129,7 +136,7 @@ public class VoteControllerTest extends AbstractControllerTest {
 
         expected.setRestaurant(TEST_RESTAURANTS.get(0));
 
-        action = mockMvc.perform(post(REST_URL + "/" + TEST_RESTAURANTS.get(0).getId())
+        action = mockMvc.perform(post(REST_URL + "/restaurants/" + TEST_RESTAURANTS.get(0).getId() + "/vote")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(TEST_USERS.get(7))))
                 .andExpect(status().isCreated());

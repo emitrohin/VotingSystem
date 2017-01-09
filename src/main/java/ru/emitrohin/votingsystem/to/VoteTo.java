@@ -12,27 +12,21 @@ import java.util.Map;
  */
 public class VoteTo {
 
-    private String winnerName;
+    private String leaderName;
     private HashMap<String, Integer> results;
-    private boolean votingIsOver;
 
     public VoteTo() {
     }
 
-    public VoteTo(String winnerName, HashMap<String, Integer> results, boolean votingIsOver) {
-        this.winnerName = winnerName;
+    public VoteTo(String leaderName, HashMap<String, Integer> results) {
+        this.leaderName = leaderName;
         this.results = results;
-        this.votingIsOver = votingIsOver;
-    }
-
-    public static VoteTo parseSubTotals(List<Vote> voteList) {
-        return new VoteTo("Name will be available after 11:00", parseVoteList(voteList), false);
     }
 
     public static VoteTo parseResults(List<Vote> voteList) {
         HashMap<String, Integer> map = parseVoteList(voteList);
         String name = map.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey();
-        return new VoteTo(name, map, true);
+        return new VoteTo(name, map);
     }
 
     public static HashMap<String, Integer> parseVoteList(List<Vote> voteList) {
@@ -56,20 +50,12 @@ public class VoteTo {
         this.results = results;
     }
 
-    public boolean isVotingIsOver() {
-        return votingIsOver;
+    public String getLeaderName() {
+        return leaderName;
     }
 
-    public void setVotingIsOver(boolean votingIsOver) {
-        this.votingIsOver = votingIsOver;
-    }
-
-    public String getWinnerName() {
-        return winnerName;
-    }
-
-    public void setWinnerName(String winnerName) {
-        this.winnerName = winnerName;
+    public void setLeaderName(String leaderName) {
+        this.leaderName = leaderName;
     }
 
 

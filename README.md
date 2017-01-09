@@ -37,11 +37,11 @@ Ordinary users are allowed:
 
 * to vote for restaurant if menu meets any requirements and to change their mind before 11:00
 
-`curl -X POST -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/votes/{restaurant_id}"`
+`curl -X POST -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/restaurants/{restaurant_id}/vote"`
 
 * to see result during and after voting
 
-`curl -X GET -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/votes/"`
+`curl -X GET -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/restaurants/votes/"`
 
 
 ### Admins

@@ -22,8 +22,20 @@ public class VoteServiceTest extends AbstractServiceTest {
     protected VoteService service;
 
     @Test
-    public void testSaveNewVoteOnTime() throws Exception {
+    public void testSaveNewVoteBefore1100() throws Exception {
         TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 10, 0));
+
+        Vote vote = new Vote(null, TEST_RESTAURANTS.get(2), TEST_USERS.get(6), TimeUtil.now());
+        Vote created = service.vote(TEST_USERS.get(6).getId(), TEST_RESTAURANTS.get(2).getId());
+        vote.setId(created.getId());
+        Collection<Vote> result = new ArrayList<>(TEST_VOTES);
+        result.add(created);
+        MATCHER.assertCollectionEquals(result, service.getAll());
+    }
+
+    @Test
+    public void testSaveNewVoteAfter1100() throws Exception {
+        TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 22, 0));
 
         Vote vote = new Vote(null, TEST_RESTAURANTS.get(2), TEST_USERS.get(6), TimeUtil.now());
         Vote created = service.vote(TEST_USERS.get(6).getId(), TEST_RESTAURANTS.get(2).getId());
@@ -44,12 +56,6 @@ public class VoteServiceTest extends AbstractServiceTest {
         service.vote(TEST_USERS.get(5).getId(), TEST_RESTAURANTS.get(1).getId());
         MATCHER.assertCollectionEquals(result, service.getAll());
         reinit(); // dunno how to control data integrity when changes happens in TEST_VOTES
-    }
-
-    @Test(expected = Exception.class)
-    public void testSaveNewVoteWhenVotingIsOver() throws Exception {
-        TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 12, 0));
-        service.vote(TEST_USERS.get(6).getId(), TEST_RESTAURANTS.get(2).getId());
     }
 
     @Test

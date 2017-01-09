@@ -13,16 +13,11 @@ import java.util.Objects;
 public class VoteToTestData {
 
     public static final ModelMatcher<VoteTo> MATCHER = ModelMatcher.of(VoteTo.class,
-            (expected, actual) -> expected == actual ||
-                    (
-                            Objects.equals(expected.getWinnerName(), actual.getWinnerName())
-                                    && Objects.equals(expected.isVotingIsOver(), actual.isVotingIsOver())
-                    )
+            (expected, actual) -> expected == actual || Objects.equals(expected.getLeaderName(), actual.getLeaderName())
     );
 
     private static HashMap<String, Integer> results = new HashMap<>();
-    public static VoteTo TEST_VOTE_TO_BEFORE_11_00 = new VoteTo("Name will be available after 11:00", results, false);
-    public static VoteTo TEST_VOTE_TO_AFTER_11_00 = new VoteTo("Гранд каньон", results, true);
+    public static VoteTo TEST_VOTES = new VoteTo("Гранд каньон", results);
 
     static {
         reinit();

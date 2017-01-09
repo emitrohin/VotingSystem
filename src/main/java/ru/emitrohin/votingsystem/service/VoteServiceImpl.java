@@ -3,7 +3,6 @@ package ru.emitrohin.votingsystem.service;
 import org.springframework.stereotype.Service;
 import ru.emitrohin.votingsystem.model.Menu;
 import ru.emitrohin.votingsystem.model.Restaurant;
-import ru.emitrohin.votingsystem.model.User;
 import ru.emitrohin.votingsystem.model.Vote;
 import ru.emitrohin.votingsystem.repository.interfaces.MenuRepository;
 import ru.emitrohin.votingsystem.repository.interfaces.RestaurantRepository;
@@ -41,15 +40,8 @@ public class VoteServiceImpl implements VoteService {
     @Override
     public Vote vote(int userId, int restaurantId) {
 
-        if (TimeUtil.nowTime().compareTo(VOTING_TIME) > 0) {
-            throw new VotingException("Voting is over. Votes are accepted only before 11:00");
-        }
-
         Restaurant restaurant = restaurantRepository.get(restaurantId);
         ExceptionUtil.checkNotFoundWithId(restaurant, restaurantId);
-
-        User user = userRepository.get(userId);
-        ExceptionUtil.checkNotFoundWithId(user, userId);
 
         Menu menu = menuRepository.getByRestaurantId(restaurantId);
         if (menuRepository.getByRestaurantId(restaurantId) == null) {
@@ -61,9 +53,14 @@ public class VoteServiceImpl implements VoteService {
         }
 
         Vote vote = repository.getByUserId(userId);
+
         if (vote == null) {
-            vote = new Vote(null, restaurant, user, TimeUtil.now());
+            vote = new Vote(null, restaurant, userRepository.get(userId), TimeUtil.now());
             return repository.save(vote);
+        }
+
+        if (TimeUtil.nowTime().compareTo(VOTING_TIME) > 0) {
+            throw new VotingException("You can't change your vote after 11:00");
         }
 
         vote.setRestaurant(restaurant);

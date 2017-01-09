@@ -11,11 +11,8 @@ import ru.emitrohin.votingsystem.AuthorizedUser;
 import ru.emitrohin.votingsystem.model.Vote;
 import ru.emitrohin.votingsystem.service.interfaces.VoteService;
 import ru.emitrohin.votingsystem.to.VoteTo;
-import ru.emitrohin.votingsystem.util.TimeUtil;
 
 import java.net.URI;
-
-import static ru.emitrohin.votingsystem.util.TimeUtil.VOTING_TIME;
 
 /**
  * @author emitrohin
@@ -24,10 +21,9 @@ import static ru.emitrohin.votingsystem.util.TimeUtil.VOTING_TIME;
  */
 
 @RestController
-@RequestMapping(VoteController.CONTROLLER_URL)
+@RequestMapping(RootController.REST_URL)
 public class VoteController {
 
-    public static final String CONTROLLER_URL = RootController.REST_URL + "votes/";
     private final Logger log = LoggerFactory.getLogger(getClass());
     private VoteService service;
 
@@ -36,28 +32,24 @@ public class VoteController {
         this.service = service;
     }
 
-    @PostMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/restaurants/{id}/vote", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Vote> vote(@PathVariable("id") int restaurantId) throws Exception {
         log.info(AuthorizedUser.get().getUsername() + " : vote " + restaurantId);
         Vote newVote = service.vote(AuthorizedUser.id(), restaurantId);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(CONTROLLER_URL + "/{id}")
+                .path(RootController.REST_URL + "/restaurants/{id}/vote")
                 .buildAndExpand(newVote.getId()).toUri();
 
         return ResponseEntity.created(uriOfNewResource).body(newVote);
 
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/restaurants/votes", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<VoteTo> results() {
         log.info(AuthorizedUser.get().getUsername() + " : results ");
-        if (TimeUtil.nowTime().compareTo(VOTING_TIME) > 0) {
-            VoteTo voteTo = VoteTo.parseResults(service.getAllCurrent());
-            return ResponseEntity.ok().body(voteTo);
-        }
 
-        VoteTo voteTo = VoteTo.parseSubTotals(service.getAllCurrent());
+        VoteTo voteTo = VoteTo.parseResults(service.getAllCurrent());
         return ResponseEntity.ok().body(voteTo);
     }
 }
