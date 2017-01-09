@@ -12,7 +12,7 @@ import java.time.LocalDate;
  */
 
 @Entity
-@Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "user_id", "vote_date"}, name = "restaurant_user_id_date_idx")})
+@Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "user_id", "vote_timestamp"}, name = "votes_restaurant_id_user_id_vote_timestamp_idx")})
 public class Vote extends BaseEntity {
 
     @NotNull
@@ -27,21 +27,21 @@ public class Vote extends BaseEntity {
     private User user;
 
     @NotNull
-    @Column(name = "vote_date", columnDefinition = "timestamp default now()")
-    private LocalDate voteDate;
+    @Column(name = "vote_timestamp", columnDefinition = "timestamp default now()")
+    private LocalDate voteTimestamp;
 
     public Vote() {
     }
 
     public Vote(Vote vote) {
-        this(vote.getId(), vote.getRestaurant(), vote.getUser(), vote.getVoteDate());
+        this(vote.getId(), vote.getRestaurant(), vote.getUser(), vote.getVoteTimestamp());
     }
 
-    public Vote(Integer id, Restaurant restaurant, User user, LocalDate voteDate) {
+    public Vote(Integer id, Restaurant restaurant, User user, LocalDate voteTimestamp) {
         super(id);
         this.restaurant = restaurant;
         this.user = user;
-        this.voteDate = voteDate;
+        this.voteTimestamp = voteTimestamp;
     }
 
     public Restaurant getRestaurant() {
@@ -60,11 +60,11 @@ public class Vote extends BaseEntity {
         this.user = user;
     }
 
-    public LocalDate getVoteDate() {
-        return voteDate;
+    public LocalDate getVoteTimestamp() {
+        return voteTimestamp;
     }
 
-    public void setVoteDate(LocalDate currentDate) {
-        this.voteDate = currentDate;
+    public void setVoteTimestamp(LocalDate currentDate) {
+        this.voteTimestamp = currentDate;
     }
 }

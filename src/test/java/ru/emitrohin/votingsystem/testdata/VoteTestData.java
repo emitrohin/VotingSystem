@@ -23,7 +23,7 @@ public class VoteTestData {
                             Objects.equals(expected.getId(), actual.getId())
                                     && Objects.equals(expected.getRestaurant().getId(), actual.getRestaurant().getId())
                                     && Objects.equals(expected.getId(), actual.getId())
-                                    && Objects.equals(expected.getVoteDate(), actual.getVoteDate())
+                                    && Objects.equals(expected.getVoteTimestamp(), actual.getVoteTimestamp())
                     )
     );
 

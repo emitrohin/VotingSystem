@@ -19,11 +19,11 @@ public interface JpaVoteRepository extends Repository<Vote, Integer> {
     @Transactional
     Vote save(Vote vote);
 
-    @Query("SELECT v FROM Vote v JOIN v.user u JOIN v.restaurant r WHERE u.id=?1 and v.voteDate =?2")
+    @Query("SELECT v FROM Vote v JOIN v.user u JOIN v.restaurant r WHERE u.id=?1 and v.voteTimestamp =?2")
     Vote getByUserId(int userId, LocalDate date);
 
     List<Vote> findAll();
 
-    @Query("SELECT v FROM Vote v JOIN v.user u JOIN v.restaurant r WHERE v.voteDate =?1")
+    @Query("SELECT v FROM Vote v JOIN v.user u JOIN v.restaurant r WHERE v.voteTimestamp =?1")
     List<Vote> findAllCurrent(LocalDate now);
 }

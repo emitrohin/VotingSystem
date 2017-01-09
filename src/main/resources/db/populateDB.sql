@@ -74,7 +74,7 @@ INSERT INTO menus_dishes (dish_id, menu_id, price) VALUES
   (100016, 100014, 300.00),
   (100017, 100014, 110.00);
 
-INSERT INTO votes (restaurant_id, user_id, vote_date) VALUES
+INSERT INTO votes (restaurant_id, user_id, vote_timestamp) VALUES
   (100009, 100000, DATE '2016-11-26'),
   (100009, 100001, DATE '2016-11-26'),
   (100009, 100002, DATE '2016-11-26'),

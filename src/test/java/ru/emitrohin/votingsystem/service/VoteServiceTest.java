@@ -84,7 +84,7 @@ public class VoteServiceTest extends AbstractServiceTest {
         Collection<Vote> all = service.getAllCurrent();
         Collection<Vote> actual = TEST_VOTES
                 .stream()
-                .filter(x -> x.getVoteDate().compareTo(TimeUtil.now()) == 0)
+                .filter(x -> x.getVoteTimestamp().compareTo(TimeUtil.now()) == 0)
                 .collect(Collectors.toList());
 
         MATCHER.assertCollectionEquals(actual, all);
