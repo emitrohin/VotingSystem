@@ -3,7 +3,6 @@ package ru.emitrohin.votingsystem.service;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.emitrohin.votingsystem.model.Vote;
-import ru.emitrohin.votingsystem.service.interfaces.VoteService;
 import ru.emitrohin.votingsystem.util.TimeUtil;
 
 import java.time.LocalDateTime;

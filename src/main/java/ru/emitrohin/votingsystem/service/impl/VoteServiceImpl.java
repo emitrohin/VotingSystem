@@ -1,14 +1,14 @@
-package ru.emitrohin.votingsystem.service;
+package ru.emitrohin.votingsystem.service.impl;
 
 import org.springframework.stereotype.Service;
 import ru.emitrohin.votingsystem.model.Menu;
 import ru.emitrohin.votingsystem.model.Restaurant;
 import ru.emitrohin.votingsystem.model.Vote;
-import ru.emitrohin.votingsystem.repository.interfaces.MenuRepository;
-import ru.emitrohin.votingsystem.repository.interfaces.RestaurantRepository;
-import ru.emitrohin.votingsystem.repository.interfaces.UserRepository;
-import ru.emitrohin.votingsystem.repository.interfaces.VoteRepository;
-import ru.emitrohin.votingsystem.service.interfaces.VoteService;
+import ru.emitrohin.votingsystem.repository.MenuRepository;
+import ru.emitrohin.votingsystem.repository.RestaurantRepository;
+import ru.emitrohin.votingsystem.repository.UserRepository;
+import ru.emitrohin.votingsystem.repository.VoteRepository;
+import ru.emitrohin.votingsystem.service.VoteService;
 import ru.emitrohin.votingsystem.util.TimeUtil;
 import ru.emitrohin.votingsystem.util.exception.ExceptionUtil;
 import ru.emitrohin.votingsystem.util.exception.VotingException;

@@ -1,4 +1,4 @@
-package ru.emitrohin.votingsystem.service;
+package ru.emitrohin.votingsystem.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.emitrohin.votingsystem.model.DishMenu;
 import ru.emitrohin.votingsystem.model.Menu;
-import ru.emitrohin.votingsystem.repository.interfaces.DishMenuRepository;
-import ru.emitrohin.votingsystem.repository.interfaces.DishRepository;
-import ru.emitrohin.votingsystem.repository.interfaces.MenuRepository;
-import ru.emitrohin.votingsystem.service.interfaces.DishMenuService;
+import ru.emitrohin.votingsystem.repository.DishMenuRepository;
+import ru.emitrohin.votingsystem.repository.DishRepository;
+import ru.emitrohin.votingsystem.repository.MenuRepository;
+import ru.emitrohin.votingsystem.service.DishMenuService;
 import ru.emitrohin.votingsystem.to.DishMenuTo;
 import ru.emitrohin.votingsystem.util.DishMenuUtil;
 import ru.emitrohin.votingsystem.util.TimeUtil;

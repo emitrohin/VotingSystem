@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import ru.emitrohin.votingsystem.model.User;
-import ru.emitrohin.votingsystem.service.interfaces.UserService;
 import ru.emitrohin.votingsystem.util.exception.NotFoundException;
 
 import java.util.*;

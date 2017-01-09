@@ -1,4 +1,4 @@
-package ru.emitrohin.votingsystem.service.interfaces;
+package ru.emitrohin.votingsystem.service;
 
 import ru.emitrohin.votingsystem.model.Menu;
 

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.emitrohin.votingsystem.AuthorizedUser;
 import ru.emitrohin.votingsystem.model.Restaurant;
-import ru.emitrohin.votingsystem.service.interfaces.RestaurantService;
+import ru.emitrohin.votingsystem.service.RestaurantService;
 
 import java.net.URI;
 import java.util.List;

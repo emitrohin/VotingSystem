@@ -1,4 +1,4 @@
-package ru.emitrohin.votingsystem.service;
+package ru.emitrohin.votingsystem.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.emitrohin.votingsystem.AuthorizedUser;
 import ru.emitrohin.votingsystem.model.User;
-import ru.emitrohin.votingsystem.repository.interfaces.UserRepository;
-import ru.emitrohin.votingsystem.service.interfaces.UserService;
+import ru.emitrohin.votingsystem.repository.UserRepository;
+import ru.emitrohin.votingsystem.service.UserService;
 import ru.emitrohin.votingsystem.util.exception.ExceptionUtil;
 
 import java.util.List;

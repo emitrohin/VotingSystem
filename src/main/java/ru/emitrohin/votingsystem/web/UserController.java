@@ -13,7 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.emitrohin.votingsystem.AuthorizedUser;
 import ru.emitrohin.votingsystem.View;
 import ru.emitrohin.votingsystem.model.User;
-import ru.emitrohin.votingsystem.service.interfaces.UserService;
+import ru.emitrohin.votingsystem.service.UserService;
 
 import javax.validation.Valid;
 import java.net.URI;

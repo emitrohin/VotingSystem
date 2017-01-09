@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.emitrohin.votingsystem.AuthorizedUser;
 import ru.emitrohin.votingsystem.model.Vote;
-import ru.emitrohin.votingsystem.service.interfaces.VoteService;
+import ru.emitrohin.votingsystem.service.VoteService;
 import ru.emitrohin.votingsystem.to.VoteTo;
 
 import java.net.URI;

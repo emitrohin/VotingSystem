@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import ru.emitrohin.votingsystem.TestUtil;
 import ru.emitrohin.votingsystem.model.DishMenu;
-import ru.emitrohin.votingsystem.service.interfaces.DishMenuService;
+import ru.emitrohin.votingsystem.service.DishMenuService;
 
 import java.util.ArrayList;
 import java.util.Collections;

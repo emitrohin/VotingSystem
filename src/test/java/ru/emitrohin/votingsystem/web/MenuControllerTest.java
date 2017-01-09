@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import ru.emitrohin.votingsystem.TestUtil;
 import ru.emitrohin.votingsystem.model.Menu;
-import ru.emitrohin.votingsystem.service.interfaces.MenuService;
+import ru.emitrohin.votingsystem.service.MenuService;
 import ru.emitrohin.votingsystem.util.TimeUtil;
 import ru.emitrohin.votingsystem.web.json.JsonUtil;
 

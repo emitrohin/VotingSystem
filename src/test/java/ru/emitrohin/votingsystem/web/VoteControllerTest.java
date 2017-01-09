@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import ru.emitrohin.votingsystem.model.Vote;
-import ru.emitrohin.votingsystem.service.interfaces.VoteService;
+import ru.emitrohin.votingsystem.service.VoteService;
 import ru.emitrohin.votingsystem.testdata.VoteToTestData;
 import ru.emitrohin.votingsystem.to.VoteTo;
 import ru.emitrohin.votingsystem.util.TimeUtil;

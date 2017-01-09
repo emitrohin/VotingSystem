@@ -1,11 +1,11 @@
-package ru.emitrohin.votingsystem.repository;
+package ru.emitrohin.votingsystem.repository.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.emitrohin.votingsystem.model.Menu;
+import ru.emitrohin.votingsystem.repository.MenuRepository;
 import ru.emitrohin.votingsystem.repository.datajpa.JpaMenuRepository;
 import ru.emitrohin.votingsystem.repository.datajpa.JpaRestaurantRepository;
-import ru.emitrohin.votingsystem.repository.interfaces.MenuRepository;
 import ru.emitrohin.votingsystem.util.TimeUtil;
 
 import java.util.List;

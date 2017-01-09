@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import ru.emitrohin.votingsystem.TestUtil;
 import ru.emitrohin.votingsystem.model.Restaurant;
-import ru.emitrohin.votingsystem.service.interfaces.RestaurantService;
+import ru.emitrohin.votingsystem.service.RestaurantService;
 import ru.emitrohin.votingsystem.web.json.JsonUtil;
 
 import java.util.ArrayList;

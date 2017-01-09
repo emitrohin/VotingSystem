@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import ru.emitrohin.votingsystem.TestUtil;
 import ru.emitrohin.votingsystem.model.User;
-import ru.emitrohin.votingsystem.service.interfaces.UserService;
+import ru.emitrohin.votingsystem.service.UserService;
 import ru.emitrohin.votingsystem.web.json.JsonUtil;
 
 import java.util.*;

@@ -1,10 +1,10 @@
-package ru.emitrohin.votingsystem.repository;
+package ru.emitrohin.votingsystem.repository.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.emitrohin.votingsystem.model.Dish;
+import ru.emitrohin.votingsystem.repository.DishRepository;
 import ru.emitrohin.votingsystem.repository.datajpa.JpaDishRepository;
-import ru.emitrohin.votingsystem.repository.interfaces.DishRepository;
 
 import java.util.List;
 

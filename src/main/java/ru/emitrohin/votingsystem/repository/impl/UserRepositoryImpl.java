@@ -1,10 +1,10 @@
-package ru.emitrohin.votingsystem.repository;
+package ru.emitrohin.votingsystem.repository.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.emitrohin.votingsystem.model.User;
+import ru.emitrohin.votingsystem.repository.UserRepository;
 import ru.emitrohin.votingsystem.repository.datajpa.JpaUserRepository;
-import ru.emitrohin.votingsystem.repository.interfaces.UserRepository;
 
 import java.util.List;
 

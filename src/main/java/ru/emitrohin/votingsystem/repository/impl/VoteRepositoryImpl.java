@@ -1,10 +1,10 @@
-package ru.emitrohin.votingsystem.repository;
+package ru.emitrohin.votingsystem.repository.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.emitrohin.votingsystem.model.Vote;
+import ru.emitrohin.votingsystem.repository.VoteRepository;
 import ru.emitrohin.votingsystem.repository.datajpa.JpaVoteRepository;
-import ru.emitrohin.votingsystem.repository.interfaces.VoteRepository;
 import ru.emitrohin.votingsystem.util.TimeUtil;
 
 import java.time.LocalDate;

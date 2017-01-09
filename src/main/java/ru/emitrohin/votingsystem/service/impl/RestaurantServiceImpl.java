@@ -1,11 +1,11 @@
-package ru.emitrohin.votingsystem.service;
+package ru.emitrohin.votingsystem.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.emitrohin.votingsystem.model.Restaurant;
-import ru.emitrohin.votingsystem.repository.interfaces.RestaurantRepository;
-import ru.emitrohin.votingsystem.service.interfaces.RestaurantService;
+import ru.emitrohin.votingsystem.repository.RestaurantRepository;
+import ru.emitrohin.votingsystem.service.RestaurantService;
 import ru.emitrohin.votingsystem.util.exception.ExceptionUtil;
 
 import java.util.List;

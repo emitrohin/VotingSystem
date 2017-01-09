@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import ru.emitrohin.votingsystem.model.Menu;
 import ru.emitrohin.votingsystem.model.Restaurant;
-import ru.emitrohin.votingsystem.service.interfaces.MenuService;
-import ru.emitrohin.votingsystem.service.interfaces.RestaurantService;
 import ru.emitrohin.votingsystem.testdata.MenuTestData;
 import ru.emitrohin.votingsystem.util.exception.NotFoundException;
 
