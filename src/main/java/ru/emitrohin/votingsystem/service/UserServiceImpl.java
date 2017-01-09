@@ -1,8 +1,6 @@
 package ru.emitrohin.votingsystem.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -34,7 +32,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    @CacheEvict(value = "users", allEntries = true)
     public User save(User user) {
         Assert.notNull(user, "user must not be null");
         return repository.save(prepareToSave(user));
@@ -50,30 +47,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
     }
 
-    @CacheEvict(value = "users", allEntries = true)
     @Override
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
         repository.save(prepareToSave(user));
     }
 
-    @Cacheable("users")
     @Override
     public List<User> getAll() {
         return repository.getAll();
     }
 
-    @CacheEvict(value = "users", allEntries = true)
     @Transactional
     public void enable(int id, boolean enabled) {
         User user = get(id);
         user.setEnabled(enabled);
         repository.save(user);
-    }
-
-    @CacheEvict(value = "users", allEntries = true)
-    @Override
-    public void evictCache() {
     }
 
     @Override

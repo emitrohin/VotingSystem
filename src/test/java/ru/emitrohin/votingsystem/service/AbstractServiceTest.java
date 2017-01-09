@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 abstract public class AbstractServiceTest {
-    protected static final boolean TEST_PASSED = true;
+
     private static final Logger LOG = LoggerFactory.getLogger(AbstractServiceTest.class);
     private static StringBuilder results = new StringBuilder();
 

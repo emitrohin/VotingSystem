@@ -1,6 +1,5 @@
 package ru.emitrohin.votingsystem.service;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -29,10 +28,6 @@ public class DishMenuServiceTest extends AbstractServiceTest {
     @Autowired
     protected DishMenuService service;
 
-    @Before
-    public void setUp() {
-        service.evictCache();
-    }
 
     @Test(expected = UnsupportedOperationException.class)
     public void testSaveUnsupportedOperation() throws Exception {

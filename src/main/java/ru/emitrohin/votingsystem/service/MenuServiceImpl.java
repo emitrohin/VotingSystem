@@ -1,8 +1,6 @@
 package ru.emitrohin.votingsystem.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ru.emitrohin.votingsystem.model.Menu;
 import ru.emitrohin.votingsystem.repository.interfaces.MenuRepository;
@@ -28,7 +26,6 @@ public class MenuServiceImpl implements MenuService {
         this.repository = repository;
     }
 
-    @CacheEvict(value = "menus", allEntries = true)
     @Override
     public Menu save(int restaurantId) {
         return repository.save(new Menu(null, TimeUtil.now()), restaurantId);
@@ -47,26 +44,17 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Menu getByRestaurantId(int restaurantId) {
-
         return ExceptionUtil.checkNotFoundWithId(repository.getByRestaurantId(restaurantId), restaurantId);
     }
 
-    @Cacheable("menus")
     @Override
     public List<Menu> getAll() {
         return repository.getAll();
     }
 
-    @Cacheable("menus")
     @Override
     public List<Menu> getAllCurrent() {
         List<Menu> all = repository.getAllCurrent();
         return all.stream().filter(x -> x.getDishMenus().size() > 0).collect(Collectors.toList());
-    }
-
-    @CacheEvict(value = "menus", allEntries = true)
-    @Override
-    public void evictCache() {
-
     }
 }

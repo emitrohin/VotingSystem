@@ -37,9 +37,6 @@
         <hibernate.version>5.2.4.Final</hibernate.version>
         <hibernate-validator.version>5.3.2.Final</hibernate-validator.version>
 
-        <!--Tools-->
-        <ehcache.version>2.10.3</ehcache.version>
-
     </properties>
 
     <build>
@@ -202,11 +199,6 @@
             <version>${hibernate.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-            <version>${ehcache.version}</version>
-        </dependency>
 
         <!--Web-->
         <dependency>
@@ -227,7 +219,6 @@
             <artifactId>jsoup</artifactId>
             <version>1.9.1</version>
         </dependency>
-
 
         <!--Test-->
         <dependency>

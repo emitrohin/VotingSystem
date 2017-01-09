@@ -1,6 +1,5 @@
 package ru.emitrohin.votingsystem.web;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -30,11 +29,6 @@ public class DishControllerTest extends AbstractControllerTest {
 
     @Autowired
     protected DishService dishService;
-
-    @Before
-    public void setUp() {
-        dishService.evictCache();
-    }
 
     @Test
     public void testNotAdmin() throws Exception {
