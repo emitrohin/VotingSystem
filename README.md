@@ -5,6 +5,7 @@
 * [![Dependency Status](https://dependencyci.com/github/emitrohin/VotingSystem/badge)](https://dependencyci.com/github/emitrohin/VotingSystem)
 * [![Build Status](https://travis-ci.org/emitrohin/VotingSystem.svg?branch=master)](https://travis-ci.org/emitrohin/VotingSystem)
 
+----------
 Voting system for deciding where to have lunch:
 
 * 2 types of users: admin and regular users
@@ -21,153 +22,114 @@ Voting system for deciding where to have lunch:
 
 * Anonymous access is prohibited 
 * You must have credentials to access voting system. You can take these login/password pair for tests:
-    * L_Lapteva / lapteva
-    * A_Ustumov / ustimov
-    * N_Gimaldinova / gimaldinona
-
+   
+     User login: user2 
+     password: lapteva
+     Authorization: Basic dXNlcjI6bGFwdGV2YQ==
+    
 Ordinary users are allowed:
 
-* to see list restaurants for today with active menus
+* to see list restaurants for today with menus fo today
  
-`curl -X GET -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/restaurants/"`
+    curl -X GET -H "Authorization: Basic dXNlcjI6bGFwdGV2YQ== "http://{hostname}/api/v1.0/restaurants/"
  
-* to see list of menus of restaurants with dishes and prices for today
-
-`curl -X GET -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/menus/"`
-
 * to vote for restaurant if menu meets any requirements and to change their mind before 11:00
 
-`curl -X POST -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/restaurants/{restaurant_id}/vote"`
+    curl -X POST -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/restaurants/{restaurant_id}/vote"
 
-* to see result during and after voting
+* to see results
 
-`curl -X GET -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/restaurants/votes/"`
+    curl -X GET -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/restaurants/votes/"
 
+----------
 
 ### Admins
 
-* You must have credentials to access admin features. Admins create menus for current day, dishes, and set price for them. This pair is for admin:
-    * E_Mitrohin / admin
+* You must have credentials to access admin features. Admins create menus for current day, dishes, and set price for them. 
 
-Admin has full control of this service:
+     Admin login: admin 
+     password: admin
+     Authorization: Basic YWRtaW46YWRtaW4=
+     
+**Operations with restaurants**
 
-* CRUD operation with restaurant
+Create new restaurant
 
-**get restaurant**
+    curl -X POST -H "Authorization: Basic YWRtaW46YWRtaW4=" -d '  {
+         "name": "Restaurant name",
+         "imageLink": "Restaurant image link (url)"
+       }' "http://{hostname}/api/v1.0/restaurants/"
 
-`curl -X GET -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/restaurants/{restaurant_id}"`
+Update restaurant
 
-**get all restaurant**
+    curl -X PUT -H "Authorization: Basic YWRtaW46YWRtaW4=" -d '  {
+         "name": "Changed restaurant name",
+         "imageLink": "Changed restaurant image link (url)"
+       }' "http://{hostname}/api/v1.0/restaurants/{id_to_update}"
 
-`curl -X GET -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/restaurants/all"`
+Delete restaurant
 
-**create new restaurant**
+    curl -X DELETE -H "Authorization: Basic YWRtaW46YWRtaW4=" "http://{hostname}/api/v1.0/restaurants/{restaurant_id}"
 
-`curl -X POST -H "Authorization: Basic {your_encrypted_basic_auth}" -d '  {
-     "name": "Restaurant name",
-     "imageLink": "Restaurant image link (url)"
-   }' "http://{hostname}/api/v1.0/restaurants/"`
+**Operations with menus**
 
-**update restaurant**
+Create new menu (only for current day)
 
-`curl -X PUT -H "Authorization: Basic {your_encrypted_basic_auth}" -d '  {
-     "name": "Changed restaurant name",
-     "imageLink": "Changed restaurant image link (url)"
-   }' "http://{hostname}/api/v1.0/restaurants/{id_to_update}"`
+    curl -X POST -H "Authorization: Basic YWRtaW46YWRtaW4" "http://{hostname}/api/v1.0/restaurants/{restaurant_id}/menu"
 
-**delete restaurant**
+Delete menu
 
-`curl -X DELETE -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/restaurants/{restaurant_id}"`
+    curl -X DELETE -H "Authorization: Basic YWRtaW46YWRtaW4=" "http://{hostname}/api/v1.0/restaurants/{restaurant_id}/menu"
 
-* Operations with menus (no update)
+**Operations with dishes**
 
-**get all menus**
+Create dish
 
-`curl -X GET -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/menus/all"`
+    curl -X POST -H "Authorization: Basic YWRtaW46YWRtaW4=" -d '{"name": "name", "imageLink": "link", "price": double value}' "http://{hostname}/api/v1.0/dishes/{menuId}"
 
-**create new menu (only for current day)**
+Update dishes
 
-`curl -X POST -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/menus/{restaurant_id}"`
+    curl -X PUT -H "Authorization: Basic YWRtaW46YWRtaW4=" -d '{"name": "name", "imageLink": "link", "price": double value}' "http://{hostname}/api/v1.0/dishes/{dish_id}"
 
-**delete menu**
+Delete dishes
 
-`curl -X DELETE -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/menus/{menu_id}"`
+    curl -X DELETE -H "Authorization: Basic YWRtaW46YWRtaW4=" "http://{hostname}/api/v1.0/dishes/{dish_id}"
 
-* Operations with dishes and prices
+**Operations with users**
 
-**get dish**
+Get user
 
-`curl -X GET -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/dishes/{dish_id}"`
+    curl -X GET -H "Authorization: Basic YWRtaW46YWRtaW4=" "http://{hostname}/api/v1.0/users/{user_id}"
 
-**get dishes**
+Get all users
 
-`curl -X GET -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/dishes/"`
+    curl -X GET -H "Authorization: Basic YWRtaW46YWRtaW4=" "http://{hostname}/api/v1.0/users/"
 
-**create dish**
+Create new user
 
-`curl -X POST -H "Authorization: Basic {your_encrypted_basic_auth}" -d '{"name": "name", "imageLink": "link"}' "http://{hostname}/api/v1.0/dishes/"`
+    curl -X POST -H "Authorization: Basic YWRtaW46YWRtaW4=" -d '  {
+         "login": "login",
+         "password": "password",
+         "password": "password",
+         "email": "email",
+         "firstName": "firstName",
+         "lastName": "lastName",
+         "enabled": "true",
+       }' "http://{hostname}/api/v1.0/users/"
 
-**update dishes**
+Update user
 
-`curl -X PUT -H "Authorization: Basic {your_encrypted_basic_auth}" -d '{"name": "name", "imageLink": "link"}' "http://{hostname}/api/v1.0/dishes/{dish_id}"`
+    curl -X PUT -H "Authorization: Basic YWRtaW46YWRtaW4= -d '  {
+         "login": "login",
+         "password": "password",
+         "password": "password",
+         "email": "email",
+         "firstName": "firstName",
+         "lastName": "lastName",
+         "enabled": "true",
+       }' "http://{hostname}/api/v1.0/users/{user_id}"
 
-**delete dishes**
+Delete user
 
-`curl -X DELETE -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/dishes/{dish_id}"`
+    curl -X DELETE -H "Authorization: Basic YWRtaW46YWRtaW4=" "http://{hostname}/api/v1.0/users/{user_id}"
 
-**add dish to menu**
-
-`curl -X POST -H "Authorization: Basic {your_encrypted_basic_auth}" -d '{"menuId": "Id", "dishId": "id", "price": "price value (double)"}' "http://{hostname}/api/v1.0/dishmenus/"`
-
-**get dish with price**
-
-`curl -X GET -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/dishmenus/{id}"`
-
-**update dish in menu**
-
-`curl -X PUT -H "Authorization: Basic {your_encrypted_basic_auth}" -d '{"menuId": "Id", "dishId": "id", "price": "price value (double)"}' "http://{hostname}/api/v1.0/dishmenus/{dishmenu_id}"`
-
-**remove dish from menu**
-
-`curl -X DELETE -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/dishmenus/{dishmenu}"`
-
-* CRUD operation with users
-
-**get user**
-
-`curl -X GET -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/users/{user_id}"`
-
-**get all users**
-
-`curl -X GET -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/users/"`
-
-**create new user**
-
-`curl -X POST -H "Authorization: Basic {your_encrypted_basic_auth}" -d '  {
-     "login": "login",
-     "password": "password",
-     "password": "password",
-     "email": "email",
-     "firstName": "firstName",
-     "lastName": "lastName",
-     "enabled": "true",
-   }' "http://{hostname}/api/v1.0/users/"`
-
-**update user**
-
-`curl -X PUT -H "Authorization: Basic {your_encrypted_basic_auth}" -d '  {
-     "login": "login",
-     "password": "password",
-     "password": "password",
-     "email": "email",
-     "firstName": "firstName",
-     "lastName": "lastName",
-     "enabled": "true",
-   }' "http://{hostname}/api/v1.0/users/{user_id}"`
-
-**delete user**
-
-`curl -X DELETE -H "Authorization: Basic {your_encrypted_basic_auth}" "http://{hostname}/api/v1.0/users/{user_id}"`
-
-
-* Operation that are allowed to ordinary users (see above)

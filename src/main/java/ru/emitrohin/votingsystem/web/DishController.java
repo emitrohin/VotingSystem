@@ -13,7 +13,6 @@ import ru.emitrohin.votingsystem.model.Dish;
 import ru.emitrohin.votingsystem.service.DishService;
 
 import java.net.URI;
-import java.util.List;
 
 /**
  * @author emitrohin
@@ -37,11 +36,7 @@ public class DishController {
         this.service = service;
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Dish> dishes() {
-        log.info(AuthorizedUser.get().getUsername() + " : " + "getAll");
-        return service.getAll();
-    }
+
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         log.info(AuthorizedUser.get().getUsername() + " : " + "delete " + id);
