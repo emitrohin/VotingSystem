@@ -40,7 +40,6 @@ public class MenuServiceTest extends AbstractServiceTest {
     @Test(expected = DataAccessException.class)
     public void testDuplicateIdAndDateSave() throws Exception {
         TimeUtil.useFixedClockAt(LocalDateTime.of(2016, 11, 26, 10, 0));
-
         service.save(100009);
         System.out.println(service.getAll().size());
     }

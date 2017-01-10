@@ -28,6 +28,7 @@ public class DishServiceImpl implements DishService {
         this.menuRepository = menuRepository;
     }
 
+    @Override
     public Dish save(Dish dish, int menuId) {
         Assert.notNull(dish, "dish must not be null");
         dish.setMenu(menuRepository.findOne(menuId));

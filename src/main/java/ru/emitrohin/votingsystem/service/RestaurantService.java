@@ -9,5 +9,7 @@ import java.util.List;
  * Date:   25.11.2016.
  */
 public interface RestaurantService extends AbstractService<Restaurant> {
-    List<Restaurant> getRestaurantsWithCurrentMenu();
+    List<Restaurant> findAllWithCurrentMenu();
+
+    Restaurant findWithCurrentMenu(int restaurantId);
 }

@@ -54,7 +54,12 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<Restaurant> getRestaurantsWithCurrentMenu() {
-        return repository.getAllWithMenuByDate(TimeUtil.now());
+    public List<Restaurant> findAllWithCurrentMenu() {
+        return repository.findAllWithCurrentMenu(TimeUtil.now());
+    }
+
+    @Override
+    public Restaurant findWithCurrentMenu(int restaurantId) {
+        return repository.findWithCurrentMenu(restaurantId, TimeUtil.now());
     }
 }

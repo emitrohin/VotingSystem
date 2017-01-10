@@ -7,5 +7,5 @@ import ru.emitrohin.votingsystem.model.Dish;
  * Date:   25.11.2016.
  */
 public interface DishService extends AbstractService<Dish> {
-
+    Dish save(Dish item, int menuId);
 }

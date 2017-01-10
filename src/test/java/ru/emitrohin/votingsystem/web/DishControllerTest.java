@@ -31,33 +31,6 @@ public class DishControllerTest extends AbstractControllerTest {
     protected DishService dishService;
 
     @Test
-    public void testNotAdmin() throws Exception {
-        mockMvc.perform(get(REST_URL + 100015)
-                .with(userHttpBasic(TEST_USERS.get(2))))
-                .andDo(print())
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
-    public void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL + 100012)
-                .with(userHttpBasic(TEST_USERS.get(0))))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentMatcher(TEST_DISHES.get(0)));
-    }
-
-    @Test
-    public void testGetNotFound() throws Exception {
-        mockMvc.perform(get(REST_URL + 1)
-                .with(userHttpBasic(TEST_USERS.get(0))))
-                .andExpect(status().isUnprocessableEntity())
-                .andDo(print());
-    }
-
-
-    @Test
     public void testDelete() throws Exception {
         mockMvc.perform(delete(REST_URL + 100016)
                 .with(userHttpBasic(TEST_USERS.get(0))))
@@ -80,7 +53,7 @@ public class DishControllerTest extends AbstractControllerTest {
     public void testCreate() throws Exception {
         Dish expected = new Dish(null, "Шаурма", 10000L, "http://yandex.ru/");
 
-        ResultActions action = mockMvc.perform(post(REST_URL)
+        ResultActions action = mockMvc.perform(post(REST_URL + "/" + 100014)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(expected))
                 .with(userHttpBasic(TEST_USERS.get(0))))

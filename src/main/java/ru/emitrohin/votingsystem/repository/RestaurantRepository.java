@@ -28,5 +28,8 @@ public interface RestaurantRepository extends Repository<Restaurant, Integer> {
     List<Restaurant> findAll();
 
     @Query("SELECT r FROM Restaurant r JOIN r.menus a WHERE a.dateOfMenu = ?1")
-    List<Restaurant> getAllWithMenuByDate(LocalDate date);
+    List<Restaurant> findAllWithCurrentMenu(LocalDate date);
+
+    @Query("SELECT r FROM Restaurant r JOIN r.menus a WHERE a.id = ?1 and a.dateOfMenu = ?2")
+    Restaurant findWithCurrentMenu(int restaurantId, LocalDate date);
 }

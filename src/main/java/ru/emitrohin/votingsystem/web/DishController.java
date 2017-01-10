@@ -42,13 +42,6 @@ public class DishController {
         log.info(AuthorizedUser.get().getUsername() + " : " + "getAll");
         return service.getAll();
     }
-
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Dish get(@PathVariable("id") int id) {
-        log.info(AuthorizedUser.get().getUsername() + " : " + "get " + id);
-        return service.get(id);
-    }
-
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         log.info(AuthorizedUser.get().getUsername() + " : " + "delete " + id);
@@ -62,10 +55,10 @@ public class DishController {
         service.update(dish);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Dish> create(@RequestBody Dish dish) {
+    @PostMapping(value = "/{menuId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Dish> create(@RequestBody Dish dish, @PathVariable("menuId") int menuId) {
         log.info(AuthorizedUser.get().getUsername() + " : " + "create");
-        Dish created = service.save(dish);
+        Dish created = service.save(dish, menuId);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(CONTROLLER_URL + "/{id}")
