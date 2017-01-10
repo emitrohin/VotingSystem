@@ -16,7 +16,6 @@ import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.emitrohin.votingsystem.TestUtil.userHttpBasic;
 import static ru.emitrohin.votingsystem.testdata.DishTestData.MATCHER;
@@ -69,14 +68,6 @@ public class DishControllerTest extends AbstractControllerTest {
         MATCHER.assertCollectionEquals(Collections.unmodifiableCollection(result), dishService.getAll());
     }
 
-    @Test
-    public void testGetAll() throws Exception {
-        TestUtil.print(mockMvc.perform(get(REST_URL)
-                .with(userHttpBasic(TEST_USERS.get(0))))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentListMatcher(TEST_DISHES)));
-    }
 
     @Test
     public void testUnAuth() throws Exception {
